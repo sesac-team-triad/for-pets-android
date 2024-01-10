@@ -5,5 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.ForPets" parent="Base.Theme.ForPets" />
+    <style name="Theme.ForPets" parent="Base.Theme.ForPets">
+        <item name="android:colorBackground">@color/white</item>
+    </style>
 </resources>
