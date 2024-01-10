@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ForPets</string>
+
+    <!-- BottomNavigationView -->
+    <string name="transport">이동봉사</string>
+    <string name="adopt">입양</string>
+    <string name="chat">채팅</string>
+    <string name="profile">나의 정보</string>
 </resources>
