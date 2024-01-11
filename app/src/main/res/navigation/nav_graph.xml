@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/transportReqFragment"
         android:name="com.teamtriad.forpets.TransportReqFragment"
-        android:label="fragment_transport_req"
+        android:label="@string/fr_req_appbar"
         tools:layout="@layout/fragment_transport_req" >
         <action
             android:id="@+id/action_transportReqFragment_to_transportFragment"
