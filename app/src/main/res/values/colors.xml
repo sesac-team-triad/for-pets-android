@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- 입양 목록 화면 -->
+    <color name="gray_100">#E5E5E5</color>
 </resources>
