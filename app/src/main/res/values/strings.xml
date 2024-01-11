@@ -17,4 +17,23 @@
     <string name="fab_transport_req_desc">봉사요청 글 작성을 위한 버튼입니다</string>
     <string name="fab_transport_vol_desc">봉사자 등록 글 작성을 위한 버튼입니다</string>
 
+    <!-- Fragment별 AppBar 이름 -->
+    <string name="fr_req_appbar">봉사요청 등록</string>
+
+    <!-- Text Field에 쓰이는 string -->
+    <string name="fr_field_title">제목을 입력해 주세요</string>
+    <string name="fr_animal_choice">동물 선택</string>
+    <string name="fr_from">출발 지역</string>
+    <string name="fr_to">도착 지역</string>
+    <string name="fr_my_pet">우리 아이는</string>
+    <string name="fr_name">이름 :</string>
+    <string name="fr_age">나이 :</string>
+    <string name="fr_weight">몸무게 :</string>
+    <string name="fr_breed">품종 :</string>
+    <string name="fr_character_caution">특징 및 주의사항 :</string>
+    <string name="fr_message">봉사자에게 전하고 싶은 말 :</string>
+
+    <!-- Button -->
+    <string name="post">등 록</string>
+
 </resources>
