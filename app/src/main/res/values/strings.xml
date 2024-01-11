@@ -6,4 +6,15 @@
     <string name="adopt">입양</string>
     <string name="chat">채팅</string>
     <string name="profile">나의 정보</string>
+
+    <!-- Segmented Button = MaterialButtonToggleGroup -->
+    <string name="mbtg_request">요청자</string>
+    <string name="mbtg_volunteer">봉사자</string>
+
+    <!-- Extended FAB -->
+    <string name="fab_transport_req">봉사요청 등록하기</string>
+    <string name="fab_transport_vol">봉사자 등록하기</string>
+    <string name="fab_transport_req_desc">봉사요청 글 작성을 위한 버튼입니다</string>
+    <string name="fab_transport_vol_desc">봉사자 등록 글 작성을 위한 버튼입니다</string>
+
 </resources>
