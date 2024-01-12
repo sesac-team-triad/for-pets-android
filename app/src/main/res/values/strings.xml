@@ -6,4 +6,9 @@
     <string name="adopt">입양</string>
     <string name="chat">채팅</string>
     <string name="profile">나의 정보</string>
+
+    <!-- 입양 목록 화면 -->
+    <string name="adopt_tv_region_label">지역:</string>
+    <string name="adopt_tv_date_label">접수일자:</string>
+    <string name="adopt_tv_phone_number_label">보호소 전화번호:</string>
 </resources>
