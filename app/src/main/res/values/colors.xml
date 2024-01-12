@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- animal information border -->
+    <color name="gray50">#FFFFFF</color>
+    <color name="gray100">#D9D9D9</color>
+    <color name="gray700">#787878</color>
+    <!-- post button -->
+    <color name="purple50">#F0EEF6</color>
 </resources>
