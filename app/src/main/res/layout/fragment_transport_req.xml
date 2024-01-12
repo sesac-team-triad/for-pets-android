@@ -8,11 +8,11 @@
     tools:context=".TransportReqFragment">
 
     <com.google.android.material.textfield.TextInputLayout
-        style="?attr/textInputFilledStyle"
         android:id="@+id/til_req_title"
+        style="?attr/textInputFilledStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="10dp"
         android:hint="@string/fr_field_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,6 +21,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/purple50"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -30,10 +31,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="01/11 - 01/12"
-        app:layout_constraintStart_toStartOf="@id/til_req_title"
+        app:endIconDrawable="@drawable/ic_calendar"
+        app:endIconMode="custom"
         app:layout_constraintEnd_toStartOf="@id/til_req_animal"
-        app:layout_constraintTop_toBottomOf="@id/til_req_title">
+        app:layout_constraintStart_toStartOf="@id/til_req_title"
+        app:layout_constraintTop_toBottomOf="@id/til_req_title"
+        tools:hint="01/11 - 01/12">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -43,12 +46,12 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:id="@+id/til_req_animal"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="13dp"
+        android:layout_marginTop="16dp"
         android:hint="@string/fr_animal_choice"
         app:layout_constraintEnd_toEndOf="@id/til_req_title"
         app:layout_constraintStart_toEndOf="@id/til_req_date"
@@ -61,5 +64,224 @@
             android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_req_from"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/fr_from"
+        app:layout_constraintEnd_toEndOf="@id/til_req_date"
+        app:layout_constraintStart_toStartOf="@id/til_req_date"
+        app:layout_constraintTop_toBottomOf="@id/til_req_date">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_req_to"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/fr_to"
+        app:layout_constraintEnd_toEndOf="@id/til_req_animal"
+        app:layout_constraintStart_toEndOf="@id/til_req_from"
+        app:layout_constraintTop_toBottomOf="@id/til_req_animal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/req_animal_info_border"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/shape_animal_info_border"
+        app:layout_constraintBottom_toBottomOf="@id/tv_message_input_field"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_req_from" />
+
+    <TextView
+        android:id="@+id/my_pet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="21dp"
+        android:text="@string/fr_my_pet"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/req_animal_info_border"
+        app:layout_constraintTop_toTopOf="@id/req_animal_info_border" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/siv_pet_image"
+        android:layout_width="115dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/gray100"
+        app:layout_constraintStart_toStartOf="@id/my_pet"
+        app:layout_constraintTop_toBottomOf="@id/my_pet"
+        app:shapeAppearance="@style/Pet_ImageView_Radius" />
+
+    <ImageView
+        android:id="@+id/iv_add_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="@id/siv_pet_image"
+        app:layout_constraintEnd_toEndOf="@id/siv_pet_image"
+        app:layout_constraintStart_toStartOf="@id/siv_pet_image"
+        app:layout_constraintTop_toTopOf="@id/siv_pet_image" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:text="@string/fr_name"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/siv_pet_image"
+        app:layout_constraintTop_toTopOf="@id/siv_pet_image" />
+
+    <TextView
+        android:id="@+id/tv_name_input_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="19dp"
+        app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
+        app:layout_constraintStart_toEndOf="@id/tv_name"
+        app:layout_constraintTop_toTopOf="@id/tv_name"
+        tools:text="흰둥이" />
+
+    <TextView
+        android:id="@+id/tv_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="@string/fr_age"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+    <TextView
+        android:id="@+id/tv_age_input_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="19dp"
+        app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
+        app:layout_constraintStart_toEndOf="@id/tv_age"
+        app:layout_constraintTop_toTopOf="@id/tv_age"
+        tools:text="2살" />
+
+    <TextView
+        android:id="@+id/tv_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="@string/fr_weight"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/tv_age"
+        app:layout_constraintTop_toBottomOf="@id/tv_age" />
+
+    <TextView
+        android:id="@+id/tv_weight_input_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="19dp"
+        app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
+        app:layout_constraintStart_toEndOf="@id/tv_weight"
+        app:layout_constraintTop_toTopOf="@id/tv_weight"
+        tools:text="5kg" />
+
+    <TextView
+        android:id="@+id/tv_breed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:text="@string/fr_breed"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/tv_weight"
+        app:layout_constraintTop_toBottomOf="@id/tv_weight" />
+
+    <TextView
+        android:id="@+id/tv_breed_input_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="19dp"
+        app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
+        app:layout_constraintStart_toEndOf="@id/tv_breed"
+        app:layout_constraintTop_toTopOf="@id/tv_breed"
+        tools:text="꼬똥 드 툴레아" />
+
+    <TextView
+        android:id="@+id/tv_character_caution"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="@string/fr_character_caution"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/siv_pet_image"
+        app:layout_constraintTop_toBottomOf="@id/siv_pet_image" />
+
+    <TextView
+        android:id="@+id/tv_character_input_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="19dp"
+        android:lines="2"
+        app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
+        app:layout_constraintStart_toStartOf="@id/tv_character_caution"
+        app:layout_constraintTop_toBottomOf="@id/tv_character_caution" />
+
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/fr_message"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/tv_character_caution"
+        app:layout_constraintTop_toBottomOf="@id/tv_character_input_field" />
+
+    <TextView
+        android:id="@+id/tv_message_input_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="19dp"
+        android:lines="4"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/req_animal_info_border"
+        app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
+        app:layout_constraintStart_toStartOf="@id/tv_message"
+        app:layout_constraintTop_toBottomOf="@id/tv_message" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mb_request_post"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
+        android:backgroundTint="@color/purple50"
+        android:padding="15dp"
+        android:text="@string/post"
+        android:textColor="@color/black"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
