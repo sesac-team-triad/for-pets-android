@@ -152,15 +152,17 @@
         app:layout_constraintStart_toEndOf="@id/siv_pet_image"
         app:layout_constraintTop_toTopOf="@id/siv_pet_image" />
 
-    <TextView
+    <EditText
         android:id="@+id/tv_name_input_field"
+        style="@style/Pet_Info_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="19dp"
+        android:importantForAutofill="no"
+        app:layout_constraintBottom_toBottomOf="@id/tv_name"
         app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
         app:layout_constraintStart_toEndOf="@id/tv_name"
         app:layout_constraintTop_toTopOf="@id/tv_name"
+        tools:ignore="LabelFor"
         tools:text="흰둥이" />
 
     <TextView
@@ -173,15 +175,17 @@
         app:layout_constraintStart_toStartOf="@id/tv_name"
         app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
-    <TextView
+    <EditText
         android:id="@+id/tv_age_input_field"
+        style="@style/Pet_Info_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="19dp"
+        android:importantForAutofill="no"
+        app:layout_constraintBottom_toBottomOf="@id/tv_age"
         app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
         app:layout_constraintStart_toEndOf="@id/tv_age"
         app:layout_constraintTop_toTopOf="@id/tv_age"
+        tools:ignore="LabelFor"
         tools:text="2살" />
 
     <TextView
@@ -194,15 +198,17 @@
         app:layout_constraintStart_toStartOf="@id/tv_age"
         app:layout_constraintTop_toBottomOf="@id/tv_age" />
 
-    <TextView
+    <EditText
         android:id="@+id/tv_weight_input_field"
+        style="@style/Pet_Info_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="19dp"
+        android:importantForAutofill="no"
+        app:layout_constraintBottom_toBottomOf="@id/tv_weight"
         app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
         app:layout_constraintStart_toEndOf="@id/tv_weight"
         app:layout_constraintTop_toTopOf="@id/tv_weight"
+        tools:ignore="LabelFor,TextFields"
         tools:text="5kg" />
 
     <TextView
@@ -215,15 +221,17 @@
         app:layout_constraintStart_toStartOf="@id/tv_weight"
         app:layout_constraintTop_toBottomOf="@id/tv_weight" />
 
-    <TextView
+    <EditText
         android:id="@+id/tv_breed_input_field"
+        style="@style/Pet_Info_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="19dp"
+        android:importantForAutofill="no"
+        app:layout_constraintBottom_toBottomOf="@id/tv_breed"
         app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
         app:layout_constraintStart_toEndOf="@id/tv_breed"
         app:layout_constraintTop_toTopOf="@id/tv_breed"
+        tools:ignore="LabelFor"
         tools:text="꼬똥 드 툴레아" />
 
     <TextView
@@ -236,16 +244,22 @@
         app:layout_constraintStart_toStartOf="@id/siv_pet_image"
         app:layout_constraintTop_toBottomOf="@id/siv_pet_image" />
 
-    <TextView
+    <EditText
         android:id="@+id/tv_character_input_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="19dp"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
         android:lines="2"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
         app:layout_constraintStart_toStartOf="@id/tv_character_caution"
-        app:layout_constraintTop_toBottomOf="@id/tv_character_caution" />
+        app:layout_constraintTop_toBottomOf="@id/tv_character_caution"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/tv_message"
@@ -257,18 +271,24 @@
         app:layout_constraintStart_toStartOf="@id/tv_character_caution"
         app:layout_constraintTop_toBottomOf="@id/tv_character_input_field" />
 
-    <TextView
+    <EditText
         android:id="@+id/tv_message_input_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="19dp"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
         android:lines="4"
         android:paddingBottom="10dp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@id/req_animal_info_border"
         app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
         app:layout_constraintStart_toStartOf="@id/tv_message"
-        app:layout_constraintTop_toBottomOf="@id/tv_message" />
+        app:layout_constraintTop_toBottomOf="@id/tv_message"
+        tools:ignore="LabelFor" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/mb_request_post"
