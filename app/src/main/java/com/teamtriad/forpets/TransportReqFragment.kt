@@ -31,14 +31,30 @@ class TransportReqFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tilReqDateInputField.setOnClickListener {
-            showDatePicker()
+        with(binding) {
+            tietReqDate.setOnClickListener {
+                showDatePicker()
+            }
+
+            tietReqFrom.setOnClickListener {
+                showModalBottomSheet()
+            }
+
+            tietReqTo.setOnClickListener {
+                showModalBottomSheet()
+            }
         }
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showModalBottomSheet() {
+        val bottomSheet = ModalBottomSheet()
+        bottomSheet.show(requireActivity().supportFragmentManager, ModalBottomSheet.TAG)
     }
 
     private fun showDatePicker() {
@@ -81,7 +97,7 @@ class TransportReqFragment : Fragment() {
             val endDateText = endDate.formatDate()
 
             val selectedText = "$startDateText - $endDateText"
-            binding.tilReqDateInputField.text =
+            binding.tietReqDate.text =
                 Editable.Factory.getInstance().newEditable(selectedText)
         }
     }

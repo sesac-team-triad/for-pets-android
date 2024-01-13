@@ -40,7 +40,7 @@
         tools:hint="01/11 - 01/12">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/til_req_date_input_field"
+            android:id="@+id/tiet_req_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
@@ -82,9 +82,11 @@
         app:layout_constraintTop_toBottomOf="@id/til_req_date">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_req_from"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:focusable="false"
+            android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,9 +102,11 @@
         app:layout_constraintTop_toBottomOf="@id/til_req_animal">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_req_to"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text" />
+            android:focusable="false"
+            android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
