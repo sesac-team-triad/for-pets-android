@@ -37,4 +37,10 @@
     <!-- Button -->
     <string name="post">등 록</string>
 
+    <!-- Bottom Sheet -->
+    <string name="fr_bottom_title">지역 선택</string>
+    <string name="fr_hint_county">서울특별시</string>
+    <string name="fr_hint_district">시/군/구</string>
+    <string name="fr_bottom_input">입력하기</string>
+
 </resources>

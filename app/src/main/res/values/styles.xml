@@ -11,6 +11,11 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="Pet_TextView_XLargeBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <!-- Extended Floating Action Button -->
     <style name="Pet_Fab_Color" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
         <item name="iconTint">@color/white</item>
