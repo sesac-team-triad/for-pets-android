@@ -33,15 +33,19 @@
         android:layout_marginTop="16dp"
         app:endIconDrawable="@drawable/ic_calendar"
         app:endIconMode="custom"
+        android:hint="@string/fr_calendar_hint"
         app:layout_constraintEnd_toStartOf="@id/til_req_animal"
         app:layout_constraintStart_toStartOf="@id/til_req_title"
         app:layout_constraintTop_toBottomOf="@id/til_req_title"
         tools:hint="01/11 - 01/12">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/til_req_date_input_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="date" />
+            android:textSize="15sp"
+            android:focusable="false"
+            android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,7 +65,9 @@
             android:id="@+id/actv_req_animal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none" />
+            android:inputType="none"
+            app:simpleItems="@array/animal_choice"
+            tools:ignore="LabelFor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,12 +119,12 @@
 
     <TextView
         android:id="@+id/my_pet"
+        style="@style/Pet_TextView_LargeBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
         android:layout_marginTop="21dp"
         android:text="@string/fr_my_pet"
-        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@id/req_animal_info_border"
         app:layout_constraintTop_toTopOf="@id/req_animal_info_border" />
 
@@ -130,7 +136,7 @@
         android:background="@color/gray100"
         app:layout_constraintStart_toStartOf="@id/my_pet"
         app:layout_constraintTop_toBottomOf="@id/my_pet"
-        app:shapeAppearance="@style/Pet_ImageView_Radius" />
+        app:shapeAppearance="@style/Pet_ImageView_Radius30" />
 
     <ImageView
         android:id="@+id/iv_add_image"
@@ -144,17 +150,17 @@
 
     <TextView
         android:id="@+id/tv_name"
+        style="@style/Pet_TextView_MiddleBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
         android:text="@string/fr_name"
-        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/siv_pet_image"
         app:layout_constraintTop_toTopOf="@id/siv_pet_image" />
 
     <EditText
         android:id="@+id/tv_name_input_field"
-        style="@style/Pet_Info_style"
+        style="@style/Pet_Detail_Information_MiddleBlack"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:importantForAutofill="no"
@@ -167,17 +173,17 @@
 
     <TextView
         android:id="@+id/tv_age"
+        style="@style/Pet_TextView_MiddleBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:text="@string/fr_age"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@id/tv_name"
         app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
     <EditText
         android:id="@+id/tv_age_input_field"
-        style="@style/Pet_Info_style"
+        style="@style/Pet_Detail_Information_MiddleBlack"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:importantForAutofill="no"
@@ -190,17 +196,17 @@
 
     <TextView
         android:id="@+id/tv_weight"
+        style="@style/Pet_TextView_MiddleBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:text="@string/fr_weight"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@id/tv_age"
         app:layout_constraintTop_toBottomOf="@id/tv_age" />
 
     <EditText
         android:id="@+id/tv_weight_input_field"
-        style="@style/Pet_Info_style"
+        style="@style/Pet_Detail_Information_MiddleBlack"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:importantForAutofill="no"
@@ -213,17 +219,17 @@
 
     <TextView
         android:id="@+id/tv_breed"
+        style="@style/Pet_TextView_MiddleBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:text="@string/fr_breed"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@id/tv_weight"
         app:layout_constraintTop_toBottomOf="@id/tv_weight" />
 
     <EditText
         android:id="@+id/tv_breed_input_field"
-        style="@style/Pet_Info_style"
+        style="@style/Pet_Detail_Information_MiddleBlack"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:importantForAutofill="no"
@@ -236,11 +242,11 @@
 
     <TextView
         android:id="@+id/tv_character_caution"
+        style="@style/Pet_TextView_MiddleBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
         android:text="@string/fr_character_caution"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@id/siv_pet_image"
         app:layout_constraintTop_toBottomOf="@id/siv_pet_image" />
 
@@ -263,11 +269,11 @@
 
     <TextView
         android:id="@+id/tv_message"
+        style="@style/Pet_TextView_MiddleBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="@string/fr_message"
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@id/tv_character_caution"
         app:layout_constraintTop_toBottomOf="@id/tv_character_input_field" />
 

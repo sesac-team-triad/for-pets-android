@@ -34,7 +34,7 @@
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/efab_transport_req"
-        style="@style/Fab"
+        style="@style/Pet_Fab_Color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
