@@ -32,6 +32,7 @@
     <string name="fr_breed">품종 :</string>
     <string name="fr_character_caution">특징 및 주의사항 :</string>
     <string name="fr_message">봉사자에게 전하고 싶은 말 :</string>
+    <string name="fr_calendar_hint">출발</string>
 
     <!-- Button -->
     <string name="post">등 록</string>

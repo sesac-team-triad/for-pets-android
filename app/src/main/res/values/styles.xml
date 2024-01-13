@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="Pet_TextView_MiddleBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Pet_TextView_LargeBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <!-- Extended Floating Action Button -->
-    <style name="Fab" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
+    <style name="Pet_Fab_Color" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
         <item name="iconTint">@color/white</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <!-- animal information image -->
-    <style name="Pet_ImageView_Radius">
+    <!-- Animal Detail information -->
+    <style name="Pet_ImageView_Radius30">
         <item name="cornerSize">30dp</item>
     </style>
 
-    <style name="Pet_Info_style" parent="Widget.AppCompat.EditText">
-        <item name="android:textSize">15sp</item>
+    <style name="Pet_Detail_Information_MiddleBlack" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">16sp</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">19dp</item>
         <item name="android:inputType">text</item>
     </style>
 
+    <!-- Date Picker -->
+    <style name="Pet_DatePickerCalendar_Small" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Material3.Corner.Small</item>
+    </style>
 </resources>
