@@ -20,7 +20,7 @@
     <!-- Fragment별 AppBar 이름 -->
     <string name="fr_req_appbar">봉사요청 등록</string>
 
-    <!-- Text Field에 쓰이는 string -->
+    <!-- 봉사요청 화면의 상세 동물 정보 string -->
     <string name="fr_field_title">제목을 입력해 주세요</string>
     <string name="fr_animal_choice">동물 선택</string>
     <string name="fr_from">출발 지역</string>
@@ -33,6 +33,7 @@
     <string name="fr_character_caution">특징 및 주의사항 :</string>
     <string name="fr_message">봉사자에게 전하고 싶은 말 :</string>
     <string name="fr_calendar_hint">출발</string>
+    <string name="fr_photo_count">&lt; 0 / 5 &gt;</string>
 
     <!-- Button -->
     <string name="post">등 록</string>
