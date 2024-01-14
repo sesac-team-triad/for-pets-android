@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="16dp"
-    tools:context=".TransportReqFragment">
+    tools:context=".ui.transport.TransportReqFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_req_title"

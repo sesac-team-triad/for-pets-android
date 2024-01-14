@@ -13,6 +13,10 @@ class ModalBottomSheet : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetLocationBinding? = null
     private val binding get() = _binding!!
+    private lateinit var selectedCounty: String
+    private lateinit var selectedDistrict: String
+    private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var counties: Map<String, List<String>>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,23 +29,39 @@ class ModalBottomSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val counties = Location.loadLocationMap()
-        val adapter = ArrayAdapter(
+        counties = Location.loadLocationMap()
+
+        setData()
+        getData()
+
+        binding.mbtSave.setOnClickListener {
+            Location.sendLocationData(selectedCounty, selectedDistrict)
+        }
+    }
+
+    private fun setData() {
+        adapter = ArrayAdapter(
             requireContext(),
             R.layout.dropdown_item,
             counties.keys.toTypedArray()
         )
+        binding.actvCounty.setAdapter(adapter)
+    }
+
+    private fun getData() {
         with(binding) {
-            actvCounty.setAdapter(adapter)
             actvCounty.setOnItemClickListener { _, _, _, _ ->
-                val selectedCounty = binding.tilBottomCounty.editText?.text.toString()
+                selectedCounty = tilBottomCounty.editText?.text.toString()
                 val cities = counties[selectedCounty]?.toTypedArray()
-                val adapter = ArrayAdapter(
+                adapter = ArrayAdapter(
                     requireContext(),
                     R.layout.dropdown_item,
                     cities!!
                 )
                 actvDistrict.setAdapter(adapter)
+            }
+            actvDistrict.setOnItemClickListener { _, _, _, _ ->
+                selectedDistrict = tilBottomDistrict.editText?.text.toString()
             }
         }
     }

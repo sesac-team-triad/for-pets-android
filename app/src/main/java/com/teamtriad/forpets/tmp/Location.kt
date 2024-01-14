@@ -1,6 +1,19 @@
 package com.teamtriad.forpets.tmp
 
 object Location {
+
+    var selectedCity = ""
+    var selectedDistrict = ""
+
+    fun sendLocationData(city: String, district: String) {
+       selectedCity = city
+       selectedDistrict = district
+    }
+
+    fun getLocation(): Pair<String, String> {
+        return Pair(selectedCity, selectedDistrict)
+    }
+
     fun loadLocationMap(): Map<String, List<String>> {
         return mapOf(
             "서울특별시" to listOf(
