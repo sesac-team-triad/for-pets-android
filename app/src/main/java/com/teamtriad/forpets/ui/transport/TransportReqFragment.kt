@@ -1,7 +1,9 @@
 package com.teamtriad.forpets.ui.transport
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import com.google.android.material.datepicker.CalendarConstraints
@@ -39,6 +42,7 @@ class TransportReqFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setPhotoPicker()
         setOnClickListener()
+        checkButtonEnabled()
     }
 
     override fun onDestroyView() {
@@ -80,6 +84,60 @@ class TransportReqFragment : Fragment() {
             sivPetImage.setOnClickListener {
                 pickMultipleMedia.launch(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                )
+            }
+        }
+    }
+
+    private fun checkButtonEnabled() {
+        with(binding) {
+            val textWatcher = object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    checkFieldsAndEnableButton()
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+            }
+            tietReqTitle.addTextChangedListener(textWatcher)
+            tietReqDate.addTextChangedListener(textWatcher)
+            tietReqFrom.addTextChangedListener(textWatcher)
+            tietReqTo.addTextChangedListener(textWatcher)
+            etName.addTextChangedListener(textWatcher)
+            etAge.addTextChangedListener(textWatcher)
+            etWeight.addTextChangedListener(textWatcher)
+            etBreed.addTextChangedListener(textWatcher)
+            etCharacterCaution.addTextChangedListener(textWatcher)
+            etMessage.addTextChangedListener(textWatcher)
+        }
+    }
+
+    private fun checkFieldsAndEnableButton() {
+        with(binding) {
+            val allFieldsFilled = !tietReqTitle.text.isNullOrEmpty()
+                    && !tietReqDate.text.isNullOrEmpty()
+//                    && !tietReqFrom.text.isNullOrEmpty()
+//                    && !tietReqTo.text.isNullOrEmpty()
+                    && !etName.text.isNullOrEmpty()
+                    && !etAge.text.isNullOrEmpty()
+                    && !etWeight.text.isNullOrEmpty()
+                    && !etBreed.text.isNullOrEmpty()
+                    && !etCharacterCaution.text.isNullOrEmpty()
+                    && !etMessage.text.isNullOrEmpty()
+
+            mbRequestPost.apply {
+                isEnabled = allFieldsFilled
+                isCheckable = allFieldsFilled
+                backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(requireContext(), R.color.purple100)
                 )
             }
         }
