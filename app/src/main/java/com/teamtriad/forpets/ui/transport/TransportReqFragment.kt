@@ -2,9 +2,13 @@ package com.teamtriad.forpets.ui.transport
 
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import com.google.android.material.datepicker.CalendarConstraints
@@ -21,6 +25,7 @@ class TransportReqFragment : Fragment() {
 
     private var _binding: FragmentTransportReqBinding? = null
     private val binding get() = _binding!!
+    private lateinit var pickMultipleMedia: ActivityResultLauncher<PickVisualMediaRequest>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +37,33 @@ class TransportReqFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setPhotoPicker()
+        setOnClickListener()
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setPhotoPicker() {
+        binding.tvPhotoCount.text = getString(R.string.fr_photo_count, 0)
+        pickMultipleMedia =
+            registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(5)) { uris ->
+                if (uris.isNotEmpty()) {
+                    Log.d("PhotoPicker", "Number of items selected: ${uris.size}")
+                    binding.sivPetImage.setImageURI(uris[0])
+                    binding.tvPhotoCount.text = getString(R.string.fr_photo_count, uris.size)
+                    if (uris.isNotEmpty()) {
+                        binding.ivAddImage.visibility = View.GONE
+                    }
+                } else {
+                    Log.d("PhotoPicker", "No media selected")
+                }
+            }
+    }
+
+    private fun setOnClickListener() {
         with(binding) {
             tietReqDate.setOnClickListener {
                 showDatePicker()
@@ -45,13 +76,13 @@ class TransportReqFragment : Fragment() {
             tietReqTo.setOnClickListener {
                 showModalBottomSheet()
             }
+
+            sivPetImage.setOnClickListener {
+                pickMultipleMedia.launch(
+                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                )
+            }
         }
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun showModalBottomSheet() {

@@ -33,7 +33,7 @@
     <string name="fr_character_caution">특징 및 주의사항 :</string>
     <string name="fr_message">봉사자에게 전하고 싶은 말 :</string>
     <string name="fr_calendar_hint">출발</string>
-    <string name="fr_photo_count">&lt; 0 / 5 &gt;</string>
+    <string name="fr_photo_count">&lt; %d / 5 &gt;</string>
 
     <!-- Button -->
     <string name="post">등 록</string>

@@ -74,12 +74,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="27dp"
         android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/purple100"
         android:text="@string/fr_bottom_input"
         android:textColor="@color/black"
-        android:backgroundTint="@color/purple100"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_bottom_county"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/til_bottom_county" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

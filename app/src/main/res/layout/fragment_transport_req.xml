@@ -153,6 +153,7 @@
                 android:layout_height="110dp"
                 android:layout_marginTop="14dp"
                 android:background="@color/gray100"
+                android:scaleType="fitXY"
                 app:layout_constraintStart_toStartOf="@id/my_pet"
                 app:layout_constraintTop_toBottomOf="@id/my_pet"
                 app:shapeAppearance="@style/Pet_ImageView_Radius30" />
@@ -265,9 +266,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/fr_photo_count"
-                app:layout_constraintTop_toBottomOf="@id/siv_pet_image"
-                app:layout_constraintStart_toStartOf="@id/siv_pet_image"
                 app:layout_constraintEnd_toEndOf="@id/siv_pet_image"
+                app:layout_constraintStart_toStartOf="@id/siv_pet_image"
+                app:layout_constraintTop_toBottomOf="@id/siv_pet_image"
                 tools:text="&lt; 0 / 5 &gt;" />
 
             <TextView
@@ -340,9 +341,9 @@
         android:text="@string/post"
         android:textColor="@color/black"
         app:cornerRadius="12dp"
-        app:layout_constraintTop_toBottomOf="@id/nsv"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nsv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
