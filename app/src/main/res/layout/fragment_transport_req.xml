@@ -33,6 +33,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiet_req_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/purple50"
@@ -179,7 +180,7 @@
                 app:layout_constraintTop_toTopOf="@id/siv_pet_image" />
 
             <EditText
-                android:id="@+id/tv_name_input_field"
+                android:id="@+id/et_name"
                 style="@style/Pet_Detail_Information_MiddleBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -202,7 +203,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
             <EditText
-                android:id="@+id/tv_age_input_field"
+                android:id="@+id/et_age"
                 style="@style/Pet_Detail_Information_MiddleBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -225,7 +226,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_age" />
 
             <EditText
-                android:id="@+id/tv_weight_input_field"
+                android:id="@+id/et_weight"
                 style="@style/Pet_Detail_Information_MiddleBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -248,7 +249,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_weight" />
 
             <EditText
-                android:id="@+id/tv_breed_input_field"
+                android:id="@+id/et_breed"
                 style="@style/Pet_Detail_Information_MiddleBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -282,7 +283,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_photo_count" />
 
             <EditText
-                android:id="@+id/tv_character_input_field"
+                android:id="@+id/et_character_caution"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -306,10 +307,10 @@
                 android:layout_marginTop="5dp"
                 android:text="@string/fr_message"
                 app:layout_constraintStart_toStartOf="@id/tv_character_caution"
-                app:layout_constraintTop_toBottomOf="@id/tv_character_input_field" />
+                app:layout_constraintTop_toBottomOf="@id/et_character_caution" />
 
             <EditText
-                android:id="@+id/tv_message_input_field"
+                android:id="@+id/et_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -336,7 +337,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="13dp"
-        android:backgroundTint="@color/purple50"
+        android:backgroundTint="@color/gray200"
+        android:clickable="false"
+        android:enabled="false"
         android:padding="15dp"
         android:text="@string/post"
         android:textColor="@color/black"
