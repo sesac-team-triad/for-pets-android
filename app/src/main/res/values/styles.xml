@@ -27,16 +27,13 @@
         <item name="cornerSize">30dp</item>
     </style>
 
-    <style name="Pet_Detail_Information_MiddleBlack" parent="Widget.AppCompat.EditText">
+    <style name="Pet_EditText_MiddleBlack" parent="Widget.AppCompat.EditText">
         <item name="android:textSize">16sp</item>
-        <item name="android:background">@android:color/transparent</item>
-        <item name="android:layout_marginStart">10dp</item>
-        <item name="android:layout_marginEnd">19dp</item>
-        <item name="android:inputType">text</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <!-- Date Picker -->
-    <style name="Pet_DatePickerCalendar_Small" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
+    <style name="Pet_DatePicker_CalendarSmall" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Material3.Corner.Small</item>
     </style>
 </resources>

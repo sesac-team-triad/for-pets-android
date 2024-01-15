@@ -181,10 +181,14 @@
 
             <EditText
                 android:id="@+id/et_name"
-                style="@style/Pet_Detail_Information_MiddleBlack"
+                style="@style/Pet_EditText_MiddleBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="19dp"
+                android:background="@android:color/transparent"
                 android:importantForAutofill="no"
+                android:inputType="text"
                 app:layout_constraintBottom_toBottomOf="@id/tv_name"
                 app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
                 app:layout_constraintStart_toEndOf="@id/tv_name"
@@ -204,9 +208,13 @@
 
             <EditText
                 android:id="@+id/et_age"
-                style="@style/Pet_Detail_Information_MiddleBlack"
+                style="@style/Pet_EditText_MiddleBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="19dp"
+                android:background="@android:color/transparent"
+                android:inputType="text"
                 android:importantForAutofill="no"
                 app:layout_constraintBottom_toBottomOf="@id/tv_age"
                 app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
@@ -227,9 +235,13 @@
 
             <EditText
                 android:id="@+id/et_weight"
-                style="@style/Pet_Detail_Information_MiddleBlack"
+                style="@style/Pet_EditText_MiddleBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="19dp"
+                android:background="@android:color/transparent"
+                android:inputType="text"
                 android:importantForAutofill="no"
                 app:layout_constraintBottom_toBottomOf="@id/tv_weight"
                 app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
@@ -250,9 +262,13 @@
 
             <EditText
                 android:id="@+id/et_breed"
-                style="@style/Pet_Detail_Information_MiddleBlack"
+                style="@style/Pet_EditText_MiddleBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="19dp"
+                android:background="@android:color/transparent"
+                android:inputType="text"
                 android:importantForAutofill="no"
                 app:layout_constraintBottom_toBottomOf="@id/tv_breed"
                 app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"

@@ -175,7 +175,7 @@ class TransportReqFragment : Fragment() {
                 )
             )
             .setInputMode(MaterialDatePicker.INPUT_MODE_CALENDAR)
-            .setTheme(R.style.Pet_DatePickerCalendar_Small)
+            .setTheme(R.style.Pet_DatePicker_CalendarSmall)
             .setCalendarConstraints(constraintsBuilder.build())
             .build()
         dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
