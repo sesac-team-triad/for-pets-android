@@ -29,7 +29,7 @@
 
     <TextView
         android:id="@+id/tv_region_label"
-        style="@style/Pet_TextView_XxsmallBlack"
+        style="@style/Pet_TextView_XXSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -40,7 +40,7 @@
 
     <TextView
         android:id="@+id/tv_region"
-        style="@style/Pet_TextView_XxsmallBlack"
+        style="@style/Pet_TextView_XXSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/tv_region_label"
@@ -49,7 +49,7 @@
 
     <TextView
         android:id="@+id/tv_date_label"
-        style="@style/Pet_TextView_XxsmallBlack"
+        style="@style/Pet_TextView_XXSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -59,7 +59,7 @@
 
     <TextView
         android:id="@+id/tv_date"
-        style="@style/Pet_TextView_XxsmallBlack"
+        style="@style/Pet_TextView_XXSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/tv_date_label"
@@ -68,7 +68,7 @@
 
     <TextView
         android:id="@+id/tv_phone_number_label"
-        style="@style/Pet_TextView_XxsmallBlack"
+        style="@style/Pet_TextView_XXSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -80,7 +80,7 @@
 
     <TextView
         android:id="@+id/tv_phone_number"
-        style="@style/Pet_TextView_XxsmallBlack"
+        style="@style/Pet_TextView_XXSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/tv_phone_number_label"

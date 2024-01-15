@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Pet_TextView_XxsmallBlack" parent="TextAppearance.AppCompat">
+    <style name="Pet_TextView_XXSmallBlack" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/xxSmall</item>
         <item name="android:textColor">@color/black</item>
     </style>
