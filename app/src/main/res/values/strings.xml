@@ -8,7 +8,7 @@
     <string name="profile">나의 정보</string>
 
     <!-- 입양 목록 화면 -->
-    <string name="adopt_tv_region_label">지역:\u0020</string>
-    <string name="adopt_tv_date_label">접수일자:\u0020</string>
-    <string name="adopt_tv_phone_number_label">보호소 전화번호:\u0020</string>
+    <string name="adopt_tv_region_label">지역 :\u0020</string>
+    <string name="adopt_tv_date_label">접수일자 :\u0020</string>
+    <string name="adopt_tv_phone_number_label">보호소 전화번호 :\u0020</string>
 </resources>
