@@ -51,13 +51,13 @@
                 app:endIconMode="custom"
                 app:layout_constraintEnd_toStartOf="@id/til_animal"
                 app:layout_constraintStart_toStartOf="@id/til_title"
-                app:layout_constraintTop_toBottomOf="@id/til_title"
-                tools:hint="01/11 - 01/12">
+                app:layout_constraintTop_toBottomOf="@id/til_title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="18dp"
                     android:focusable="false"
                     android:inputType="none"
                     android:textSize="15sp" />
@@ -110,11 +110,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
-                android:layout_marginTop="16dp"
                 android:hint="@string/fr_to"
                 app:layout_constraintEnd_toEndOf="@id/til_animal"
                 app:layout_constraintStart_toEndOf="@id/til_from"
-                app:layout_constraintTop_toBottomOf="@id/til_animal">
+                app:layout_constraintTop_toTopOf="@id/til_from"
+                app:layout_constraintBottom_toBottomOf="@id/til_from">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_to"

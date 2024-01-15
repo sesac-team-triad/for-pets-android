@@ -43,6 +43,7 @@ class TransportReqFragment : Fragment() {
         setPhotoPicker()
         setOnClickListener()
         checkButtonEnabled()
+        makeEditTextBigger()
     }
 
     override fun onDestroyView() {
@@ -193,4 +194,65 @@ class TransportReqFragment : Fragment() {
         }
     }
 
+    private fun makeEditTextBigger() {
+        val initialLines = 4
+
+        with(binding) {
+            etCharacterCaution.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    charSequence: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(
+                    charSequence: CharSequence?,
+                    start: Int,
+                    before: Int,
+                    count: Int
+                ) {
+                }
+
+                override fun afterTextChanged(editable: Editable?) {
+                    val lineCount = etCharacterCaution.lineCount
+                    val newMaxLines = if (lineCount > initialLines) {
+                        lineCount + 1
+                    } else {
+                        initialLines
+                    }
+                    etCharacterCaution.maxLines = newMaxLines
+                }
+            })
+
+            etMessage.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    charSequence: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(
+                    charSequence: CharSequence?,
+                    start: Int,
+                    before: Int,
+                    count: Int
+                ) {
+                }
+
+                override fun afterTextChanged(editable: Editable?) {
+                    val lineCount = etMessage.lineCount
+                    val newMaxLines = if (lineCount > initialLines) {
+                        lineCount + 1
+                    } else {
+                        initialLines
+                    }
+                    etMessage.maxLines = newMaxLines
+                }
+            })
+        }
+    }
 }

@@ -28,6 +28,9 @@ class TransportFragment : Fragment() {
         binding.efabTransportReq.setOnClickListener {
             findNavController().navigate(R.id.action_transportFragment_to_transportReqFragment)
         }
+        binding.mbtgVolunteer.setOnClickListener {
+            findNavController().navigate(R.id.action_transportFragment_to_transportVolFragment)
+        }
     }
 
     override fun onDestroyView() {
