@@ -9,22 +9,38 @@
         android:id="@+id/siv_thumbnail"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="W,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearance="@style/ForPetsImageViewCornerSize10" />
+        app:shapeAppearance="@style/Pet_ImageView_CornerSize10" />
 
-    <TextView
-        android:id="@+id/tv_region_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/adopt_tv_region_label"
+    <!-- 배경 뷰 (카드 모양) -->
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_card_gray_100"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/siv_thumbnail" />
 
     <TextView
+        android:id="@+id/tv_region_label"
+        style="@style/Pet_TextView_XxsmallBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:text="@string/adopt_tv_region_label"
+        app:layout_constraintStart_toStartOf="@id/iv_background"
+        app:layout_constraintTop_toTopOf="@id/iv_background" />
+
+    <TextView
         android:id="@+id/tv_region"
+        style="@style/Pet_TextView_XxsmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/tv_region_label"
@@ -33,14 +49,17 @@
 
     <TextView
         android:id="@+id/tv_date_label"
+        style="@style/Pet_TextView_XxsmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="@string/adopt_tv_date_label"
-        app:layout_constraintStart_toStartOf="@id/tv_region_label"
+        app:layout_constraintStart_toStartOf="@id/iv_background"
         app:layout_constraintTop_toBottomOf="@id/tv_region_label" />
 
     <TextView
         android:id="@+id/tv_date"
+        style="@style/Pet_TextView_XxsmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/tv_date_label"
@@ -49,14 +68,19 @@
 
     <TextView
         android:id="@+id/tv_phone_number_label"
+        style="@style/Pet_TextView_XxsmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="6dp"
         android:text="@string/adopt_tv_phone_number_label"
-        app:layout_constraintStart_toStartOf="@id/tv_region_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/iv_background"
         app:layout_constraintTop_toBottomOf="@id/tv_date_label" />
 
     <TextView
         android:id="@+id/tv_phone_number"
+        style="@style/Pet_TextView_XxsmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/tv_phone_number_label"
