@@ -8,40 +8,48 @@
     <string name="profile">나의 정보</string>
 
     <!-- Segmented Button = MaterialButtonToggleGroup -->
-    <string name="mbtg_request">요청자</string>
-    <string name="mbtg_volunteer">봉사자</string>
+    <string name="transport_mbtg_request">요청자</string>
+    <string name="transport_mbtg_volunteer">봉사자</string>
 
     <!-- Extended FAB -->
-    <string name="fab_transport_req">봉사요청 등록하기</string>
-    <string name="fab_transport_vol">봉사자 등록하기</string>
-    <string name="fab_transport_req_desc">봉사요청 글 작성을 위한 버튼입니다</string>
-    <string name="fab_transport_vol_desc">봉사자 등록 글 작성을 위한 버튼입니다</string>
+    <string name="all_fab_transport_req">봉사요청 등록하기</string>
+    <string name="all_fab_transport_vol">봉사자 등록하기</string>
+    <string name="all_fab_transport_req_desc">봉사요청 글 작성을 위한 버튼입니다</string>
+    <string name="all_fab_transport_vol_desc">봉사자 등록 글 작성을 위한 버튼입니다</string>
 
     <!-- Fragment별 AppBar 이름 -->
-    <string name="fr_req_appbar">봉사요청 등록</string>
+    <string name="req_appbar">봉사요청 등록</string>
+    <string name="vol_appbar">봉사자 등록</string>
 
     <!-- 봉사요청 화면의 상세 동물 정보 string -->
-    <string name="fr_field_title">제목을 입력해 주세요</string>
-    <string name="fr_animal_choice">동물 선택</string>
-    <string name="fr_from">출발 지역</string>
-    <string name="fr_to">도착 지역</string>
-    <string name="fr_my_pet">우리 아이는</string>
-    <string name="fr_name">이름 :</string>
-    <string name="fr_age">나이 :</string>
-    <string name="fr_weight">체중 :</string>
-    <string name="fr_breed">품종 :</string>
-    <string name="fr_character_caution">특징 및 주의사항 :</string>
-    <string name="fr_message">봉사자에게 전하고 싶은 말 :</string>
-    <string name="fr_calendar_hint">출발</string>
-    <string name="fr_photo_count">&lt; %d / 5 &gt;</string>
+    <string name="all_post_title">제목을 입력해 주세요</string>
+    <string name="all_animal_choice">동물 선택</string>
+    <string name="all_from">출발 지역</string>
+    <string name="all_to">도착 지역</string>
+    <string name="all_my_pet">우리 아이는</string>
+    <string name="all_name">이름 :</string>
+    <string name="all_age">나이 :</string>
+    <string name="all_weight">체중 :</string>
+    <string name="all_breed">품종 :</string>
+    <string name="all_character_caution">특징 및 주의사항 :</string>
+    <string name="all_message">봉사자에게 전하고 싶은 말 :</string>
+    <string name="all_calendar_hint">출발일</string>
+    <string name="all_photo_count">&lt; %d / 5 &gt;</string>
+
+    <!-- 봉사자 등록 화면 -->
+    <string name="vol_til_from_detail_hint">상세 출발 지역</string>
+    <string name="vol_til_from_detail_helper">가능하신 출발 지역을 적어주세요 ex) 강서구, 양천구...</string>
+    <string name="vol_til_to_detail_hint">상세 도착 지역</string>
+    <string name="vol_til_to_detail_helper">가능하신 도착 지역을 적어주세요 ex) 천안시, 아산시...</string>
+    <string name="vol_til_message_hint">봉사 또는 일정 등 알려주실 사항을 남겨주세요!!</string>
 
     <!-- Button -->
-    <string name="post">등 록</string>
+    <string name="all_post">등 록</string>
 
     <!-- Bottom Sheet -->
-    <string name="fr_bottom_title">지역 선택</string>
-    <string name="fr_hint_county">서울특별시</string>
-    <string name="fr_hint_district">시/군/구</string>
-    <string name="fr_bottom_input">입력하기</string>
+    <string name="bottom_title">지역 선택</string>
+    <string name="bottom_county_hint">서울특별시</string>
+    <string name="bottom_district_hint">시/군/구</string>
+    <string name="bottom_input_button">입력하기</string>
 
 </resources>
