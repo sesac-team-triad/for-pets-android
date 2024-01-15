@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.teamtriad.forpets.databinding.ItemAdoptBinding
 import com.teamtriad.forpets.data.source.network.AbandonmentInfo
+import com.teamtriad.forpets.databinding.RvItemAdoptBinding
 
 class AdoptAdapter(private val dataSet: List<AbandonmentInfo>) :
     RecyclerView.Adapter<AdoptAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-        ItemAdoptBinding.inflate(
+        RvItemAdoptBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -24,7 +24,7 @@ class AdoptAdapter(private val dataSet: List<AbandonmentInfo>) :
 
     override fun getItemCount() = dataSet.size
 
-    class ViewHolder(private val binding: ItemAdoptBinding) :
+    class ViewHolder(private val binding: RvItemAdoptBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(abandonmentInfo: AbandonmentInfo) {
