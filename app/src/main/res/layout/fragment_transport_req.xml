@@ -11,7 +11,7 @@
         android:id="@+id/nsv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/mb_request_post"
+        app:layout_constraintBottom_toTopOf="@id/mb_post"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,18 +22,18 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_req_title"
+                android:id="@+id/til_title"
                 style="?attr/textInputFilledStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/fr_field_title"
+                android:hint="@string/fr_post_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_req_title"
+                    android:id="@+id/tiet_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/purple50"
@@ -42,20 +42,20 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_req_date"
+                android:id="@+id/til_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/fr_calendar_hint"
                 app:endIconDrawable="@drawable/ic_calendar"
                 app:endIconMode="custom"
-                app:layout_constraintEnd_toStartOf="@id/til_req_animal"
-                app:layout_constraintStart_toStartOf="@id/til_req_title"
-                app:layout_constraintTop_toBottomOf="@id/til_req_title"
+                app:layout_constraintEnd_toStartOf="@id/til_animal"
+                app:layout_constraintStart_toStartOf="@id/til_title"
+                app:layout_constraintTop_toBottomOf="@id/til_title"
                 tools:hint="01/11 - 01/12">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_req_date"
+                    android:id="@+id/tiet_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
@@ -65,19 +65,19 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_req_animal"
+                android:id="@+id/til_animal"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
                 android:layout_marginTop="16dp"
                 android:hint="@string/fr_animal_choice"
-                app:layout_constraintEnd_toEndOf="@id/til_req_title"
-                app:layout_constraintStart_toEndOf="@id/til_req_date"
-                app:layout_constraintTop_toBottomOf="@id/til_req_title">
+                app:layout_constraintEnd_toEndOf="@id/til_title"
+                app:layout_constraintStart_toEndOf="@id/til_date"
+                app:layout_constraintTop_toBottomOf="@id/til_title">
 
                 <AutoCompleteTextView
-                    android:id="@+id/actv_req_animal"
+                    android:id="@+id/actv_animal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
@@ -87,17 +87,17 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_req_from"
+                android:id="@+id/til_from"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/fr_from"
-                app:layout_constraintEnd_toEndOf="@id/til_req_date"
-                app:layout_constraintStart_toStartOf="@id/til_req_date"
-                app:layout_constraintTop_toBottomOf="@id/til_req_date">
+                app:layout_constraintEnd_toEndOf="@id/til_date"
+                app:layout_constraintStart_toStartOf="@id/til_date"
+                app:layout_constraintTop_toBottomOf="@id/til_date">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_req_from"
+                    android:id="@+id/tiet_from"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
@@ -106,18 +106,18 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_req_to"
+                android:id="@+id/til_to"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
                 android:layout_marginTop="16dp"
                 android:hint="@string/fr_to"
-                app:layout_constraintEnd_toEndOf="@id/til_req_animal"
-                app:layout_constraintStart_toEndOf="@id/til_req_from"
-                app:layout_constraintTop_toBottomOf="@id/til_req_animal">
+                app:layout_constraintEnd_toEndOf="@id/til_animal"
+                app:layout_constraintStart_toEndOf="@id/til_from"
+                app:layout_constraintTop_toBottomOf="@id/til_animal">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_req_to"
+                    android:id="@+id/tiet_to"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="false"
@@ -135,7 +135,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/til_req_from" />
+                app:layout_constraintTop_toBottomOf="@id/til_from" />
 
             <TextView
                 android:id="@+id/my_pet"
@@ -349,7 +349,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/mb_request_post"
+        android:id="@+id/mb_post"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="13dp"

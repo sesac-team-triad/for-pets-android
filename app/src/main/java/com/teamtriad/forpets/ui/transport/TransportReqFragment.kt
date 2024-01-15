@@ -69,15 +69,15 @@ class TransportReqFragment : Fragment() {
 
     private fun setOnClickListener() {
         with(binding) {
-            tietReqDate.setOnClickListener {
+            tietDate.setOnClickListener {
                 showDatePicker()
             }
 
-            tietReqFrom.setOnClickListener {
+            tietFrom.setOnClickListener {
                 showModalBottomSheet()
             }
 
-            tietReqTo.setOnClickListener {
+            tietTo.setOnClickListener {
                 showModalBottomSheet()
             }
 
@@ -107,10 +107,10 @@ class TransportReqFragment : Fragment() {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 }
             }
-            tietReqTitle.addTextChangedListener(textWatcher)
-            tietReqDate.addTextChangedListener(textWatcher)
-            tietReqFrom.addTextChangedListener(textWatcher)
-            tietReqTo.addTextChangedListener(textWatcher)
+            tietTitle.addTextChangedListener(textWatcher)
+            tietDate.addTextChangedListener(textWatcher)
+            tietFrom.addTextChangedListener(textWatcher)
+            tietTo.addTextChangedListener(textWatcher)
             etName.addTextChangedListener(textWatcher)
             etAge.addTextChangedListener(textWatcher)
             etWeight.addTextChangedListener(textWatcher)
@@ -122,8 +122,8 @@ class TransportReqFragment : Fragment() {
 
     private fun checkFieldsAndEnableButton() {
         with(binding) {
-            val allFieldsFilled = !tietReqTitle.text.isNullOrEmpty()
-                    && !tietReqDate.text.isNullOrEmpty()
+            val allFieldsFilled = !tietTitle.text.isNullOrEmpty()
+                    && !tietDate.text.isNullOrEmpty()
 //                    && !tietReqFrom.text.isNullOrEmpty()
 //                    && !tietReqTo.text.isNullOrEmpty()
                     && !etName.text.isNullOrEmpty()
@@ -133,7 +133,7 @@ class TransportReqFragment : Fragment() {
                     && !etCharacterCaution.text.isNullOrEmpty()
                     && !etMessage.text.isNullOrEmpty()
 
-            mbRequestPost.apply {
+            mbPost.apply {
                 isEnabled = allFieldsFilled
                 isCheckable = allFieldsFilled
                 backgroundTintList = ColorStateList.valueOf(
@@ -188,7 +188,7 @@ class TransportReqFragment : Fragment() {
             val endDateText = endDate.formatDate()
 
             val selectedText = "$startDateText - $endDateText"
-            binding.tietReqDate.text =
+            binding.tietDate.text =
                 Editable.Factory.getInstance().newEditable(selectedText)
         }
     }
