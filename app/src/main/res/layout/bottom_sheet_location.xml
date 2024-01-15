@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="36dp"
-        android:text="@string/fr_bottom_title"
+        android:text="@string/bottom_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/drag_handle"
         tools:text="지역 선택" />
@@ -34,7 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
-        android:hint="@string/fr_hint_county"
+        android:hint="@string/bottom_county_hint"
         app:layout_constraintEnd_toStartOf="@id/til_bottom_district"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_bottom_sheet_title">
@@ -54,7 +54,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
-        android:hint="@string/fr_hint_district"
+        android:hint="@string/bottom_district_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/til_bottom_county"
         app:layout_constraintTop_toTopOf="@id/til_bottom_county">
@@ -74,8 +74,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="27dp"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/purple100"
-        android:text="@string/fr_bottom_input"
+        android:backgroundTint="@color/purple_100"
+        android:text="@string/bottom_input_button"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

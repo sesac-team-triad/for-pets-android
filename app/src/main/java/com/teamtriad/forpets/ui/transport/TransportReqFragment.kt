@@ -52,13 +52,13 @@ class TransportReqFragment : Fragment() {
     }
 
     private fun setPhotoPicker() {
-        binding.tvPhotoCount.text = getString(R.string.fr_photo_count, 0)
+        binding.tvPhotoCount.text = getString(R.string.all_photo_count, 0)
         pickMultipleMedia =
             registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(5)) { uris ->
                 if (uris.isNotEmpty()) {
                     Log.d("PhotoPicker", "Number of items selected: ${uris.size}")
                     binding.sivPetImage.setImageURI(uris[0])
-                    binding.tvPhotoCount.text = getString(R.string.fr_photo_count, uris.size)
+                    binding.tvPhotoCount.text = getString(R.string.all_photo_count, uris.size)
                     if (uris.isNotEmpty()) {
                         binding.ivAddImage.visibility = View.GONE
                     }
@@ -138,7 +138,7 @@ class TransportReqFragment : Fragment() {
                 isEnabled = allFieldsFilled
                 isCheckable = allFieldsFilled
                 backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(requireContext(), R.color.purple100)
+                    ContextCompat.getColor(requireContext(), R.color.purple_100)
                 )
             }
         }

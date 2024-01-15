@@ -21,14 +21,14 @@
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mbtg_request" />
+            android:text="@string/transport_mbtg_request" />
 
         <Button
             android:id="@+id/mbtg_volunteer"
             style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mbtg_volunteer" />
+            android:text="@string/transport_mbtg_volunteer" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -38,8 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:contentDescription="@string/fab_transport_req_desc"
-        android:text="@string/fab_transport_req"
+        android:contentDescription="@string/all_fab_transport_req_desc"
+        android:text="@string/all_fab_transport_req"
         app:icon="@drawable/ic_fab_create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

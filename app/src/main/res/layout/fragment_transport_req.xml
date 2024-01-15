@@ -27,7 +27,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/fr_post_title"
+                android:hint="@string/all_post_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -36,7 +36,7 @@
                     android:id="@+id/tiet_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/purple50"
+                    android:background="@color/purple_50"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -46,7 +46,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="@string/fr_calendar_hint"
+                android:hint="@string/all_calendar_hint"
                 app:endIconDrawable="@drawable/ic_calendar"
                 app:endIconMode="custom"
                 app:layout_constraintEnd_toStartOf="@id/til_animal"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
                 android:layout_marginTop="16dp"
-                android:hint="@string/fr_animal_choice"
+                android:hint="@string/all_animal_choice"
                 app:layout_constraintEnd_toEndOf="@id/til_title"
                 app:layout_constraintStart_toEndOf="@id/til_date"
                 app:layout_constraintTop_toBottomOf="@id/til_title">
@@ -91,7 +91,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="@string/fr_from"
+                android:hint="@string/all_from"
                 app:layout_constraintEnd_toEndOf="@id/til_date"
                 app:layout_constraintStart_toStartOf="@id/til_date"
                 app:layout_constraintTop_toBottomOf="@id/til_date">
@@ -110,7 +110,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
-                android:hint="@string/fr_to"
+                android:hint="@string/all_to"
                 app:layout_constraintEnd_toEndOf="@id/til_animal"
                 app:layout_constraintStart_toEndOf="@id/til_from"
                 app:layout_constraintTop_toTopOf="@id/til_from"
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="21dp"
-                android:text="@string/fr_my_pet"
+                android:text="@string/all_my_pet"
                 app:layout_constraintStart_toStartOf="@id/req_animal_info_border"
                 app:layout_constraintTop_toTopOf="@id/req_animal_info_border" />
 
@@ -153,7 +153,7 @@
                 android:layout_width="115dp"
                 android:layout_height="110dp"
                 android:layout_marginTop="14dp"
-                android:background="@color/gray100"
+                android:background="@color/gray_100"
                 android:scaleType="fitXY"
                 app:layout_constraintStart_toStartOf="@id/my_pet"
                 app:layout_constraintTop_toBottomOf="@id/my_pet"
@@ -175,7 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="23dp"
-                android:text="@string/fr_name"
+                android:text="@string/all_name"
                 app:layout_constraintStart_toEndOf="@id/siv_pet_image"
                 app:layout_constraintTop_toTopOf="@id/siv_pet_image" />
 
@@ -202,7 +202,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="@string/fr_age"
+                android:text="@string/all_age"
                 app:layout_constraintStart_toStartOf="@id/tv_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_name" />
 
@@ -229,7 +229,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="@string/fr_weight"
+                android:text="@string/all_weight"
                 app:layout_constraintStart_toStartOf="@id/tv_age"
                 app:layout_constraintTop_toBottomOf="@id/tv_age" />
 
@@ -256,7 +256,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="@string/fr_breed"
+                android:text="@string/all_breed"
                 app:layout_constraintStart_toStartOf="@id/tv_weight"
                 app:layout_constraintTop_toBottomOf="@id/tv_weight" />
 
@@ -282,7 +282,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@string/fr_photo_count"
+                android:text="@string/all_photo_count"
                 app:layout_constraintEnd_toEndOf="@id/siv_pet_image"
                 app:layout_constraintStart_toStartOf="@id/siv_pet_image"
                 app:layout_constraintTop_toBottomOf="@id/siv_pet_image"
@@ -294,7 +294,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
-                android:text="@string/fr_character_caution"
+                android:text="@string/all_character_caution"
                 app:layout_constraintStart_toStartOf="@id/siv_pet_image"
                 app:layout_constraintTop_toBottomOf="@id/tv_photo_count" />
 
@@ -321,7 +321,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@string/fr_message"
+                android:text="@string/all_message"
                 app:layout_constraintStart_toStartOf="@id/tv_character_caution"
                 app:layout_constraintTop_toBottomOf="@id/et_character_caution" />
 
@@ -353,12 +353,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="13dp"
-        android:backgroundTint="@color/gray200"
+        android:layout_marginTop="13dp"
+        android:backgroundTint="@color/purple_100"
         android:clickable="false"
         android:enabled="false"
         android:padding="15dp"
-        android:text="@string/post"
-        android:textColor="@color/black"
+        android:text="@string/all_post"
+        android:textColor="@color/white"
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
