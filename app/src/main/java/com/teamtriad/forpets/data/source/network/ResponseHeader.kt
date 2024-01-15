@@ -1,4 +1,4 @@
-package com.teamtriad.forpets.model
+package com.teamtriad.forpets.data.source.network
 
 data class ResponseHeader(
     // 요청 고유번호

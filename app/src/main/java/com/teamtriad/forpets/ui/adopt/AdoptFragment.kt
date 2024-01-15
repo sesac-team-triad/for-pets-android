@@ -1,4 +1,4 @@
-package com.teamtriad.forpets
+package com.teamtriad.forpets.ui.adopt
 
 import android.os.Bundle
 import android.util.Log
@@ -8,9 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.squareup.moshi.JsonDataException
-import com.teamtriad.forpets.adapter.AdoptAdapter
+import com.teamtriad.forpets.ui.adopt.adapter.AdoptAdapter
 import com.teamtriad.forpets.databinding.FragmentAdoptBinding
-import com.teamtriad.forpets.model.AbandonmentInfo
+import com.teamtriad.forpets.data.source.network.AbandonmentInfo
+import com.teamtriad.forpets.data.source.network.AdoptService
 import com.teamtriad.forpets.util.toYyyyMmDd
 import kotlinx.coroutines.launch
 import retrofit2.HttpException

@@ -1,8 +1,8 @@
-package com.teamtriad.forpets
+package com.teamtriad.forpets.data.source.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.teamtriad.forpets.model.AbandonmentPublic
+import com.teamtriad.forpets.BuildConfig
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory

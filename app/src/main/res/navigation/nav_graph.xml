@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/transportFragment"
-        android:name="com.teamtriad.forpets.TransportFragment"
+        android:name="com.teamtriad.forpets.ui.transport.TransportFragment"
         android:label="fragment_transport"
         tools:layout="@layout/fragment_transport" />
     <fragment
         android:id="@+id/adoptFragment"
-        android:name="com.teamtriad.forpets.AdoptFragment"
+        android:name="com.teamtriad.forpets.ui.adopt.AdoptFragment"
         android:label="fragment_adopt"
         tools:layout="@layout/fragment_adopt" />
     <fragment
         android:id="@+id/chatFragment"
-        android:name="com.teamtriad.forpets.ChatFragment"
+        android:name="com.teamtriad.forpets.ui.chat.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.teamtriad.forpets.ProfileFragment"
+        android:name="com.teamtriad.forpets.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

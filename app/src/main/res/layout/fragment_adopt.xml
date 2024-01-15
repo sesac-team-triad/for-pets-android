@@ -8,5 +8,5 @@
     android:paddingTop="8dp"
     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
     app:spanCount="2"
-    tools:context=".AdoptFragment"
+    tools:context=".ui.adopt.AdoptFragment"
     tools:listitem="@layout/item_adopt" />

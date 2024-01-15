@@ -1,11 +1,11 @@
-package com.teamtriad.forpets.adapter
+package com.teamtriad.forpets.ui.adopt.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.teamtriad.forpets.databinding.ItemAdoptBinding
-import com.teamtriad.forpets.model.AbandonmentInfo
+import com.teamtriad.forpets.data.source.network.AbandonmentInfo
 
 class AdoptAdapter(private val dataSet: List<AbandonmentInfo>) :
     RecyclerView.Adapter<AdoptAdapter.ViewHolder>() {
