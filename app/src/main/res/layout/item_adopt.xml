@@ -17,8 +17,8 @@
         app:shapeAppearance="@style/Pet_ImageView_CornerSize10" />
 
     <!-- 배경 뷰 (카드 모양) -->
-    <ImageView
-        android:id="@+id/iv_background"
+    <View
+        android:id="@+id/v_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/background_card_gray_100"
@@ -35,8 +35,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="9dp"
         android:text="@string/adopt_tv_region_label"
-        app:layout_constraintStart_toStartOf="@id/iv_background"
-        app:layout_constraintTop_toTopOf="@id/iv_background" />
+        app:layout_constraintStart_toStartOf="@id/v_background"
+        app:layout_constraintTop_toTopOf="@id/v_background" />
 
     <TextView
         android:id="@+id/tv_region"
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="@string/adopt_tv_date_label"
-        app:layout_constraintStart_toStartOf="@id/iv_background"
+        app:layout_constraintStart_toStartOf="@id/v_background"
         app:layout_constraintTop_toBottomOf="@id/tv_region_label" />
 
     <TextView
@@ -75,7 +75,7 @@
         android:layout_marginBottom="9dp"
         android:text="@string/adopt_tv_phone_number_label"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/iv_background"
+        app:layout_constraintStart_toStartOf="@id/v_background"
         app:layout_constraintTop_toBottomOf="@id/tv_date_label" />
 
     <TextView
