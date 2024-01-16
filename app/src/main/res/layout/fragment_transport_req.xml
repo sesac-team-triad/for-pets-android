@@ -57,9 +57,9 @@
                     android:id="@+id/tiet_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="18dp"
                     android:focusable="false"
                     android:inputType="none"
+                    android:padding="18dp"
                     android:textSize="15sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -111,10 +111,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
                 android:hint="@string/all_to"
+                app:layout_constraintBottom_toBottomOf="@id/til_from"
                 app:layout_constraintEnd_toEndOf="@id/til_animal"
                 app:layout_constraintStart_toEndOf="@id/til_from"
-                app:layout_constraintTop_toTopOf="@id/til_from"
-                app:layout_constraintBottom_toBottomOf="@id/til_from">
+                app:layout_constraintTop_toTopOf="@id/til_from">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_to"
@@ -214,8 +214,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="19dp"
                 android:background="@android:color/transparent"
-                android:inputType="text"
                 android:importantForAutofill="no"
+                android:inputType="text"
                 app:layout_constraintBottom_toBottomOf="@id/tv_age"
                 app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
                 app:layout_constraintStart_toEndOf="@id/tv_age"
@@ -241,8 +241,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="19dp"
                 android:background="@android:color/transparent"
-                android:inputType="text"
                 android:importantForAutofill="no"
+                android:inputType="text"
                 app:layout_constraintBottom_toBottomOf="@id/tv_weight"
                 app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
                 app:layout_constraintStart_toEndOf="@id/tv_weight"
@@ -268,8 +268,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="19dp"
                 android:background="@android:color/transparent"
-                android:inputType="text"
                 android:importantForAutofill="no"
+                android:inputType="text"
                 app:layout_constraintBottom_toBottomOf="@id/tv_breed"
                 app:layout_constraintEnd_toEndOf="@id/req_animal_info_border"
                 app:layout_constraintStart_toEndOf="@id/tv_breed"
@@ -352,9 +352,9 @@
         android:id="@+id/mb_post"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="13dp"
         android:layout_marginTop="13dp"
-        android:backgroundTint="@color/purple_100"
+        android:layout_marginBottom="13dp"
+        android:backgroundTint="@color/selector_button_background_color"
         android:clickable="false"
         android:enabled="false"
         android:padding="15dp"

@@ -57,9 +57,9 @@
                     android:id="@+id/tiet_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="18dp"
                     android:focusable="false"
                     android:inputType="none"
+                    android:padding="18dp"
                     android:textSize="15sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -111,9 +111,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
                 android:hint="@string/all_to"
+                app:layout_constraintBottom_toBottomOf="@id/til_from"
                 app:layout_constraintEnd_toEndOf="@id/til_animal"
                 app:layout_constraintStart_toEndOf="@id/til_from"
-                app:layout_constraintBottom_toBottomOf="@id/til_from"
                 app:layout_constraintTop_toTopOf="@id/til_from">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -139,7 +139,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_from_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,7 +158,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_to_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -193,7 +195,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:layout_marginBottom="13dp"
-        android:backgroundTint="@color/gray_200"
+        android:backgroundTint="@color/selector_button_background_color"
         android:clickable="false"
         android:enabled="false"
         android:padding="15dp"

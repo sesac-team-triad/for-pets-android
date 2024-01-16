@@ -1,13 +1,12 @@
 package com.teamtriad.forpets.ui.transport
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import com.google.android.material.datepicker.CalendarConstraints
@@ -181,13 +180,11 @@ class TransportVolFragment : Fragment() {
                     && !tietFromDetail.text.isNullOrEmpty()
                     && !tietToDetail.text.isNullOrEmpty()
                     && !tietMessage.text.isNullOrEmpty()
+            Log.d("ab", "$allFieldsFilled")
 
             mbPost.apply {
                 isEnabled = allFieldsFilled
                 isCheckable = allFieldsFilled
-                backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(requireContext(), R.color.purple_100)
-                )
             }
         }
     }
