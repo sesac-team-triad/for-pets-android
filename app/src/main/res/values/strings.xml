@@ -1,6 +1,23 @@
 <resources>
     <string name="app_name">ForPets</string>
 
+    <string name="all_content_title">우리 아이는</string>
+    <string name="all_happen_date">접수일자 :\u0020</string>
+    <string name="all_happen_place">발견장소 :\u0020</string>
+    <string name="all_kind">품종 :\u0020</string>
+    <string name="all_color">색상 :\u0020</string>
+    <string name="all_age">나이 :\u0020</string>
+    <string name="all_weight">체중 :\u0020</string>
+    <string name="all_notice_no">공고번호 :\u0020</string>
+    <string name="all_process_state">상태 :\u0020</string>
+    <string name="all_sex">성별 :\u0020</string>
+    <string name="all_neuter_yn">중성화여부 :\u0020</string>
+    <string name="all_care_nm">보호소 이름 :\u0020</string>
+    <string name="all_care_tel">보호소 전화번호 :\u0020</string>
+    <string name="all_care_addr">보호장소 :\u0020</string>
+    <string name="all_charge_nm">담당자 :\u0020</string>
+    <string name="all_office_tel">담당자 연락처 :\u0020</string>
+
     <!-- BottomNavigationView -->
     <string name="transport">이동봉사</string>
     <string name="adopt">입양</string>
@@ -9,6 +26,9 @@
 
     <!-- 입양 목록 화면 -->
     <string name="adopt_tv_region_label">지역 :\u0020</string>
-    <string name="adopt_tv_date_label">접수일자 :\u0020</string>
-    <string name="adopt_tv_phone_number_label">보호소 전화번호 :\u0020</string>
+    
+    <!-- 입양 상세화면 -->
+    <string name="adopt_detail_tv_special_mark_title">- 특징 및 특이사항 -</string>
+    <string name="adopt_detail_btn_care">보호소 전화하기</string>
+    <string name="adopt_detail_btn_charge">담당자 전화하기</string>
 </resources>
