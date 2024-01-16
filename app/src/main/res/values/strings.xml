@@ -48,7 +48,7 @@
 
     <!-- Bottom Sheet -->
     <string name="bottom_title">지역 선택</string>
-    <string name="bottom_county_hint">서울특별시</string>
+    <string name="bottom_county_hint">시/도</string>
     <string name="bottom_district_hint">시/군/구</string>
     <string name="bottom_input_button">입력하기</string>
 

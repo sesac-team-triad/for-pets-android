@@ -59,11 +59,18 @@ class ModalBottomSheet : BottomSheetDialogFragment() {
                     cities!!
                 )
                 actvDistrict.setAdapter(adapter)
+                tilBottomDistrict.isEnabled = true
+                actvDistrict.isEnabled = true
             }
             actvDistrict.setOnItemClickListener { _, _, _, _ ->
                 selectedDistrict = tilBottomDistrict.editText?.text.toString()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
