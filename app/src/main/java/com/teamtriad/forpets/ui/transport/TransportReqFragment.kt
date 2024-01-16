@@ -55,10 +55,10 @@ class TransportReqFragment : Fragment() {
             registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(5)) { uris ->
                 if (uris.isNotEmpty()) {
                     Log.d("PhotoPicker", "Number of items selected: ${uris.size}")
-                    binding.sivPetImage.setImageURI(uris[0])
-                    binding.tvPhotoCount.text = getString(R.string.all_photo_count, uris.size)
-                    if (uris.isNotEmpty()) {
-                        binding.ivAddImage.visibility = View.GONE
+                    with(binding) {
+                        sivPetImage.setImageURI(uris[0])
+                        tvPhotoCount.text = getString(R.string.all_photo_count, uris.size)
+                        ivAddImage.visibility = View.GONE
                     }
                 } else {
                     Log.d("PhotoPicker", "No media selected")
