@@ -14,7 +14,11 @@
         android:id="@+id/adoptFragment"
         android:name="com.teamtriad.forpets.ui.adopt.AdoptFragment"
         android:label="fragment_adopt"
-        tools:layout="@layout/fragment_adopt" />
+        tools:layout="@layout/fragment_adopt">
+        <action
+            android:id="@+id/action_adoptFragment_to_adoptDetailFragment"
+            app:destination="@id/adoptDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.teamtriad.forpets.ui.chat.ChatFragment"
@@ -25,4 +29,13 @@
         android:name="com.teamtriad.forpets.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/adoptDetailFragment"
+        android:name="com.teamtriad.forpets.ui.adopt.AdoptDetailFragment"
+        android:label="fragment_adopt_detail"
+        tools:layout="@layout/fragment_adopt_detail">
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
+    </fragment>
 </navigation>
