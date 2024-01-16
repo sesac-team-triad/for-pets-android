@@ -6,6 +6,28 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="Pet_TextView_XSmallBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/xSmall</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Pet_TextView_XSmallBoldBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/xSmall</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Pet_TextView_MiddleWhite" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/middle</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Pet_TextView_MiddleBoldBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/middle</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="Pet_ImageView_CornerSize10">
         <item name="cornerSize">10dp</item>
     </style>
