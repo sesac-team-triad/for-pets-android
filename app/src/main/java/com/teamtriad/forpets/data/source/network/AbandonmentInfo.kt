@@ -21,5 +21,5 @@ data class AbandonmentInfo(
     val careAddr: String,                       // 보호장소
     val chargeNm: String,                       // 담당자
     val officetel: String,                      // 담당자연락처
-    val noticeComment: String?
+    val noticeComment: String?,
 )
