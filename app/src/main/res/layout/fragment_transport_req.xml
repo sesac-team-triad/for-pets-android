@@ -157,7 +157,7 @@
                 android:scaleType="fitXY"
                 app:layout_constraintStart_toStartOf="@id/my_pet"
                 app:layout_constraintTop_toBottomOf="@id/my_pet"
-                app:shapeAppearance="@style/Pet_ImageView_Radius30" />
+                app:shapeAppearance="@style/Pet_ImageView_CornerSize30" />
 
             <ImageView
                 android:id="@+id/iv_add_image"
@@ -256,7 +256,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="@string/all_breed"
+                android:text="@string/all_kind"
                 app:layout_constraintStart_toStartOf="@id/tv_weight"
                 app:layout_constraintTop_toBottomOf="@id/tv_weight" />
 
@@ -358,7 +358,7 @@
         android:clickable="false"
         android:enabled="false"
         android:padding="15dp"
-        android:text="@string/all_post"
+        android:text="@string/all_btn_post"
         android:textColor="@color/white"
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"

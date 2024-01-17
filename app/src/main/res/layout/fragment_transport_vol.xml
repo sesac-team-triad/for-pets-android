@@ -27,7 +27,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/all_post_title"
+                android:hint="@string/all_btn_post"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -199,7 +199,7 @@
         android:clickable="false"
         android:enabled="false"
         android:padding="15dp"
-        android:text="@string/all_post"
+        android:text="@string/all_btn_post"
         android:textColor="@color/white"
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
