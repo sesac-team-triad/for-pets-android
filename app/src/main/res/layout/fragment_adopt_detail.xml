@@ -23,6 +23,7 @@
                 android:id="@+id/iv_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:contentDescription="@string/all_abandonment_image_desc"
                 android:scaleType="centerInside"
                 app:layout_constraintDimensionRatio="W,3:4"
                 app:layout_constraintEnd_toEndOf="parent"

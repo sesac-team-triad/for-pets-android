@@ -9,6 +9,7 @@
         android:id="@+id/siv_thumbnail"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/all_abandonment_image_desc"
         android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="W,1:1"
         app:layout_constraintEnd_toEndOf="parent"
