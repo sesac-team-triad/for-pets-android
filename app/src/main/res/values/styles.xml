@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Login Fragment-->
+    <style name="Pet_TextView_XXLargeBoldBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/xxLarge</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Pet_TextView_SmallGray" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/small</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+</resources>

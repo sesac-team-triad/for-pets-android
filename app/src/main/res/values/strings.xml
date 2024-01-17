@@ -6,4 +6,12 @@
     <string name="adopt">입양</string>
     <string name="chat">채팅</string>
     <string name="profile">나의 정보</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_login_tv_title">로그인</string>
+    <string name="fragment_login_tiet_email">Email</string>
+    <string name="fragment_login_tiet_password">비밀번호</string>
+    <string name="fragment_login_tv_signup"><u>아직 회원이 아니신가요?</u></string>
+    <string name="fragment_login_tv_organization_signup"><u>단체/보호소로 가입하기</u></string>
+    <string name="fragment_login_btn_login">로그인</string>
 </resources>
