@@ -49,6 +49,7 @@
     <string name="all_fab_transport_req_desc">봉사요청 글 작성을 위한 버튼입니다</string>
     <string name="all_fab_transport_vol_desc">봉사자 등록 글 작성을 위한 버튼입니다</string>
     <string name="all_btn_post">등 록</string>
+    <string name="all_abandonment_image_desc">함께할 가족을 찾고 있는 유기동물의 사진입니다</string>
 
     <!-- 이동봉사 화면 -->
     <string name="transport_mbtg_request">요청자</string>
