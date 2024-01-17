@@ -53,13 +53,11 @@ class AdoptAdapter(private val dataSet: List<AbandonmentInfo>) :
 
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(
-                        data.thumbnailImageUrl.replaceFirst("http:", "https:")
-                    )
+                    .load(data.imageUrl.replaceFirst("http:", "https:"))
                     .into(sivThumbnail)
                 tvRegion.text = data.careAddr.toRough()
-                tvDate.text = data.happenDate
-                tvPhoneNumber.text = data.careTel
+                tvSex.text = data.sex
+                tvAge.text = data.age
             }
         }
     }

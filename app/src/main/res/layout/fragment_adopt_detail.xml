@@ -33,7 +33,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@drawable/background_card_gray_radius_12"
+                android:background="@drawable/shape_detail_card_gray"
                 app:layout_constraintBottom_toBottomOf="@id/tv_kind"
                 app:layout_constraintEnd_toEndOf="@id/tv_kind"
                 app:layout_constraintStart_toStartOf="@id/tv_kind"
@@ -56,7 +56,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@drawable/background_card_gray_radius_12"
+                android:background="@drawable/shape_detail_card_gray"
                 app:layout_constraintBottom_toBottomOf="@id/tv_sex"
                 app:layout_constraintEnd_toEndOf="@id/tv_sex"
                 app:layout_constraintStart_toStartOf="@id/tv_sex"
@@ -79,7 +79,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@drawable/background_card_gray_radius_12"
+                android:background="@drawable/shape_detail_card_gray"
                 app:layout_constraintBottom_toBottomOf="@id/tv_date"
                 app:layout_constraintEnd_toEndOf="@id/tv_date"
                 app:layout_constraintStart_toStartOf="@id/tv_date"
