@@ -1,5 +1,6 @@
 package com.teamtriad.forpets.ui.adopt
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,10 +30,21 @@ class AdoptDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding) {
+        with(binding) { // TODO: ViewModel을 사용하여 데이터를 전달받기.
             Glide.with(requireContext())
                 .load(args.imageUrl.replaceFirst("http:", "https:"))
                 .into(ivImage)
+
+            btnCare.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL)
+
+                startActivity(intent)
+            }
+            btnCharge.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL)
+
+                startActivity(intent)
+            }
         }
     }
 
