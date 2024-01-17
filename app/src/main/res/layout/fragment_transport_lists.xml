@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabTextAppearance="@style/Pet_TextView_XLargeBlack"
-        app:tabIndicatorHeight="1dp"
+        app:tabIndicatorHeight="2dp"
         app:tabIndicatorColor="@color/black"
         app:tabTextColor="@color/black" />
 

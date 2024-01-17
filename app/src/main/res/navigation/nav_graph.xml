@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/transportFragment"
         android:name="com.teamtriad.forpets.ui.transport.TransportFragment"
-        android:label="fragment_transport"
+        android:label=""
         tools:layout="@layout/fragment_transport" >
         <action
             android:id="@+id/action_transportFragment_to_transportReqFragment"
