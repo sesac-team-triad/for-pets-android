@@ -1,39 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="Pet_TextView_XXSmallBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/xxSmall</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Pet_TextView_XSmallBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/xSmall</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Pet_TextView_XSmallBoldBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/xSmall</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Pet_TextView_SmallGray" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/small</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
     <style name="Pet_TextView_MiddleBlack" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/middle</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Pet_TextView_MiddleWhite" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/middle</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Pet_TextView_MiddleBoldBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/middle</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Pet_TextView_LargeBlack" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/large</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Pet_TextView_XLargeBlack" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/xLarge</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <!-- Extended Floating Action Button -->
+    <style name="Pet_TextView_XXLargeBoldBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/xxLarge</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Pet_EditText_MiddleBlack" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">@dimen/middle</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="pet_TabLayout_XLargeBlack" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">@dimen/xLarge</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Pet_DatePicker_CalendarSmall" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Material3.Corner.Small</item>
+    </style>
+
+    <style name="Pet_ImageView_CornerSize10">
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="Pet_ImageView_CornerSize30">
+        <item name="cornerSize">30dp</item>
+    </style>
+
     <style name="Pet_Fab_Color" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
         <item name="iconTint">@color/white</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <!-- Animal Detail information -->
-    <style name="Pet_ImageView_Radius30">
-        <item name="cornerSize">30dp</item>
-    </style>
-
-    <style name="Pet_EditText_MiddleBlack" parent="Widget.AppCompat.EditText">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
-    <!-- Date Picker -->
-    <style name="Pet_DatePicker_CalendarSmall" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
-        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Material3.Corner.Small</item>
-    </style>
 </resources>
