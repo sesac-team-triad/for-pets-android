@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_transportReqFragment_to_transportFragment"
             app:destination="@id/transportFragment" />
+        <action
+            android:id="@+id/action_transportReqFragment_to_transportListsFragment"
+            app:destination="@id/transportListsFragment" />
     </fragment>
     <fragment
         android:id="@+id/transportVolFragment"
@@ -49,5 +52,13 @@
         <action
             android:id="@+id/action_transportVolFragment_to_transportFragment"
             app:destination="@id/transportFragment" />
+        <action
+            android:id="@+id/action_transportVolFragment_to_transportListsFragment"
+            app:destination="@id/transportListsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/transportListsFragment"
+        android:name="com.teamtriad.forpets.ui.transport.TransportListsFragment"
+        android:label="@string/req_vol_list_appbar"
+        tools:layout="@layout/fragment_transport_lists" />
 </navigation>

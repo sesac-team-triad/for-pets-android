@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -54,6 +55,10 @@ class TransportVolFragment : Fragment() {
 
             tietTo.setOnClickListener {
                 showModalBottomSheet()
+            }
+
+            mbPost.setOnClickListener {
+                findNavController().navigate(R.id.action_transportVolFragment_to_transportListsFragment)
             }
         }
     }

@@ -20,7 +20,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "API_KEY", gradleLocalProperties(rootDir).getProperty("api.key"))
+        buildConfigField("String", "ABANDONMENT_API_KEY", gradleLocalProperties(rootDir).getProperty("abandonment.api.key"))
     }
 
     buildTypes {
