@@ -5,6 +5,7 @@
     <string name="req_appbar">봉사요청 등록</string>
     <string name="vol_appbar">봉사자 등록</string>
     <string name="req_vol_list_appbar">국 내</string>
+    <string name="adopt_detail_appbar">상세정보</string>
     <string name="login_appbar">로그인</string>
 
     <!-- BottomNavigationView -->

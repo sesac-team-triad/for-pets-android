@@ -57,7 +57,7 @@
     <fragment
         android:id="@+id/adoptDetailFragment"
         android:name="com.teamtriad.forpets.ui.adopt.AdoptDetailFragment"
-        android:label="fragment_adopt_detail"
+        android:label="@string/adopt_detail_appbar"
         tools:layout="@layout/fragment_adopt_detail">
         <argument
             android:name="imageUrl"
