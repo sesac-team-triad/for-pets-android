@@ -1,22 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ForPets</string>
 
-    <string name="all_content_title">우리 아이는</string>
-    <string name="all_happen_date">접수일자 :\u0020</string>
-    <string name="all_happen_place">발견장소 :\u0020</string>
-    <string name="all_kind">품종 :\u0020</string>
-    <string name="all_color">색상 :\u0020</string>
-    <string name="all_age">나이 :\u0020</string>
-    <string name="all_weight">체중 :\u0020</string>
-    <string name="all_notice_no">공고번호 :\u0020</string>
-    <string name="all_process_state">상태 :\u0020</string>
-    <string name="all_sex">성별 :\u0020</string>
-    <string name="all_neuter_yn">중성화여부 :\u0020</string>
-    <string name="all_care_nm">보호소 이름 :\u0020</string>
-    <string name="all_care_tel">보호소 전화번호 :\u0020</string>
-    <string name="all_care_addr">보호장소 :\u0020</string>
-    <string name="all_charge_nm">담당자 :\u0020</string>
-    <string name="all_office_tel">담당자 연락처 :\u0020</string>
+    <!-- 앱바 -->
+    <string name="req_appbar">봉사요청 등록</string>
+    <string name="vol_appbar">봉사자 등록</string>
+    <string name="req_vol_list_appbar">국 내</string>
+    <string name="login_appbar">로그인</string>
 
     <!-- BottomNavigationView -->
     <string name="transport">이동봉사</string>
@@ -24,11 +13,77 @@
     <string name="chat">채팅</string>
     <string name="profile">나의 정보</string>
 
+    <!-- 여러 화면에서 사용되는 string -->
+    <string name="all_post_title">제목을 입력해 주세요</string>
+    <string name="all_calendar_hint">출발일</string>
+    <string name="all_animal_choice">동물 선택</string>
+    <string name="all_all_animal">모두 가능</string>
+    <string name="all_from">출발 지역</string>
+    <string name="all_to">도착 지역</string>
+    <string name="all_my_pet">우리 아이는</string>
+    <string name="all_name">이름 :</string>
+    <string name="all_photo_count">&lt; %d / 5 &gt;</string>
+    <string name="all_character_caution">특징 및 주의사항 :</string>
+    <string name="all_message">봉사자에게 전하고 싶은 말 :</string>
+    <string name="all_happen_date">접수일자 :</string>
+    <string name="all_happen_place">발견장소 :</string>
+    <string name="all_kind">품종 :</string>
+    <string name="all_color">색상 :</string>
+    <string name="all_age">나이 :</string>
+    <string name="all_weight">체중 :</string>
+    <string name="all_notice_no">공고번호 :</string>
+    <string name="all_process_state">상태 :</string>
+    <string name="all_sex">성별 :</string>
+    <string name="all_neuter_yn">중성화여부 :</string>
+    <string name="all_care_nm">보호소 이름 :</string>
+    <string name="all_care_tel">보호소 전화번호 :</string>
+    <string name="all_care_addr">보호장소 :</string>
+    <string name="all_charge_nm">담당자 :</string>
+    <string name="all_office_tel">담당자 연락처 :</string>
+    <string name="all_chat">대화하기</string>
+    <string name="all_req_list">봉사요청 목록</string>
+    <string name="all_vol_list">봉사자 목록</string>
+    <string name="all_fab_transport_req">봉사요청 등록하기</string>
+    <string name="all_fab_transport_vol">봉사자 등록하기</string>
+    <string name="all_fab_transport_req_desc">봉사요청 글 작성을 위한 버튼입니다</string>
+    <string name="all_fab_transport_vol_desc">봉사자 등록 글 작성을 위한 버튼입니다</string>
+    <string name="all_btn_post">등 록</string>
+
+    <!-- 이동봉사 화면 -->
+    <string name="transport_mbtg_request">요청자</string>
+    <string name="transport_mbtg_volunteer">봉사자</string>
+
+    <!-- 봉사자 등록 화면 -->
+    <string name="vol_til_from_detail_hint">상세 출발 지역</string>
+    <string name="vol_til_from_detail_helper" tools:ignore="TypographyEllipsis">가능하신 출발 지역들 모두 적어주세요. ex) 강서구, 양천구...</string>
+    <string name="vol_til_to_detail_hint">상세 도착 지역</string>
+    <string name="vol_til_to_detail_helper" tools:ignore="TypographyEllipsis">가능하신 도착 지역들 모두 적어주세요. ex) 천안시, 아산시...</string>
+    <string name="vol_til_message_hint">봉사 또는 일정 등 알려주실 사항을 남겨주세요!!</string>
+
+    <!-- 봉사자 목록 화면 -->
+    <string name="vol_list_tv_possible_day">가능일</string>
+    <string name="vol_list_tv_from">출발지역</string>
+    <string name="vol_list_tv_to">도착지역</string>
+
+    <!-- Bottom Sheet -->
+    <string name="bottom_title">지역 선택</string>
+    <string name="bottom_county_hint">시/도</string>
+    <string name="bottom_district_hint">시/군/구</string>
+    <string name="bottom_btn_input">입력하기</string>
+
     <!-- 입양 목록 화면 -->
-    <string name="adopt_tv_region_label">지역 :\u0020</string>
-    
+    <string name="adopt_tv_region_label">지역 :</string>
+
     <!-- 입양 상세화면 -->
     <string name="adopt_detail_tv_special_mark_title">- 특징 및 특이사항 -</string>
     <string name="adopt_detail_btn_care">보호소 전화하기</string>
     <string name="adopt_detail_btn_charge">담당자 전화하기</string>
+
+    <!-- 로그인 화면 -->
+    <string name="login_til_email">이메일</string>
+    <string name="login_til_password">비밀번호</string>
+    <string name="login_tv_signup"><u>아직 회원이 아니신가요?</u></string>
+    <string name="login_tv_organization_signup"><u>단체/보호소로 가입하기</u></string>
+    <string name="login_btn_login">로그인</string>
+
 </resources>

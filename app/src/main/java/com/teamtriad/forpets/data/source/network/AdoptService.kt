@@ -12,13 +12,13 @@ import retrofit2.http.Query
 interface AdoptService {
 
     @GET(
-        "1543061/abandonmentPublicSrvc/abandonmentPublic?serviceKey=${BuildConfig.API_KEY}" +
+        "1543061/abandonmentPublicSrvc/abandonmentPublic?serviceKey=${BuildConfig.ABANDONMENT_API_KEY}" +
                 "&state=protect&_type=json"
     )
     suspend fun getAbandonmentPublic(
         @Query("bgnde") bgnde: String,
         @Query("endde") endde: String,
-        @Query("numOfRows") numOfRows: String,
+        @Query("numOfRows") numOfRows: String
     ): Response<AbandonmentPublic>
 
     companion object {
