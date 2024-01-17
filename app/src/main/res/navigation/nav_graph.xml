@@ -9,7 +9,11 @@
         android:id="@+id/transportFragment"
         android:name="com.teamtriad.forpets.TransportFragment"
         android:label="fragment_transport"
-        tools:layout="@layout/fragment_transport" />
+        tools:layout="@layout/fragment_transport">
+        <action
+            android:id="@+id/action_transportFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/adoptFragment"
         android:name="com.teamtriad.forpets.AdoptFragment"
@@ -25,4 +29,9 @@
         android:name="com.teamtriad.forpets.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.teamtriad.forpets.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login" />
 </navigation>
