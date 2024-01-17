@@ -56,4 +56,11 @@ dependencies {
 
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.moshi:moshi:1.12.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.12.0")
+
+
 }
