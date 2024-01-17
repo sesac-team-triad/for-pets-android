@@ -98,6 +98,7 @@
                 app:layout_constraintStart_toEndOf="@id/tv_sex"
                 app:layout_constraintTop_toBottomOf="@id/iv_image" />
 
+            <!-- 카드 배경 뷰 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -200,26 +201,90 @@
             <TextView
                 android:id="@+id/tv_special_mark"
                 style="@style/Pet_TextView_XSmallBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:elevation="4dp"
+                android:paddingBottom="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_special_mark_title" />
+
+            <!-- 카드 배경 뷰 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="12dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toBottomOf="@id/tv_office_tel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_special_mark" />
+
+            <TextView
+                android:id="@+id/tv_care_nm"
+                style="@style/Pet_TextView_XSmallBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="20dp"
+                android:elevation="4dp"
+                android:text="@string/all_care_nm"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_special_mark" />
+
+            <TextView
+                android:id="@+id/tv_care_tel"
+                style="@style/Pet_TextView_XSmallBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"
+                android:elevation="4dp"
+                android:text="@string/all_care_tel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_care_nm" />
+
+            <TextView
+                android:id="@+id/tv_care_addr"
+                style="@style/Pet_TextView_XSmallBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"
+                android:elevation="4dp"
+                android:text="@string/all_care_addr"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_care_tel" />
+
+            <TextView
+                android:id="@+id/tv_charge_nm"
+                style="@style/Pet_TextView_XSmallBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"
+                android:elevation="4dp"
+                android:text="@string/all_charge_nm"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_care_addr" />
+
+            <TextView
+                android:id="@+id/tv_office_tel"
+                style="@style/Pet_TextView_XSmallBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="4dp"
                 android:elevation="4dp"
                 android:paddingBottom="20dp"
+                android:text="@string/all_office_tel"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_special_mark_title" />
-
-            <!-- 카드 배경 뷰 (임시) -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="300dp"
-                android:layout_marginHorizontal="12dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
-                app:cardUseCompatPadding="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_special_mark" />
+                app:layout_constraintTop_toBottomOf="@id/tv_charge_nm" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
