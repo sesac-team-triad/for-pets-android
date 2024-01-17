@@ -1,4 +1,4 @@
-package com.teamtriad.forpets
+package com.teamtriad.forpets.ui.login
 
 import ApiService
 import android.os.Bundle
@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.teamtriad.forpets.R
+import com.teamtriad.forpets.UserData
 import com.teamtriad.forpets.databinding.FragmentLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,13 +57,20 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        backButton()
+        signUpButton()
+        signUpOrganizationButton()
         loginButton()
     }
 
-    private fun backButton() {
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+    private fun signUpButton() {
+        binding.tvSignup.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_signUpUserFragment)
+        }
+    }
+
+    private fun signUpOrganizationButton() {
+        binding.tvSignupOrganization.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_signUpOrganizationFragment)
         }
     }
 
