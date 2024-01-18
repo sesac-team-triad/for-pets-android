@@ -30,9 +30,15 @@ class ModalBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         counties = Location.loadLocationMap()
+        val tag = tag
 
-        setData()
-        getData()
+        if (tag == "ModalBottomSheet") {
+            setData()
+            getData()
+        } else {
+            setData()
+            getCountyData()
+        }
 
         binding.mbtSave.setOnClickListener {
             Location.sendLocationData(selectedCounty, selectedDistrict)
@@ -68,6 +74,14 @@ class ModalBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
+    private fun getCountyData() {
+        with(binding) {
+            actvCounty.setOnItemClickListener { _, _, _, _ ->
+                selectedCounty = tilBottomCounty.editText?.text.toString()
+            }
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -75,5 +89,6 @@ class ModalBottomSheet : BottomSheetDialogFragment() {
 
     companion object {
         const val TAG = "ModalBottomSheet"
+        const val COUNTY_TAG = "OnlyCounty"
     }
 }

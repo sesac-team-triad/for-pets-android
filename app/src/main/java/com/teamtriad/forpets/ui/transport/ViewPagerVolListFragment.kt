@@ -1,13 +1,24 @@
 package com.teamtriad.forpets.ui.transport
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.teamtriad.forpets.ModalBottomSheet
+import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentViewPagerVolListBinding
 import com.teamtriad.forpets.tmp.Volunteers
 import com.teamtriad.forpets.ui.transport.adpater.RecyclerviewVolListAdapter
+import com.teamtriad.forpets.util.formatDate
+import com.teamtriad.forpets.util.formatDateWithYear
+import java.util.Calendar
+import java.util.TimeZone
 
 class ViewPagerVolListFragment : Fragment() {
 
@@ -25,6 +36,7 @@ class ViewPagerVolListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setRecyclerview()
+        setOnClickListener()
     }
 
     private fun setRecyclerview() {
@@ -33,6 +45,77 @@ class ViewPagerVolListFragment : Fragment() {
         val adapter = RecyclerviewVolListAdapter()
         adapter.submitList(volList)
         recyclerview.adapter = adapter
+    }
+
+    private fun setOnClickListener() {
+        with(binding) {
+            tietDate.setOnClickListener {
+                showDatePicker()
+            }
+
+            tietFrom.setOnClickListener {
+                showModalBottomSheet()
+            }
+
+            tietTo.setOnClickListener {
+                showModalBottomSheet()
+            }
+        }
+    }
+
+    private fun showModalBottomSheet() {
+        val bottomSheet = ModalBottomSheet()
+        bottomSheet.show(requireActivity().supportFragmentManager, ModalBottomSheet.COUNTY_TAG)
+    }
+
+    private fun showDatePicker() {
+        val today = MaterialDatePicker.todayInUtcMilliseconds()
+        val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+
+        calendar.timeInMillis = today
+        calendar[Calendar.MONTH] = Calendar.JANUARY
+        val janThisYear = calendar.timeInMillis
+
+        calendar.timeInMillis = today
+        calendar[Calendar.MONTH] = Calendar.DECEMBER
+        val decThisYear = calendar.timeInMillis
+
+        val constraintsBuilder =
+            CalendarConstraints.Builder()
+                .setStart(janThisYear)
+                .setEnd(decThisYear)
+                .setValidator(DateValidatorPointForward.now())
+
+        val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
+            .setTitleText("출발일 - 도착일")
+            .setSelection(
+                Pair(
+                    MaterialDatePicker.todayInUtcMilliseconds(),
+                    MaterialDatePicker.todayInUtcMilliseconds()
+                )
+            )
+            .setInputMode(MaterialDatePicker.INPUT_MODE_CALENDAR)
+            .setTheme(R.style.Pet_DatePicker_CalendarSmall)
+            .setCalendarConstraints(constraintsBuilder.build())
+            .build()
+        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
+
+        dateRangePicker.addOnPositiveButtonClickListener { selection ->
+            val startDate = selection.first
+            val endDate = selection.second
+
+            val startDateText = startDate.formatDate()
+            val endDateText = endDate.formatDate()
+            var selectedDate = ""
+
+            selectedDate = if (startDateText == endDateText) {
+                startDate.formatDateWithYear()
+            } else {
+                "$startDateText - $endDateText"
+            }
+            binding.tietDate.text =
+                Editable.Factory.getInstance().newEditable(selectedDate)
+        }
     }
 
     override fun onDestroyView() {

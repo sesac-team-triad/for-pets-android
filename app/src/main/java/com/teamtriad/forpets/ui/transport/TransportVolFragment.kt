@@ -17,6 +17,7 @@ import com.teamtriad.forpets.ModalBottomSheet
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportVolBinding
 import com.teamtriad.forpets.util.formatDate
+import com.teamtriad.forpets.util.formatDateWithYear
 import java.util.Calendar
 import java.util.TimeZone
 
@@ -141,10 +142,15 @@ class TransportVolFragment : Fragment() {
 
             val startDateText = startDate.formatDate()
             val endDateText = endDate.formatDate()
+            var selectedDate = ""
 
-            val selectedText = "$startDateText - $endDateText"
+            selectedDate = if (startDateText == endDateText) {
+                startDate.formatDateWithYear()
+            } else {
+                "$startDateText - $endDateText"
+            }
             binding.tietDate.text =
-                Editable.Factory.getInstance().newEditable(selectedText)
+                Editable.Factory.getInstance().newEditable(selectedDate)
         }
     }
 
