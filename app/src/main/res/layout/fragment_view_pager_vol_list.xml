@@ -8,6 +8,7 @@
     tools:context=".ui.transport.ViewPagerVolListFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv_vol_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -106,6 +107,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
+                android:layout_marginBottom="76dp"
                 android:paddingHorizontal="-4dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"

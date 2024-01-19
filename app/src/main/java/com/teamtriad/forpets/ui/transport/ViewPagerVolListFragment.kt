@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -35,8 +36,22 @@ class ViewPagerVolListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setScrollListener()
         setRecyclerview()
         setOnClickListener()
+    }
+
+    private fun setScrollListener() {
+        with(binding) {
+            binding.nsvVolList.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                if (scrollY > oldScrollY) {
+                    efabVolList.shrink()
+                } else {
+                    efabVolList.extend()
+                }
+            }
+        }
+
     }
 
     private fun setRecyclerview() {
@@ -60,12 +75,16 @@ class ViewPagerVolListFragment : Fragment() {
             tietTo.setOnClickListener {
                 showModalBottomSheet()
             }
+
+            efabVolList.setOnClickListener {
+                findNavController().navigate(R.id.action_transportListsFragment_to_transportVolFragment)
+            }
         }
     }
 
     private fun showModalBottomSheet() {
         val bottomSheet = ModalBottomSheet()
-        bottomSheet.show(requireActivity().supportFragmentManager, ModalBottomSheet.COUNTY_TAG)
+        bottomSheet.show(requireActivity().supportFragmentManager, ModalBottomSheet.TAG_COUNTY)
     }
 
     private fun showDatePicker() {

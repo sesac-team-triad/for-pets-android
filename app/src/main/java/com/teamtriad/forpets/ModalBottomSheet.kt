@@ -89,6 +89,6 @@ class ModalBottomSheet : BottomSheetDialogFragment() {
 
     companion object {
         const val TAG = "ModalBottomSheet"
-        const val COUNTY_TAG = "OnlyCounty"
+        const val TAG_COUNTY = "OnlyCounty"
     }
 }
