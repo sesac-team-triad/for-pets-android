@@ -18,7 +18,7 @@
         app:titleCentered="true"
         app:titleTextAppearance="@style/Pet_TextView_XXLargeBoldBlack" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <ImageView
         android:id="@+id/iv_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,6 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="60dp"
         android:layout_marginTop="8dp"
+        android:hint="@string/fragment_login_tiet_email"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +45,6 @@
             android:id="@+id/tiet_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/fragment_login_tiet_email"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="60dp"
         android:layout_marginTop="8dp"
+        android:hint="@string/fragment_login_tiet_password"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,11 +65,10 @@
             android:id="@+id/tiet_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/fragment_login_tiet_password"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:id="@+id/tv_signup"
         style="@style/Pet_TextView_SmallGray"
         android:layout_width="0dp"
@@ -79,7 +79,7 @@
         app:layout_constraintStart_toStartOf="@id/til_password"
         app:layout_constraintTop_toBottomOf="@id/til_password" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <TextView
         android:id="@+id/tv_organization_signup"
         style="@style/Pet_TextView_SmallGray"
         android:layout_width="0dp"
