@@ -97,4 +97,5 @@
     <string name="sign_up_til_nickname_helper">문자와 숫자로 이루어진 단어만 가능합니다</string>
     <string name="login_til_phone">휴대폰 번호</string>
     <string name="sign_up_submit">가입하기</string>
+    <string name="sign_up_til_password_helper">8글자 이상 입력해주세요.</string>
 </resources>

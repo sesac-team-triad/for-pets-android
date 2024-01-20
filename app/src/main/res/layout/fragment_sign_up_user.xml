@@ -71,6 +71,8 @@
         app:counterEnabled="true"
         app:counterMaxLength="20"
         app:endIconMode="password_toggle"
+        app:helperText="@string/sign_up_til_password_helper"
+        app:helperTextEnabled="true"
         app:layout_constraintEnd_toEndOf="@id/til_email"
         app:layout_constraintStart_toStartOf="@id/til_email"
         app:layout_constraintTop_toBottomOf="@id/til_cert_email_number">
