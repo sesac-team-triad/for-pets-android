@@ -26,7 +26,7 @@ class TransportVolFragment : Fragment() {
 
     private var _binding: FragmentTransportVolBinding? = null
     private val binding get() = _binding!!
-    private lateinit var textWatcher: TextWatcher
+    private lateinit var dateRangePicker: MaterialDatePicker<Pair<Long, Long>>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +38,7 @@ class TransportVolFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setDatePicker()
         setOnClickListener()
         makeEditTextBigger()
         checkButtonEnabled()
@@ -104,7 +104,7 @@ class TransportVolFragment : Fragment() {
         bottomSheet.show(requireActivity().supportFragmentManager, ModalBottomSheet.TAG)
     }
 
-    private fun showDatePicker() {
+    private fun setDatePicker() {
         val today = MaterialDatePicker.todayInUtcMilliseconds()
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
 
@@ -122,8 +122,8 @@ class TransportVolFragment : Fragment() {
                 .setEnd(decThisYear)
                 .setValidator(DateValidatorPointForward.now())
 
-        val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
-            .setTitleText("출발일 - 도착일")
+        dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
+            .setTitleText(getString(R.string.date_picker_title))
             .setSelection(
                 Pair(
                     MaterialDatePicker.todayInUtcMilliseconds(),
@@ -134,8 +134,14 @@ class TransportVolFragment : Fragment() {
             .setTheme(R.style.Pet_DatePicker_CalendarSmall)
             .setCalendarConstraints(constraintsBuilder.build())
             .build()
-        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
+    }
 
+    private fun showDatePicker() {
+        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
+        addDatePickerButtonClickListener()
+    }
+
+    private fun addDatePickerButtonClickListener() {
         dateRangePicker.addOnPositiveButtonClickListener { selection ->
             val startDate = selection.first
             val endDate = selection.second

@@ -20,6 +20,7 @@ import com.teamtriad.forpets.ModalBottomSheet
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportReqBinding
 import com.teamtriad.forpets.util.formatDate
+import com.teamtriad.forpets.util.formatDateWithYear
 import java.util.Calendar
 import java.util.TimeZone
 
@@ -28,6 +29,7 @@ class TransportReqFragment : Fragment() {
     private var _binding: FragmentTransportReqBinding? = null
     private val binding get() = _binding!!
     private lateinit var pickMultipleMedia: ActivityResultLauncher<PickVisualMediaRequest>
+    private lateinit var dateRangePicker: MaterialDatePicker<Pair<Long, Long>>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +41,7 @@ class TransportReqFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setDatePicker()
         setPhotoPicker()
         setOnClickListener()
         checkButtonEnabled()
@@ -154,7 +157,7 @@ class TransportReqFragment : Fragment() {
         bottomSheet.show(requireActivity().supportFragmentManager, ModalBottomSheet.TAG)
     }
 
-    private fun showDatePicker() {
+    private fun setDatePicker() {
         val today = MaterialDatePicker.todayInUtcMilliseconds()
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
 
@@ -172,8 +175,8 @@ class TransportReqFragment : Fragment() {
                 .setEnd(decThisYear)
                 .setValidator(DateValidatorPointForward.now())
 
-        val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
-            .setTitleText("출발일 - 도착일")
+        dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
+            .setTitleText(getString(R.string.date_picker_title))
             .setSelection(
                 Pair(
                     MaterialDatePicker.todayInUtcMilliseconds(),
@@ -184,18 +187,29 @@ class TransportReqFragment : Fragment() {
             .setTheme(R.style.Pet_DatePicker_CalendarSmall)
             .setCalendarConstraints(constraintsBuilder.build())
             .build()
-        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
+    }
 
+    private fun showDatePicker() {
+        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
+        addDatePickerButtonClickListener()
+    }
+
+    private fun addDatePickerButtonClickListener() {
         dateRangePicker.addOnPositiveButtonClickListener { selection ->
             val startDate = selection.first
             val endDate = selection.second
 
             val startDateText = startDate.formatDate()
             val endDateText = endDate.formatDate()
+            var selectedDate = ""
 
-            val selectedText = "$startDateText - $endDateText"
+            selectedDate = if (startDateText == endDateText) {
+                startDate.formatDateWithYear()
+            } else {
+                "$startDateText - $endDateText"
+            }
             binding.tietDate.text =
-                Editable.Factory.getInstance().newEditable(selectedText)
+                Editable.Factory.getInstance().newEditable(selectedDate)
         }
     }
 

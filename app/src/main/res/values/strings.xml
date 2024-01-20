@@ -86,4 +86,7 @@
     <string name="login_tv_organization_signup"><u>단체/보호소로 가입하기</u></string>
     <string name="login_btn_login">로그인</string>
 
+    <!-- 데이트 피커 -->
+    <string name="date_picker_title">출발일 - 도착일</string>
+
 </resources>
