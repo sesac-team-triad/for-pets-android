@@ -1,6 +1,18 @@
 package com.teamtriad.forpets.util
 
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
+
+fun Long.formatDate(): String {
+    val dateFormat = SimpleDateFormat("MM/dd", Locale.getDefault())
+    return dateFormat.format(this)
+}
+
+fun Long.formatDateWithYear(): String {
+    val dateFormat = SimpleDateFormat("yy/MM/dd", Locale.getDefault())
+    return dateFormat.format(this)
+}
 
 private val monToMm = mapOf(
     "Jan" to "01", "Feb" to "02", "Mar" to "03", "Apr" to "04", "May" to "05", "Jun" to "06",
