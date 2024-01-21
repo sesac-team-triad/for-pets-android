@@ -34,7 +34,7 @@ class LocationPickerForFragmentManager : BottomSheetDialogFragment() {
         setData()
         getCountyData()
 
-        binding.mbtSave.setOnClickListener {
+        binding.btnSave.setOnClickListener {
         }
     }
 

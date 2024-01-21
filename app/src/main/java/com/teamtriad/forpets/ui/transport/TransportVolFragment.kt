@@ -59,7 +59,7 @@ class TransportVolFragment : Fragment() {
                     .navigate(R.id.action_transportVolFragment_to_locationPickerForNavigation)
             }
 
-            mbPost.setOnClickListener {
+            btnPost.setOnClickListener {
                 findNavController()
                     .navigate(R.id.action_transportVolFragment_to_transportListsFragment)
             }
@@ -196,7 +196,7 @@ class TransportVolFragment : Fragment() {
                     && !tietMessage.text.isNullOrEmpty()
             Log.d("ab", "$allFieldsFilled")
 
-            mbPost.apply {
+            btnPost.apply {
                 isEnabled = allFieldsFilled
                 isCheckable = allFieldsFilled
             }

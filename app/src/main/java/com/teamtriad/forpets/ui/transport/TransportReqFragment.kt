@@ -91,7 +91,7 @@ class TransportReqFragment : Fragment() {
                 )
             }
 
-            mbPost.setOnClickListener {
+            btnPost.setOnClickListener {
                 findNavController().navigate(R.id.action_transportReqFragment_to_transportListsFragment)
             }
         }
@@ -146,7 +146,7 @@ class TransportReqFragment : Fragment() {
                     && !etMessage.text.isNullOrEmpty()
                     && sivPetImage.drawable != null
 
-            mbPost.apply {
+            btnPost.apply {
                 isEnabled = allFieldsFilled
                 isCheckable = allFieldsFilled
             }

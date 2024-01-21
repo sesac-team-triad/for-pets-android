@@ -35,7 +35,7 @@ class LocationPickerForNavigation : BottomSheetDialogFragment() {
         setData()
         getData()
 
-        binding.mbtSave.setOnClickListener {
+        binding.btnSave.setOnClickListener {
         }
     }
 
