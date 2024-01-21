@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.teamtriad.forpets.ModalBottomSheet
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportVolBinding
 import com.teamtriad.forpets.util.formatDate
@@ -51,15 +50,18 @@ class TransportVolFragment : Fragment() {
             }
 
             tietFrom.setOnClickListener {
-                showModalBottomSheet()
+                findNavController()
+                    .navigate(R.id.action_transportVolFragment_to_locationPickerForNavigation)
             }
 
             tietTo.setOnClickListener {
-                showModalBottomSheet()
+                findNavController()
+                    .navigate(R.id.action_transportVolFragment_to_locationPickerForNavigation)
             }
 
             mbPost.setOnClickListener {
-                findNavController().navigate(R.id.action_transportVolFragment_to_transportListsFragment)
+                findNavController()
+                    .navigate(R.id.action_transportVolFragment_to_transportListsFragment)
             }
         }
     }
@@ -97,11 +99,6 @@ class TransportVolFragment : Fragment() {
                 }
             })
         }
-    }
-
-    private fun showModalBottomSheet() {
-        val bottomSheet = ModalBottomSheet()
-        bottomSheet.show(requireActivity().supportFragmentManager, ModalBottomSheet.TAG)
     }
 
     private fun setDatePicker() {

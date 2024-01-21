@@ -16,7 +16,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.teamtriad.forpets.ModalBottomSheet
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportReqBinding
 import com.teamtriad.forpets.util.formatDate
@@ -77,11 +76,13 @@ class TransportReqFragment : Fragment() {
             }
 
             tietFrom.setOnClickListener {
-                showModalBottomSheet()
+                findNavController()
+                    .navigate(R.id.action_transportReqFragment_to_locationPickerForNavigation)
             }
 
             tietTo.setOnClickListener {
-                showModalBottomSheet()
+                findNavController()
+                    .navigate(R.id.action_transportReqFragment_to_locationPickerForNavigation)
             }
 
             sivPetImage.setOnClickListener {
@@ -150,11 +151,6 @@ class TransportReqFragment : Fragment() {
                 isCheckable = allFieldsFilled
             }
         }
-    }
-
-    private fun showModalBottomSheet() {
-        val bottomSheet = ModalBottomSheet()
-        bottomSheet.show(requireActivity().supportFragmentManager, ModalBottomSheet.TAG)
     }
 
     private fun setDatePicker() {

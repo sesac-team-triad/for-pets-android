@@ -9,7 +9,7 @@
         android:id="@+id/transportFragment"
         android:name="com.teamtriad.forpets.ui.transport.TransportFragment"
         android:label=""
-        tools:layout="@layout/fragment_transport" >
+        tools:layout="@layout/fragment_transport">
         <action
             android:id="@+id/action_transportFragment_to_transportReqFragment"
             app:destination="@id/transportReqFragment" />
@@ -36,33 +36,43 @@
         android:id="@+id/transportReqFragment"
         android:name="com.teamtriad.forpets.ui.transport.TransportReqFragment"
         android:label="@string/req_appbar"
-        tools:layout="@layout/fragment_transport_req" >
+        tools:layout="@layout/fragment_transport_req">
         <action
             android:id="@+id/action_transportReqFragment_to_transportFragment"
             app:destination="@id/transportFragment" />
         <action
             android:id="@+id/action_transportReqFragment_to_transportListsFragment"
             app:destination="@id/transportListsFragment" />
+        <action
+            android:id="@+id/action_transportReqFragment_to_locationPickerForNavigation"
+            app:destination="@id/locationPickerForNavigation" />
     </fragment>
     <fragment
         android:id="@+id/transportVolFragment"
         android:name="com.teamtriad.forpets.ui.transport.TransportVolFragment"
         android:label="@string/vol_appbar"
-        tools:layout="@layout/fragment_transport_vol" >
+        tools:layout="@layout/fragment_transport_vol">
         <action
             android:id="@+id/action_transportVolFragment_to_transportFragment"
             app:destination="@id/transportFragment" />
         <action
             android:id="@+id/action_transportVolFragment_to_transportListsFragment"
             app:destination="@id/transportListsFragment" />
+        <action
+            android:id="@+id/action_transportVolFragment_to_locationPickerForNavigation"
+            app:destination="@id/locationPickerForNavigation" />
     </fragment>
     <fragment
         android:id="@+id/transportListsFragment"
         android:name="com.teamtriad.forpets.ui.transport.TransportListsFragment"
         android:label="@string/req_vol_list_appbar"
-        tools:layout="@layout/fragment_transport_lists" >
+        tools:layout="@layout/fragment_transport_lists">
         <action
             android:id="@+id/action_transportListsFragment_to_transportVolFragment"
             app:destination="@id/transportVolFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/locationPickerForNavigation"
+        android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerForNavigation"
+        android:label="LocationPickerForNavigation" />
 </navigation>
