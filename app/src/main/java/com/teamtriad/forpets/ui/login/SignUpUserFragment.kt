@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.database.FirebaseDatabase
-import com.teamtriad.forpets.UserData
+import com.teamtriad.forpets.model.UserData
 import com.teamtriad.forpets.databinding.FragmentSignUpUserBinding
 import com.google.android.gms.tasks.Task
 import com.teamtriad.forpets.R
@@ -37,8 +37,10 @@ class SignUpUserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        checkInit()
-        joinUserInit()
+        checkValidation()
+        binding.btnSubmit.setOnClickListener {
+            createUserData()
+        }
     }
 
     private fun setupWatcher(editText: EditText, index: Int, validation: (String) -> Boolean) {
@@ -62,7 +64,7 @@ class SignUpUserFragment : Fragment() {
         })
     }
 
-    private fun checkInit() = with(binding) {
+    private fun checkValidation() = with(binding) {
         btnSubmit.isEnabled = false
 
         setupWatcher(tietEmail, 0) {
@@ -76,19 +78,17 @@ class SignUpUserFragment : Fragment() {
         setupWatcher(tietNickname, 3) { it.isNotEmpty() && it.length >= 2 }
     }
 
-    private fun joinUserInit() = with(binding) {
-        btnSubmit.setOnClickListener {
-            val email = tietEmail.text.toString()
-            val password = tietPassword.text.toString()
-            val nickname = tietNickname.text.toString()
+    private fun createUserData() = with(binding) {
+        val email = tietEmail.text.toString()
+        val password = tietPassword.text.toString()
+        val nickname = tietNickname.text.toString()
 
-            auth!!.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val user = UserData(email, password, nickname)
-                    saveUserDataToDatabase(user)
-                } else {
-                    handleRegistrationFailure(task)
-                }
+        auth!!.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val user = UserData(email, password, nickname)
+                saveUserDataToDatabase(user)
+            } else {
+                handleRegistrationFailure(task)
             }
         }
     }
@@ -99,25 +99,25 @@ class SignUpUserFragment : Fragment() {
                 .getReference("Users")
         val userId = databaseReference.push().key
         databaseReference.child(userId!!).setValue(user)
-        showToast("환영합니다! \n ${user.nickname}님")
+        showToast(getString(R.string.login_toast_welcome))
         findNavController().navigate(R.id.action_signUpUserFragment_to_transportFragment)
     }
 
     private fun handleRegistrationFailure(task: Task<AuthResult>) {
         when (task.exception?.message) {
             "The email address is badly formatted." -> {
-                showToast(getString(R.string.sign_up_guide_email))
+                showToast(getString(R.string.sign_up_toast_guide_email))
                 binding.tietEmail.text = null
             }
 
             "The given password is invalid. [ Password should be at least 6 characters ]" -> {
-                showToast(getString(R.string.sign_up_guide_password))
+                showToast(getString(R.string.sign_up_toast_guide_password))
                 binding.tietConfirmedPassword.text = null
                 binding.tietPassword.text = null
             }
 
             "The email address is already in use by another account." -> {
-                showToast(getString(R.string.sign_up_exist_email))
+                showToast(getString(R.string.sign_up_toast_exist_email))
                 binding.tietEmail.text = null
             }
         }

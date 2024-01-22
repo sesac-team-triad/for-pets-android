@@ -86,6 +86,10 @@
     <string name="login_tv_signup"><u>아직 회원이 아니신가요?</u></string>
     <string name="login_tv_signup_organization"><u>단체/보호소로 가입하기</u></string>
     <string name="login_btn_login">로그인</string>
+    <string name="login_toast_not_found">사용자가 존재하지 않거나 비밀번호가 일치하지 않습니다!</string>
+    <string name="login_toast_server_error">사용자 확인 실패! (서버 오류)</string>
+    <string name="login_toast_network_error">사용자 확인 실패! (네트워크 오류)</string>
+    <string name="login_toast_welcome">환영합니다! %1$s님</string>
 
     <!--회원가입 화면-->
     <string name="sign_up_tv_title">회원가입</string>
@@ -97,8 +101,8 @@
     <string name="sign_up_til_nickname_helper">문자와 숫자로 이루어진 단어만 가능합니다</string>
     <string name="login_til_phone">휴대폰 번호</string>
     <string name="sign_up_submit">가입하기</string>
-    <string name="sign_up_til_password_helper">8글자 이상 입력해주세요.</string>
-    <string name="sign_up_exist_email">이미 존재하는 이메일입니다.</string>
-    <string name="sign_up_guide_password">비밀번호는 8자리 이상입니다.</string>
-    <string name="sign_up_guide_email">이메일 형식으로 입력하세요.</string>
+    <string name="sign_up_til_password_helper">6글자 이상 입력해주세요.</string>
+    <string name="sign_up_toast_exist_email">이미 존재하는 이메일입니다.</string>
+    <string name="sign_up_toast_guide_password">비밀번호는 6자리 이상입니다.</string>
+    <string name="sign_up_toast_guide_email">이메일 형식으로 입력하세요.</string>
 </resources>

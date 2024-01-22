@@ -1,6 +1,6 @@
 package com.teamtriad.forpets.ui.login
 
-import ApiService
+import com.teamtriad.forpets.data.source.network.ApiService
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.teamtriad.forpets.R
-import com.teamtriad.forpets.UserData
+import com.teamtriad.forpets.model.UserData
 import com.teamtriad.forpets.databinding.FragmentLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -57,17 +57,9 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginButton()
-        signUpButton()
-    }
-
-    private fun loginButton() {
         binding.btnLogin.setOnClickListener {
             checkIfUserExists()
         }
-    }
-
-    private fun signUpButton() {
         binding.tvSignup.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signUpUserFragment)
         }
@@ -91,22 +83,22 @@ class LoginFragment : Fragment() {
                             it.email == enteredEmail && it.password == enteredPassword
                         }
                         if (foundUser != null) {
-                            showToast("환영합니다! ${foundUser.nickname}님")
+                            showToast(getString(R.string.login_toast_welcome, foundUser.nickname))
                             findNavController().navigate(R.id.action_loginFragment_to_signUpUserFragment)
                         } else {
-                            showToast("사용자가 존재하지 않거나 비밀번호가 일치하지 않습니다!")
+                            showToast(getString(R.string.login_toast_not_found))
                         }
                     } catch (e: Exception) {
                         Log.e("LoginFragment", "$e")
                     }
                 } else {
                     Log.e("LoginFragment", "${response.code()}")
-                    showToast("사용자 확인 실패! (서버 오류)")
+                    showToast(getString(R.string.login_toast_server_error))
                 }
             }
 
             override fun onFailure(call: Call<Map<String, UserData>>, t: Throwable) {
-                showToast("사용자 확인 실패! (네트워크 오류)")
+                showToast(getString(R.string.login_toast_network_error))
             }
         })
     }
