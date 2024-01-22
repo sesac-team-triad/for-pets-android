@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_vol_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/Pet_TextView_LargeBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="15dp"
+                android:layout_marginStart="25dp"
+                app:layout_constraintBottom_toTopOf="@id/cl_hidden_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="홍길동" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_shortened_location_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="tv_county_from, iv_arrow, tv_county_to" />
+
+            <TextView
+                android:id="@+id/tv_county_from"
+                style="@style/Pet_TextView_MiddleBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_name"
+                app:layout_constraintEnd_toStartOf="@id/iv_arrow"
+                app:layout_constraintTop_toTopOf="@id/tv_name"
+                tools:text="서울특별시" />
+
+            <ImageView
+                android:id="@+id/iv_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
+                android:src="@drawable/ic_arrow"
+                app:layout_constraintBottom_toBottomOf="@id/tv_county_from"
+                app:layout_constraintEnd_toStartOf="@id/tv_county_to"
+                app:layout_constraintTop_toTopOf="@id/tv_county_from" />
+
+            <TextView
+                android:id="@+id/tv_county_to"
+                style="@style/Pet_TextView_MiddleBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_arrow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_arrow"
+                tools:text="부산광역시" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_hidden_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="25dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                tools:visibility="visible">
+
+                <TextView
+                    android:id="@+id/tv_possible_day"
+                    style="@style/Pet_TextView_MiddleBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="@string/vol_list_tv_possible_day"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    style="@style/Pet_TextView_MiddleBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="47dp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_possible_day"
+                    app:layout_constraintStart_toEndOf="@id/tv_possible_day"
+                    app:layout_constraintTop_toTopOf="@id/tv_possible_day"
+                    tools:text="24-01-10 ~ 24-01-13" />
+
+                <TextView
+                    android:id="@+id/tv_from_detail"
+                    style="@style/Pet_TextView_MiddleBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/vol_list_tv_from"
+                    app:layout_constraintStart_toStartOf="@id/tv_possible_day"
+                    app:layout_constraintTop_toBottomOf="@id/tv_possible_day" />
+
+                <TextView
+                    android:id="@+id/tv_detail_location_from"
+                    style="@style/Pet_TextView_MiddleBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_from_detail"
+                    app:layout_constraintStart_toEndOf="@id/tv_from_detail"
+                    app:layout_constraintTop_toTopOf="@id/tv_from_detail"
+                    tools:text="서울특별시 강서구, 양천구" />
+
+                <TextView
+                    android:id="@+id/tv_to_detail"
+                    style="@style/Pet_TextView_MiddleBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/vol_list_tv_to"
+                    app:layout_constraintStart_toStartOf="@id/tv_from_detail"
+                    app:layout_constraintTop_toBottomOf="@id/tv_from_detail"
+                    tools:text="도착지역" />
+
+                <TextView
+                    android:id="@+id/tv_detail_location_to"
+                    style="@style/Pet_TextView_MiddleBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_to_detail"
+                    app:layout_constraintStart_toEndOf="@id/tv_to_detail"
+                    app:layout_constraintTop_toTopOf="@id/tv_to_detail"
+                    tools:text="부산광역시 수영구, 해운대구" />
+
+                <TextView
+                    android:id="@+id/tv_message"
+                    style="@style/Pet_TextView_MiddleBlack"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="25dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_to_detail"
+                    app:layout_constraintTop_toBottomOf="@id/tv_to_detail"
+                    tools:text="10일에서 13일 중 11일을 제외한\n 모든 날에 가능합니다." />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="@color/purple"
+                    android:text="@string/all_chat"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_message" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

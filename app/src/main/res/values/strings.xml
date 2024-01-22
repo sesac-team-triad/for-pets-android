@@ -5,7 +5,9 @@
     <string name="req_appbar">봉사요청 등록</string>
     <string name="vol_appbar">봉사자 등록</string>
     <string name="transport_lists_appbar">국 내</string>
+    <string name="adopt_detail_appbar">상세정보</string>
     <string name="login_appbar">로그인</string>
+    <string name="signup_appbar">회원가입</string>
 
     <!-- BottomNavigationView -->
     <string name="transport">이동봉사</string>
@@ -48,6 +50,7 @@
     <string name="all_fab_transport_req_desc">봉사요청 글 작성을 위한 버튼입니다</string>
     <string name="all_fab_transport_vol_desc">봉사자 등록 글 작성을 위한 버튼입니다</string>
     <string name="all_btn_post">등 록</string>
+    <string name="all_abandonment_image_desc">함께할 가족을 찾고 있는 유기동물의 사진입니다</string>
 
     <!-- 이동봉사 화면 -->
     <string name="transport_mbtg_request">요청자</string>
@@ -83,7 +86,29 @@
     <string name="login_til_email">이메일</string>
     <string name="login_til_password">비밀번호</string>
     <string name="login_tv_signup"><u>아직 회원이 아니신가요?</u></string>
-    <string name="login_tv_organization_signup"><u>단체/보호소로 가입하기</u></string>
+    <string name="login_tv_signup_organization"><u>단체/보호소로 가입하기</u></string>
     <string name="login_btn_login">로그인</string>
+    <string name="login_toast_not_found">사용자가 존재하지 않거나 비밀번호가 일치하지 않습니다!</string>
+    <string name="login_toast_server_error">사용자 확인 실패! (서버 오류)</string>
+    <string name="login_toast_network_error">사용자 확인 실패! (네트워크 오류)</string>
+    <string name="login_toast_welcome">환영합니다! %1$s님</string>
+
+    <!-- 데이트 피커 -->
+    <string name="date_picker_title">출발일 - 도착일</string>
+
+    <!--회원가입 화면-->
+    <string name="sign_up_tv_title">회원가입</string>
+    <string name="sign_up_til_email_helper">이메일 주소로 가입할 수 있습니다.</string>
+    <string name="sign_up_cert_number">인증번호 입력</string>
+    <string name="sign_up_cert">인증하기</string>
+    <string name="sign_up_confirmed_password">비밀번호 확인</string>
+    <string name="sign_up_nickname">닉네임</string>
+    <string name="sign_up_til_nickname_helper">문자와 숫자로 이루어진 단어만 가능합니다</string>
+    <string name="login_til_phone">휴대폰 번호</string>
+    <string name="sign_up_submit">가입하기</string>
+    <string name="sign_up_til_password_helper">6글자 이상 입력해주세요.</string>
+    <string name="sign_up_toast_exist_email">이미 존재하는 이메일입니다.</string>
+    <string name="sign_up_toast_guide_password">비밀번호는 6자리 이상입니다.</string>
+    <string name="sign_up_toast_guide_email">이메일 형식으로 입력하세요.</string>
 
 </resources>

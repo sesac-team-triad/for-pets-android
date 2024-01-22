@@ -9,13 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.teamtriad.forpets.ModalBottomSheet
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportVolBinding
 import com.teamtriad.forpets.util.formatDate
+import com.teamtriad.forpets.util.formatDateWithYear
 import java.util.Calendar
 import java.util.TimeZone
 
@@ -24,7 +25,7 @@ class TransportVolFragment : Fragment() {
 
     private var _binding: FragmentTransportVolBinding? = null
     private val binding get() = _binding!!
-    private lateinit var textWatcher: TextWatcher
+    private lateinit var dateRangePicker: MaterialDatePicker<Pair<Long, Long>>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +37,7 @@ class TransportVolFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setDatePicker()
         setOnClickListener()
         makeEditTextBigger()
         checkButtonEnabled()
@@ -49,11 +50,18 @@ class TransportVolFragment : Fragment() {
             }
 
             tietFrom.setOnClickListener {
-                showModalBottomSheet()
+                findNavController()
+                    .navigate(R.id.action_transportVolFragment_to_locationPickerForNavigation)
             }
 
             tietTo.setOnClickListener {
-                showModalBottomSheet()
+                findNavController()
+                    .navigate(R.id.action_transportVolFragment_to_locationPickerForNavigation)
+            }
+
+            btnPost.setOnClickListener {
+                findNavController()
+                    .navigate(R.id.action_transportVolFragment_to_transportListsFragment)
             }
         }
     }
@@ -93,12 +101,7 @@ class TransportVolFragment : Fragment() {
         }
     }
 
-    private fun showModalBottomSheet() {
-        val bottomSheet = ModalBottomSheet()
-        bottomSheet.show(requireActivity().supportFragmentManager, ModalBottomSheet.TAG)
-    }
-
-    private fun showDatePicker() {
+    private fun setDatePicker() {
         val today = MaterialDatePicker.todayInUtcMilliseconds()
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
 
@@ -116,8 +119,8 @@ class TransportVolFragment : Fragment() {
                 .setEnd(decThisYear)
                 .setValidator(DateValidatorPointForward.now())
 
-        val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
-            .setTitleText("출발일 - 도착일")
+        dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
+            .setTitleText(getString(R.string.date_picker_title))
             .setSelection(
                 Pair(
                     MaterialDatePicker.todayInUtcMilliseconds(),
@@ -128,8 +131,14 @@ class TransportVolFragment : Fragment() {
             .setTheme(R.style.Pet_DatePicker_CalendarSmall)
             .setCalendarConstraints(constraintsBuilder.build())
             .build()
-        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
+    }
 
+    private fun showDatePicker() {
+        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
+        addDatePickerButtonClickListener()
+    }
+
+    private fun addDatePickerButtonClickListener() {
         dateRangePicker.addOnPositiveButtonClickListener { selection ->
             val startDate = selection.first
             val endDate = selection.second
@@ -137,9 +146,13 @@ class TransportVolFragment : Fragment() {
             val startDateText = startDate.formatDate()
             val endDateText = endDate.formatDate()
 
-            val selectedText = "$startDateText - $endDateText"
+            val selectedDate = if (startDateText == endDateText) {
+                startDate.formatDateWithYear()
+            } else {
+                "$startDateText - $endDateText"
+            }
             binding.tietDate.text =
-                Editable.Factory.getInstance().newEditable(selectedText)
+                Editable.Factory.getInstance().newEditable(selectedDate)
         }
     }
 
@@ -182,7 +195,7 @@ class TransportVolFragment : Fragment() {
                     && !tietMessage.text.isNullOrEmpty()
             Log.d("ab", "$allFieldsFilled")
 
-            mbPost.apply {
+            btnPost.apply {
                 isEnabled = allFieldsFilled
                 isCheckable = allFieldsFilled
             }

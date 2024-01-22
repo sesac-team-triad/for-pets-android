@@ -1,7 +1,9 @@
-package com.teamtriad.forpets.model
+package com.teamtriad.forpets.data.source.network
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class AbandonmentInfo(
     @Json(name = "filename") val thumbnailImageUrl: String,
     @Json(name = "happenDt") val happenDate: String,
@@ -21,5 +23,5 @@ data class AbandonmentInfo(
     val careAddr: String,                       // 보호장소
     val chargeNm: String,                       // 담당자
     val officetel: String,                      // 담당자연락처
-    val noticeComment: String?
+    val noticeComment: String?,
 )
