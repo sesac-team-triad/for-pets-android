@@ -73,6 +73,10 @@
         <item name="cornerSize">10dp</item>
     </style>
 
+    <style name="Pet_ImageView_CornerSize12">
+        <item name="cornerSize">12dp</item>
+    </style>
+
     <style name="Pet_ImageView_CornerSize30">
         <item name="cornerSize">30dp</item>
     </style>
