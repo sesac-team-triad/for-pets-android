@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/transportFragment"
         android:name="com.teamtriad.forpets.ui.transport.TransportFragment"
-        android:label=""
         tools:layout="@layout/fragment_transport">
         <action
             android:id="@+id/action_transportFragment_to_transportReqFragment"
@@ -16,12 +15,19 @@
         <action
             android:id="@+id/action_transportFragment_to_transportVolFragment"
             app:destination="@id/transportVolFragment" />
+        <action
+            android:id="@+id/action_transportFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/adoptFragment"
         android:name="com.teamtriad.forpets.ui.adopt.AdoptFragment"
         android:label="fragment_adopt"
-        tools:layout="@layout/fragment_adopt" />
+        tools:layout="@layout/fragment_adopt">
+        <action
+            android:id="@+id/action_adoptFragment_to_adoptDetailFragment"
+            app:destination="@id/adoptDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.teamtriad.forpets.ui.chat.ChatFragment"
@@ -65,11 +71,41 @@
     <fragment
         android:id="@+id/transportListsFragment"
         android:name="com.teamtriad.forpets.ui.transport.TransportListsFragment"
-        android:label="@string/req_vol_list_appbar"
+        android:label="@string/transport_lists_appbar"
         tools:layout="@layout/fragment_transport_lists">
         <action
             android:id="@+id/action_transportListsFragment_to_transportVolFragment"
             app:destination="@id/transportVolFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adoptDetailFragment"
+        android:name="com.teamtriad.forpets.ui.adopt.AdoptDetailFragment"
+        android:label="@string/adopt_detail_appbar"
+        tools:layout="@layout/fragment_adopt_detail">
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.teamtriad.forpets.ui.login.LoginFragment"
+        android:label="@string/login_appbar"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_transportFragment"
+            app:destination="@id/transportFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_signUpUserFragment"
+            app:destination="@id/signUpUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpUserFragment"
+        android:name="com.teamtriad.forpets.ui.login.SignUpUserFragment"
+        android:label="@string/signup_appbar"
+        tools:layout="@layout/fragment_sign_up_user">
+        <action
+            android:id="@+id/action_signUpUserFragment_to_transportFragment"
+            app:destination="@id/transportFragment" />
     </fragment>
     <dialog
         android:id="@+id/locationPickerForNavigation"

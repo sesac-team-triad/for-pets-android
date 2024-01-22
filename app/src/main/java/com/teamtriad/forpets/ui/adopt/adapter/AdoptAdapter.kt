@@ -2,16 +2,18 @@ package com.teamtriad.forpets.ui.adopt.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.teamtriad.forpets.databinding.ItemAdoptBinding
-import com.teamtriad.forpets.model.AbandonmentInfo
+import com.teamtriad.forpets.data.source.network.AbandonmentInfo
+import com.teamtriad.forpets.databinding.RvItemAdoptBinding
+import com.teamtriad.forpets.ui.adopt.AdoptFragmentDirections
+import com.teamtriad.forpets.util.glide
 
 class AdoptAdapter(private val dataSet: List<AbandonmentInfo>) :
     RecyclerView.Adapter<AdoptAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-        ItemAdoptBinding.inflate(
+        RvItemAdoptBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -24,10 +26,24 @@ class AdoptAdapter(private val dataSet: List<AbandonmentInfo>) :
 
     override fun getItemCount() = dataSet.size
 
-    class ViewHolder(private val binding: ItemAdoptBinding) :
+    class ViewHolder(private val binding: RvItemAdoptBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(abandonmentInfo: AbandonmentInfo) {
+        fun bind(data: AbandonmentInfo) {
+            setOnClickListener(data.imageUrl)   // TODO: ViewModel을 사용하여 데이터를 전달하기.
+            bindData(data)
+        }
+
+        private fun setOnClickListener(imageUrl: String) {
+            val action = AdoptFragmentDirections.actionAdoptFragmentToAdoptDetailFragment(imageUrl)
+
+            itemView.setOnClickListener {
+                it.findNavController()
+                    .navigate(action)
+            }
+        }
+
+        private fun bindData(data: AbandonmentInfo) {
             fun String.toRough(): String {
                 return split(" ").filter { it != "" }
                     .let {
@@ -36,14 +52,10 @@ class AdoptAdapter(private val dataSet: List<AbandonmentInfo>) :
             }
 
             with(binding) {
-                Glide.with(itemView.context)
-                    .load(
-                        abandonmentInfo.thumbnailImageUrl.replaceFirst("http:", "https:")
-                    )
-                    .into(sivThumbnail)
-                tvRegion.text = abandonmentInfo.careAddr.toRough()
-                tvDate.text = abandonmentInfo.happenDate
-                tvPhoneNumber.text = abandonmentInfo.careTel
+                sivThumbnail.glide(data.imageUrl)
+                tvRegion.text = data.careAddr.toRough()
+                tvSex.text = data.sex
+                tvAge.text = data.age
             }
         }
     }

@@ -9,19 +9,20 @@
         android:id="@+id/siv_thumbnail"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/all_abandonment_image_desc"
         android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="W,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearance="@style/Pet_ImageView_CornerSize10" />
+        app:shapeAppearance="@style/Pet_ImageView_TopCornerSize10" />
 
     <!-- 배경 뷰 (카드 모양) -->
     <View
         android:id="@+id/v_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/background_card_gray_100"
+        android:background="@drawable/shape_card_bottom_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,62 +30,67 @@
 
     <TextView
         android:id="@+id/tv_region_label"
-        style="@style/Pet_TextView_XXSmallBlack"
+        style="@style/Pet_TextView_XSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
         android:text="@string/adopt_tv_region_label"
         app:layout_constraintStart_toStartOf="@id/v_background"
         app:layout_constraintTop_toTopOf="@id/v_background" />
 
     <TextView
         android:id="@+id/tv_region"
-        style="@style/Pet_TextView_XXSmallBlack"
+        style="@style/Pet_TextView_XSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4.5dp"
         app:layout_constraintBottom_toBottomOf="@id/tv_region_label"
         app:layout_constraintStart_toEndOf="@id/tv_region_label"
         app:layout_constraintTop_toTopOf="@id/tv_region_label" />
 
     <TextView
-        android:id="@+id/tv_date_label"
-        style="@style/Pet_TextView_XXSmallBlack"
+        android:id="@+id/tv_sex_label"
+        style="@style/Pet_TextView_XSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="@string/all_happen_date"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="1dp"
+        android:text="@string/all_sex"
         app:layout_constraintStart_toStartOf="@id/v_background"
         app:layout_constraintTop_toBottomOf="@id/tv_region_label" />
 
     <TextView
-        android:id="@+id/tv_date"
-        style="@style/Pet_TextView_XXSmallBlack"
+        android:id="@+id/tv_sex"
+        style="@style/Pet_TextView_XSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/tv_date_label"
-        app:layout_constraintStart_toEndOf="@id/tv_date_label"
-        app:layout_constraintTop_toTopOf="@id/tv_date_label" />
+        android:layout_marginStart="4.5dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_sex_label"
+        app:layout_constraintStart_toEndOf="@id/tv_sex_label"
+        app:layout_constraintTop_toTopOf="@id/tv_sex_label" />
 
     <TextView
-        android:id="@+id/tv_phone_number_label"
-        style="@style/Pet_TextView_XXSmallBlack"
+        android:id="@+id/tv_age_label"
+        style="@style/Pet_TextView_XSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="9dp"
-        android:text="@string/adopt_tv_region_label"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/all_age"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/v_background"
-        app:layout_constraintTop_toBottomOf="@id/tv_date_label" />
+        app:layout_constraintTop_toBottomOf="@id/tv_sex_label" />
 
     <TextView
-        android:id="@+id/tv_phone_number"
-        style="@style/Pet_TextView_XXSmallBlack"
+        android:id="@+id/tv_age"
+        style="@style/Pet_TextView_XSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/tv_phone_number_label"
-        app:layout_constraintStart_toEndOf="@id/tv_phone_number_label"
-        app:layout_constraintTop_toTopOf="@id/tv_phone_number_label" />
+        android:layout_marginStart="4.5dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_age_label"
+        app:layout_constraintStart_toEndOf="@id/tv_age_label"
+        app:layout_constraintTop_toTopOf="@id/tv_age_label" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

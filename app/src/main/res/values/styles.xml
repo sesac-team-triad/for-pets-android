@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Pet_TextView_XXSmallBlack" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/xxSmall</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
     <style name="Pet_TextView_XSmallBlack" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/xSmall</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="Pet_TextView_XSmallBoldBlack" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/xSmall</item>
-        <item name="android:textStyle">bold</item>
+    <style name="Pet_TextView_SmallBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/small</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -22,14 +16,15 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
-    <style name="Pet_TextView_MiddleBlack" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/middle</item>
+    <style name="Pet_TextView_SmallBoldBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/small</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="Pet_TextView_MiddleWhite" parent="TextAppearance.AppCompat">
+    <style name="Pet_TextView_MiddleBlack" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/middle</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Pet_TextView_MiddleBoldBlack" parent="TextAppearance.AppCompat">
@@ -40,6 +35,17 @@
 
     <style name="Pet_TextView_LargeBlack" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/large</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Pet_TextView_LargeWhite" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/large</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Pet_TextView_LargeBoldBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/large</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -66,11 +72,13 @@
     </style>
 
     <style name="Pet_DatePicker_CalendarSmall" parent="@style/ThemeOverlay.Material3.MaterialCalendar">
-        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Material3.Corner.Small</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Material3.Corner.Small
+        </item>
     </style>
 
-    <style name="Pet_ImageView_CornerSize10">
-        <item name="cornerSize">10dp</item>
+    <style name="Pet_ImageView_TopCornerSize10">
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeTopRight">10dp</item>
     </style>
 
     <style name="Pet_ImageView_CornerSize30">

@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.adopt.AdoptDetailFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_care"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/all_abandonment_image_desc"
+                android:scaleType="centerInside"
+                app:layout_constraintDimensionRatio="W,3:4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/shape_detail_card_gray"
+                app:layout_constraintBottom_toBottomOf="@id/tv_kind"
+                app:layout_constraintEnd_toEndOf="@id/tv_kind"
+                app:layout_constraintStart_toStartOf="@id/tv_kind"
+                app:layout_constraintTop_toTopOf="@id/tv_kind" />
+
+            <TextView
+                android:id="@+id/tv_kind"
+                style="@style/Pet_TextView_XSmallBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="2dp"
+                android:text="@string/all_kind"
+                app:layout_constraintEnd_toStartOf="@id/tv_sex"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_image" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/shape_detail_card_gray"
+                app:layout_constraintBottom_toBottomOf="@id/tv_sex"
+                app:layout_constraintEnd_toEndOf="@id/tv_sex"
+                app:layout_constraintStart_toStartOf="@id/tv_sex"
+                app:layout_constraintTop_toTopOf="@id/tv_sex" />
+
+            <TextView
+                android:id="@+id/tv_sex"
+                style="@style/Pet_TextView_XSmallBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="2dp"
+                android:text="@string/all_sex"
+                app:layout_constraintEnd_toStartOf="@id/tv_date"
+                app:layout_constraintStart_toEndOf="@id/tv_kind"
+                app:layout_constraintTop_toBottomOf="@id/iv_image" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/shape_detail_card_gray"
+                app:layout_constraintBottom_toBottomOf="@id/tv_date"
+                app:layout_constraintEnd_toEndOf="@id/tv_date"
+                app:layout_constraintStart_toStartOf="@id/tv_date"
+                app:layout_constraintTop_toTopOf="@id/tv_date" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/Pet_TextView_XSmallBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="2dp"
+                android:text="@string/all_happen_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_sex"
+                app:layout_constraintTop_toBottomOf="@id/iv_image" />
+
+            <!-- 카드 배경 뷰 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="18dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toBottomOf="@id/tv_special_mark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_kind" />
+
+            <TextView
+                android:id="@+id/tv_content_title"
+                style="@style/Pet_TextView_MiddleBoldBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="41dp"
+                android:elevation="4dp"
+                android:text="@string/all_my_pet"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_kind" />
+
+            <TextView
+                android:id="@+id/tv_age"
+                style="@style/Pet_TextView_SmallBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="8dp"
+                android:elevation="4dp"
+                android:text="@string/all_age"
+                app:layout_constraintEnd_toStartOf="@id/tv_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_content_title" />
+
+            <TextView
+                android:id="@+id/tv_color"
+                style="@style/Pet_TextView_SmallBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="22dp"
+                android:elevation="4dp"
+                android:text="@string/all_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_age"
+                app:layout_constraintTop_toTopOf="@id/tv_age" />
+
+            <TextView
+                android:id="@+id/tv_weight"
+                style="@style/Pet_TextView_SmallBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="4dp"
+                android:elevation="4dp"
+                android:text="@string/all_weight"
+                app:layout_constraintEnd_toStartOf="@id/tv_state"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_age" />
+
+            <TextView
+                android:id="@+id/tv_state"
+                style="@style/Pet_TextView_SmallBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="22dp"
+                android:elevation="4dp"
+                android:text="@string/all_process_state"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_weight"
+                app:layout_constraintTop_toTopOf="@id/tv_weight" />
+
+            <TextView
+                android:id="@+id/neuter"
+                style="@style/Pet_TextView_SmallBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="4dp"
+                android:elevation="4dp"
+                android:text="@string/all_neuter_yn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_weight" />
+
+            <TextView
+                android:id="@+id/tv_special_mark_title"
+                style="@style/Pet_TextView_SmallBoldBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="8dp"
+                android:elevation="4dp"
+                android:text="@string/adopt_detail_tv_special_mark_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/neuter" />
+
+            <TextView
+                android:id="@+id/tv_special_mark"
+                style="@style/Pet_TextView_SmallBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="33dp"
+                android:layout_marginTop="4dp"
+                android:elevation="4dp"
+                android:paddingBottom="22dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_special_mark_title" />
+
+            <!-- 카드 배경 뷰 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="1dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toBottomOf="@id/tv_office_tel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_special_mark" />
+
+            <TextView
+                android:id="@+id/tv_care_nm"
+                style="@style/Pet_TextView_SmallBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="22dp"
+                android:elevation="4dp"
+                android:text="@string/all_care_nm"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_special_mark" />
+
+            <TextView
+                android:id="@+id/tv_care_tel"
+                style="@style/Pet_TextView_SmallBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="4dp"
+                android:elevation="4dp"
+                android:text="@string/all_care_tel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_care_nm" />
+
+            <TextView
+                android:id="@+id/tv_care_addr"
+                style="@style/Pet_TextView_SmallBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="33dp"
+                android:layout_marginTop="4dp"
+                android:elevation="4dp"
+                android:text="@string/all_care_addr"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_care_tel" />
+
+            <TextView
+                android:id="@+id/tv_charge_nm"
+                style="@style/Pet_TextView_SmallBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="4dp"
+                android:elevation="4dp"
+                android:text="@string/all_charge_nm"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_care_addr" />
+
+            <TextView
+                android:id="@+id/tv_office_tel"
+                style="@style/Pet_TextView_SmallBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="4dp"
+                android:elevation="4dp"
+                android:paddingBottom="22dp"
+                android:text="@string/all_office_tel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_charge_nm" />
+
+            <!-- 카드 배경 뷰 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="1dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toBottomOf="@id/tv_notice_no"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_office_tel" />
+
+            <TextView
+                android:id="@+id/tv_happen_place"
+                style="@style/Pet_TextView_SmallBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="33dp"
+                android:layout_marginTop="22dp"
+                android:elevation="4dp"
+                android:text="@string/all_happen_place"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_office_tel" />
+
+            <TextView
+                android:id="@+id/tv_notice_no"
+                style="@style/Pet_TextView_SmallBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="4dp"
+                android:elevation="4dp"
+                android:paddingBottom="22dp"
+                android:text="@string/all_notice_no"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_happen_place" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_care"
+        style="@style/Pet_TextView_LargeWhite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/purple_900"
+        android:paddingVertical="12dp"
+        android:text="@string/adopt_detail_btn_care"
+        android:textColor="@color/white"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_charge"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_charge"
+        style="@style/Pet_TextView_LargeWhite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/green_450"
+        android:paddingVertical="12dp"
+        android:text="@string/adopt_detail_btn_charge"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_care" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
