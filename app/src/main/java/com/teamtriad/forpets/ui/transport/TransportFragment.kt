@@ -31,6 +31,9 @@ class TransportFragment : Fragment() {
         binding.mbtgVolunteer.setOnClickListener {
             findNavController().navigate(R.id.action_transportFragment_to_transportVolFragment)
         }
+        binding.btnMove.setOnClickListener {
+            findNavController().navigate(R.id.action_transportFragment_to_loginFragment)
+        }
     }
 
     override fun onDestroyView() {

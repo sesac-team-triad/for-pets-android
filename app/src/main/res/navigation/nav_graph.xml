@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_transportFragment_to_transportVolFragment"
             app:destination="@id/transportVolFragment" />
+        <action
+            android:id="@+id/action_transportFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/adoptFragment"
@@ -82,6 +85,27 @@
         <argument
             android:name="imageUrl"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.teamtriad.forpets.ui.login.LoginFragment"
+        android:label="@string/login_appbar"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_transportFragment"
+            app:destination="@id/transportFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_signUpUserFragment"
+            app:destination="@id/signUpUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpUserFragment"
+        android:name="com.teamtriad.forpets.ui.login.SignUpUserFragment"
+        android:label="@string/signup_appbar"
+        tools:layout="@layout/fragment_sign_up_user">
+        <action
+            android:id="@+id/action_signUpUserFragment_to_transportFragment"
+            app:destination="@id/transportFragment" />
     </fragment>
     <dialog
         android:id="@+id/locationPickerForNavigation"
