@@ -57,21 +57,8 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        signUpButton()
-        signUpOrganizationButton()
         loginButton()
-    }
-
-    private fun signUpButton() {
-        binding.tvSignup.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_signUpUserFragment)
-        }
-    }
-
-    private fun signUpOrganizationButton() {
-        binding.tvSignupOrganization.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_signUpOrganizationFragment)
-        }
+        signUpButton()
     }
 
     private fun loginButton() {
@@ -80,19 +67,32 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun checkIfUserExists() {
-        val call = apiService.getLoginData()
+    private fun signUpButton() {
+        binding.tvSignup.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_signUpUserFragment)
+        }
+    }
 
-        call.enqueue(object : Callback<UserData> {
-            override fun onResponse(call: Call<UserData>, response: Response<UserData>) {
+    private fun checkIfUserExists() {
+        val call = apiService.getAllUserData()
+
+        call.enqueue(object : Callback<Map<String, UserData>> {
+            override fun onResponse(
+                call: Call<Map<String, UserData>>,
+                response: Response<Map<String, UserData>>
+            ) {
                 if (response.isSuccessful) {
                     try {
-                        val responseData = response.body()
+                        val allUserData = response.body()
+                        val enteredEmail = binding.tietEmail.text.toString()
+                        val enteredPassword = binding.tietPassword.text.toString()
 
-                        if (responseData?.email == binding.tietEmail.text.toString()
-                            && responseData.password == binding.tietPassword.text.toString()
-                        ) {
-                            showToast("사용자가 존재합니다!")
+                        val foundUser = allUserData?.values?.find {
+                            it.email == enteredEmail && it.password == enteredPassword
+                        }
+                        if (foundUser != null) {
+                            showToast("환영합니다! ${foundUser.nickname}님")
+                            findNavController().navigate(R.id.action_loginFragment_to_signUpUserFragment)
                         } else {
                             showToast("사용자가 존재하지 않거나 비밀번호가 일치하지 않습니다!")
                         }
@@ -105,11 +105,10 @@ class LoginFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<UserData>, t: Throwable) {
+            override fun onFailure(call: Call<Map<String, UserData>>, t: Throwable) {
                 showToast("사용자 확인 실패! (네트워크 오류)")
             }
         })
-
     }
 
     private fun showToast(message: String) {

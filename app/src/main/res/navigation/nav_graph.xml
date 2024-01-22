@@ -62,8 +62,8 @@
             android:id="@+id/action_loginFragment_to_signUpUserFragment"
             app:destination="@id/signUpUserFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_signUpOrganizationFragment"
-            app:destination="@id/signUpOrganizationFragment" />
+            android:id="@+id/action_loginFragment_to_transportFragment"
+            app:destination="@id/transportFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpUserFragment"
@@ -74,9 +74,4 @@
             android:id="@+id/action_signUpUserFragment_to_transportFragment"
             app:destination="@id/transportFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/signUpOrganizationFragment"
-        android:name="com.teamtriad.forpets.ui.login.SignUpOrganizationFragment"
-        android:label="@string/signup_appbar"
-        tools:layout="@layout/fragment_sign_up_organization" />
 </navigation>
