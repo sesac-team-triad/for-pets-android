@@ -98,4 +98,7 @@
     <string name="login_til_phone">휴대폰 번호</string>
     <string name="sign_up_submit">가입하기</string>
     <string name="sign_up_til_password_helper">8글자 이상 입력해주세요.</string>
+    <string name="sign_up_exist_email">이미 존재하는 이메일입니다.</string>
+    <string name="sign_up_guide_password">비밀번호는 8자리 이상입니다.</string>
+    <string name="sign_up_guide_email">이메일 형식으로 입력하세요.</string>
 </resources>

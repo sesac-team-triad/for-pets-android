@@ -3,7 +3,6 @@ package com.teamtriad.forpets.ui.login
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,22 +45,18 @@ class SignUpUserFragment : Fragment() {
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 checks[index] = false
-                rejectButton()
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 checks[index] = validation(s.toString())
                 if (checks.all { it }) {
                     binding.btnSubmit.isEnabled = true
-                } else {
-                    rejectButton()
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {
                 if (s.isNullOrEmpty()) {
                     checks[index] = false
-                    rejectButton()
                 }
             }
         })
@@ -79,10 +74,6 @@ class SignUpUserFragment : Fragment() {
             2
         ) { it == tietPassword.text.toString() && it.length < 9 }
         setupWatcher(tietNickname, 3) { it.isNotEmpty() && it.length >= 2 }
-    }
-
-    private fun rejectButton() {
-        binding.btnSubmit.isEnabled = false
     }
 
     private fun joinUserInit() = with(binding) {
@@ -108,25 +99,25 @@ class SignUpUserFragment : Fragment() {
                 .getReference("Users")
         val userId = databaseReference.push().key
         databaseReference.child(userId!!).setValue(user)
-        showToast("환영합니다! \n ${user.nickname}님!!")
+        showToast("환영합니다! \n ${user.nickname}님")
         findNavController().navigate(R.id.action_signUpUserFragment_to_transportFragment)
     }
 
     private fun handleRegistrationFailure(task: Task<AuthResult>) {
         when (task.exception?.message) {
             "The email address is badly formatted." -> {
-                showToast("이메일 형식으로 입력하세요.")
+                showToast(getString(R.string.sign_up_guide_email))
                 binding.tietEmail.text = null
             }
 
             "The given password is invalid. [ Password should be at least 6 characters ]" -> {
-                showToast("비밀번호는 8자리 이상입니다.")
+                showToast(getString(R.string.sign_up_guide_password))
                 binding.tietConfirmedPassword.text = null
                 binding.tietPassword.text = null
             }
 
             "The email address is already in use by another account." -> {
-                showToast("이미 존재하는 이메일입니다.")
+                showToast(getString(R.string.sign_up_exist_email))
                 binding.tietEmail.text = null
             }
         }

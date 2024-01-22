@@ -39,6 +39,7 @@
         android:hint="@string/sign_up_cert_number"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toStartOf="@id/btn_email_cert"
+        app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_email">
 
@@ -52,12 +53,13 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_email_cert"
         style="@style/Widget.Material3.Button.ElevatedButton"
-        android:layout_width="105dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:text="@string/sign_up_cert"
         app:layout_constraintBottom_toBottomOf="@id/til_cert_email_number"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@id/til_cert_email_number"
         app:layout_constraintTop_toTopOf="@id/til_cert_email_number" />
 
@@ -163,6 +165,7 @@
         android:hint="@string/sign_up_cert_number"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toStartOf="@id/btn_email_cert"
+        app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_phone">
 
@@ -177,17 +180,19 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_phone_cert"
         style="@style/Widget.Material3.Button.ElevatedButton"
-        android:layout_width="105dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:text="@string/sign_up_cert"
         app:layout_constraintBottom_toBottomOf="@id/til_cert_phone_number"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toEndOf="@id/til_cert_phone_number"
         app:layout_constraintTop_toTopOf="@id/til_cert_phone_number" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_submit"
+        android:enabled="false"
         style="@style/Widget.Material3.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
