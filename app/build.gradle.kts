@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -20,7 +21,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "ABANDONMENT_API_KEY", gradleLocalProperties(rootDir).getProperty("abandonment.api.key"))
+        buildConfigField("String", "ABANDONMENT_API_KEY", gradleLocalProperties(rootDir).getProperty(
+            "ABANDONMENT_API_KEY"))
     }
 
     buildTypes {
@@ -68,4 +70,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
 
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
 }

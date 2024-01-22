@@ -4,7 +4,8 @@
     <!-- 앱바 -->
     <string name="req_appbar">봉사요청 등록</string>
     <string name="vol_appbar">봉사자 등록</string>
-    <string name="req_vol_list_appbar">국 내</string>
+    <string name="transport_lists_appbar">국 내</string>
+    <string name="adopt_detail_appbar">상세정보</string>
     <string name="login_appbar">로그인</string>
 
     <!-- BottomNavigationView -->
@@ -48,6 +49,7 @@
     <string name="all_fab_transport_req_desc">봉사요청 글 작성을 위한 버튼입니다</string>
     <string name="all_fab_transport_vol_desc">봉사자 등록 글 작성을 위한 버튼입니다</string>
     <string name="all_btn_post">등 록</string>
+    <string name="all_abandonment_image_desc">함께할 가족을 찾고 있는 유기동물의 사진입니다</string>
 
     <!-- 이동봉사 화면 -->
     <string name="transport_mbtg_request">요청자</string>
