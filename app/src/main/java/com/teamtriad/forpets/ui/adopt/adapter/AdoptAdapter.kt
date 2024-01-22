@@ -1,4 +1,4 @@
-package com.teamtriad.forpets.adapter
+package com.teamtriad.forpets.ui.adopt.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

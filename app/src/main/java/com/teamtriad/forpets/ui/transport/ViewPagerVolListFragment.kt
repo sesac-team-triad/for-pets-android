@@ -11,11 +11,11 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.teamtriad.forpets.ModalBottomSheet
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentViewPagerVolListBinding
-import com.teamtriad.forpets.tmp.Volunteers
+import com.teamtriad.forpets.model.tmp.Volunteers
 import com.teamtriad.forpets.ui.transport.adpater.RecyclerviewVolListAdapter
+import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerForFragmentManager
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
 import java.util.Calendar
@@ -25,6 +25,7 @@ class ViewPagerVolListFragment : Fragment() {
 
     private var _binding: FragmentViewPagerVolListBinding? = null
     private val binding get() = _binding!!
+    private lateinit var dateRangePicker: MaterialDatePicker<Pair<Long, Long>>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +37,7 @@ class ViewPagerVolListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setDatePicker()
         setScrollListener()
         setRecyclerview()
         setOnClickListener()
@@ -51,7 +53,6 @@ class ViewPagerVolListFragment : Fragment() {
                 }
             }
         }
-
     }
 
     private fun setRecyclerview() {
@@ -77,17 +78,21 @@ class ViewPagerVolListFragment : Fragment() {
             }
 
             efabVolList.setOnClickListener {
-                findNavController().navigate(R.id.action_transportListsFragment_to_transportVolFragment)
+                findNavController()
+                    .navigate(R.id.action_transportListsFragment_to_transportVolFragment)
             }
         }
     }
 
     private fun showModalBottomSheet() {
-        val bottomSheet = ModalBottomSheet()
-        bottomSheet.show(requireActivity().supportFragmentManager, ModalBottomSheet.TAG_COUNTY)
+        val bottomSheet = LocationPickerForFragmentManager()
+        bottomSheet.show(
+            requireActivity().supportFragmentManager,
+            LocationPickerForFragmentManager.TAG
+        )
     }
 
-    private fun showDatePicker() {
+    private fun setDatePicker() {
         val today = MaterialDatePicker.todayInUtcMilliseconds()
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
 
@@ -105,8 +110,8 @@ class ViewPagerVolListFragment : Fragment() {
                 .setEnd(decThisYear)
                 .setValidator(DateValidatorPointForward.now())
 
-        val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
-            .setTitleText("출발일 - 도착일")
+        dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
+            .setTitleText(getString(R.string.date_picker_title))
             .setSelection(
                 Pair(
                     MaterialDatePicker.todayInUtcMilliseconds(),
@@ -117,17 +122,22 @@ class ViewPagerVolListFragment : Fragment() {
             .setTheme(R.style.Pet_DatePicker_CalendarSmall)
             .setCalendarConstraints(constraintsBuilder.build())
             .build()
-        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
+    }
 
+    private fun showDatePicker() {
+        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
+        addDatePickerButtonClickListener()
+    }
+
+    private fun addDatePickerButtonClickListener() {
         dateRangePicker.addOnPositiveButtonClickListener { selection ->
             val startDate = selection.first
             val endDate = selection.second
 
             val startDateText = startDate.formatDate()
             val endDateText = endDate.formatDate()
-            var selectedDate = ""
 
-            selectedDate = if (startDateText == endDateText) {
+            val selectedDate = if (startDateText == endDateText) {
                 startDate.formatDateWithYear()
             } else {
                 "$startDateText - $endDateText"

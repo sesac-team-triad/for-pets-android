@@ -1,4 +1,4 @@
-package com.teamtriad.forpets.tmp
+package com.teamtriad.forpets.model.tmp
 
 data class Request(
     val title: String,
