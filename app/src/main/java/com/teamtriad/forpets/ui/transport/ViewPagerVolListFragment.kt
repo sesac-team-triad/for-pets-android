@@ -136,9 +136,8 @@ class ViewPagerVolListFragment : Fragment() {
 
             val startDateText = startDate.formatDate()
             val endDateText = endDate.formatDate()
-            var selectedDate = ""
 
-            selectedDate = if (startDateText == endDateText) {
+            val selectedDate = if (startDateText == endDateText) {
                 startDate.formatDateWithYear()
             } else {
                 "$startDateText - $endDateText"
