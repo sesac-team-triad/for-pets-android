@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.transport.TransportFragment">
 
+    <fragment
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/map"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        map:layout_constraintTop_toTopOf="parent"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintBottom_toBottomOf="parent"/>
+
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/mbtg_transport"
         android:layout_width="wrap_content"
