@@ -2,8 +2,6 @@ package com.teamtriad.forpets.ui.transport
 
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,16 +12,18 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamtriad.forpets.R
-import com.teamtriad.forpets.databinding.FragmentTransportVolBinding
+import com.teamtriad.forpets.databinding.FragmentViewPagerVolListBinding
+import com.teamtriad.forpets.model.tmp.Volunteers
+import com.teamtriad.forpets.ui.transport.adpater.VolListRecyclerViewAdapter
+import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerForFragmentManager
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
 import java.util.Calendar
 import java.util.TimeZone
 
+class ViewPagerVolListFragment : Fragment() {
 
-class TransportVolFragment : Fragment() {
-
-    private var _binding: FragmentTransportVolBinding? = null
+    private var _binding: FragmentViewPagerVolListBinding? = null
     private val binding get() = _binding!!
     private lateinit var dateRangePicker: MaterialDatePicker<Pair<Long, Long>>
 
@@ -31,16 +31,36 @@ class TransportVolFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTransportVolBinding.inflate(inflater, container, false)
+        _binding = FragmentViewPagerVolListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDatePicker()
+        setScrollListener()
+        setRecyclerview()
         setOnClickListener()
-        makeEditTextBigger()
-        checkButtonEnabled()
+    }
+
+    private fun setScrollListener() {
+        with(binding) {
+            binding.nsvVolList.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                if (scrollY > oldScrollY) {
+                    efabVolList.shrink()
+                } else {
+                    efabVolList.extend()
+                }
+            }
+        }
+    }
+
+    private fun setRecyclerview() {
+        val volList = Volunteers.loadList()
+        val recyclerview = binding.rvVolList
+        val adapter = VolListRecyclerViewAdapter()
+        adapter.submitList(volList)
+        recyclerview.adapter = adapter
     }
 
     private fun setOnClickListener() {
@@ -50,55 +70,26 @@ class TransportVolFragment : Fragment() {
             }
 
             tietFrom.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportVolFragment_to_locationPickerForNavigation)
+                showModalBottomSheet()
             }
 
             tietTo.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportVolFragment_to_locationPickerForNavigation)
+                showModalBottomSheet()
             }
 
-            btnPost.setOnClickListener {
+            efabVolList.setOnClickListener {
                 findNavController()
-                    .navigate(R.id.action_transportVolFragment_to_transportListsFragment)
+                    .navigate(R.id.action_transportListsFragment_to_transportVolFragment)
             }
         }
     }
 
-    private fun makeEditTextBigger() {
-        val initialLines = 6
-
-        with(binding) {
-
-            tietMessage.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    charSequence: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(
-                    charSequence: CharSequence?,
-                    start: Int,
-                    before: Int,
-                    count: Int
-                ) {
-                }
-
-                override fun afterTextChanged(editable: Editable?) {
-                    val lineCount = tietMessage.lineCount
-                    val newMaxLines = if (lineCount > initialLines) {
-                        lineCount + 1
-                    } else {
-                        initialLines
-                    }
-                    tietMessage.maxLines = newMaxLines
-                }
-            })
-        }
+    private fun showModalBottomSheet() {
+        val bottomSheet = LocationPickerForFragmentManager()
+        bottomSheet.show(
+            requireActivity().supportFragmentManager,
+            LocationPickerForFragmentManager.TAG
+        )
     }
 
     private fun setDatePicker() {
@@ -153,52 +144,6 @@ class TransportVolFragment : Fragment() {
             }
             binding.tietDate.text =
                 Editable.Factory.getInstance().newEditable(selectedDate)
-        }
-    }
-
-    private fun checkButtonEnabled() {
-        with(binding) {
-            val textWatcher = object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) {
-                    checkFieldsAndEnableButton()
-                }
-
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-            }
-            tietTitle.addTextChangedListener(textWatcher)
-            tietDate.addTextChangedListener(textWatcher)
-            tietFrom.addTextChangedListener(textWatcher)
-            tietTo.addTextChangedListener(textWatcher)
-            tietFromDetail.addTextChangedListener(textWatcher)
-            tietToDetail.addTextChangedListener(textWatcher)
-            tietMessage.addTextChangedListener(textWatcher)
-        }
-    }
-
-    private fun checkFieldsAndEnableButton() {
-        with(binding) {
-            val allFieldsFilled = !tietTitle.text.isNullOrEmpty()
-                    && !tietDate.text.isNullOrEmpty()
-//                    && !tietReqFrom.text.isNullOrEmpty()
-//                    && !tietReqTo.text.isNullOrEmpty()
-                    && !tietFromDetail.text.isNullOrEmpty()
-                    && !tietToDetail.text.isNullOrEmpty()
-                    && !tietMessage.text.isNullOrEmpty()
-            Log.d("ab", "$allFieldsFilled")
-
-            btnPost.apply {
-                isEnabled = allFieldsFilled
-                isCheckable = allFieldsFilled
-            }
         }
     }
 
