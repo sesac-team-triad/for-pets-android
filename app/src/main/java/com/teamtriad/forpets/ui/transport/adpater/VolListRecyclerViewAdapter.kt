@@ -11,36 +11,36 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamtriad.forpets.databinding.RvItemVolListBinding
 import com.teamtriad.forpets.model.tmp.Volunteer
 
-class RecyclerviewVolListAdapter :
-    ListAdapter<Volunteer, RecyclerviewVolListAdapter.VolListViewModel>(DiffCallback) {
+class VolListRecyclerViewAdapter :
+    ListAdapter<Volunteer, VolListRecyclerViewAdapter.VolListViewHolder>(DiffCallback) {
 
     private lateinit var binding: RvItemVolListBinding
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VolListViewModel {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VolListViewHolder {
         binding = RvItemVolListBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return VolListViewModel(binding)
+        return VolListViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: VolListViewModel, position: Int) {
+    override fun onBindViewHolder(holder: VolListViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class VolListViewModel(val binding: RvItemVolListBinding) :
+    class VolListViewHolder(private val binding: RvItemVolListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
             with(binding) {
                 cvVolList.setOnClickListener {
+                    TransitionManager.beginDelayedTransition(cvVolList, AutoTransition())
+
                     if (clHiddenLayout.visibility == View.VISIBLE) {
-                        TransitionManager.beginDelayedTransition(cvVolList, AutoTransition())
                         clHiddenLayout.visibility = View.GONE
                         groupShortenedLocationName.visibility = View.VISIBLE
                     } else {
-                        TransitionManager.beginDelayedTransition(cvVolList, AutoTransition())
                         clHiddenLayout.visibility = View.VISIBLE
                         groupShortenedLocationName.visibility = View.GONE
                     }

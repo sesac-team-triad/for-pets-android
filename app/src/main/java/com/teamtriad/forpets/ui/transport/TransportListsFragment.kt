@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportListsBinding
-import com.teamtriad.forpets.ui.transport.adpater.ViewPagerAdapter
+import com.teamtriad.forpets.ui.transport.adpater.TransportListsViewPagerAdapter
 
 class TransportListsFragment : Fragment() {
 
@@ -27,9 +27,9 @@ class TransportListsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val viewPager = binding.vp2VolList
         val tabLayout = binding.tlVolList
-        val pagerAdapter = ViewPagerAdapter(this)
         val tabTitleList =
             listOf(getString(R.string.all_req_list), getString(R.string.all_vol_list))
+        val pagerAdapter = TransportListsViewPagerAdapter(tabTitleList,this)
 
         viewPager.adapter = pagerAdapter
 
