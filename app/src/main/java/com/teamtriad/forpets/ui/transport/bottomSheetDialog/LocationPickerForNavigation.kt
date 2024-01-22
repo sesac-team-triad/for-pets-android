@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.BottomSheetLocationBinding
-import com.teamtriad.forpets.tmp.Location
+import com.teamtriad.forpets.model.tmp.Location
 
 class LocationPickerForNavigation : BottomSheetDialogFragment() {
 

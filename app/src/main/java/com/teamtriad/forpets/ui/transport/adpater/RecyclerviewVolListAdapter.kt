@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.teamtriad.forpets.databinding.RvItemVolListBinding
-import com.teamtriad.forpets.tmp.Volunteer
+import com.teamtriad.forpets.model.tmp.Volunteer
 
 class RecyclerviewVolListAdapter :
     ListAdapter<Volunteer, RecyclerviewVolListAdapter.VolListViewModel>(DiffCallback) {

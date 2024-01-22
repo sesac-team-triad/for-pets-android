@@ -1,4 +1,4 @@
-package com.teamtriad.forpets.tmp
+package com.teamtriad.forpets.model.tmp
 
 data class Volunteer(
     val name: String,
@@ -84,7 +84,7 @@ object Volunteers {
                 "서울특별시 강서구, 양천구",
                 "부산광역시 수정구, 해운대구",
                 "10일에서 13일 중 11일을 제외한\n모든 날에 가능합니다"
-            ),Volunteer(
+            ), Volunteer(
                 "홍길동",
                 "서울특별시",
                 "부산광역시",
