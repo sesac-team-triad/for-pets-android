@@ -6,22 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".ui.transport.TransportFragment">
 
-    <fragment
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
         android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        map:layout_constraintTop_toTopOf="parent"
-        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintBottom_toBottomOf="parent"/>
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/mbtg_transport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        app:checkedButton="@id/mbtg_request"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,17 +29,26 @@
 
         <Button
             android:id="@+id/mbtg_request"
-            style="?attr/materialButtonOutlinedStyle"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/transport_mbtg_request" />
+            android:backgroundTint="@color/yellowGreen"
+            android:text="@string/transport_mbtg_request"
+            android:textColor="@color/selector_segmented_button_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:selectionRequired="true" />
 
         <Button
             android:id="@+id/mbtg_volunteer"
-            style="?attr/materialButtonOutlinedStyle"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/transport_mbtg_volunteer" />
+            android:backgroundTint="@color/yellowGreen"
+            android:text="@string/transport_mbtg_volunteer"
+            android:textColor="@color/selector_segmented_button_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -55,26 +64,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!--    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton-->
-    <!--        android:id="@+id/efab_transport_vol"-->
-    <!--        style="@style/Fab"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="16dp"-->
-    <!--        android:contentDescription="@string/fab_transport_req_desc"-->
-    <!--        android:text="@string/fab_transport_vol"-->
-    <!--        app:icon="@drawable/ic_fab_create"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent" />-->
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/efab_transport_vol"
+            style="@style/Pet_Fab_Color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:visibility="gone"
+            android:contentDescription="@string/all_fab_transport_vol_desc"
+            android:text="@string/all_fab_transport_vol"
+            app:icon="@drawable/ic_fab_create"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/btn_move"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="로그인 이동"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

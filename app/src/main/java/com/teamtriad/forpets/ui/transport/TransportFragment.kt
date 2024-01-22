@@ -30,23 +30,44 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setMapFragment()
+        setOnClickListener()
 
+    }
+
+    private fun setMapFragment() {
         val mapFragment = SupportMapFragment.newInstance()
         requireActivity().supportFragmentManager
             .beginTransaction()
             .add(R.id.map, mapFragment)
             .commit()
         mapFragment.getMapAsync(this)
+    }
 
+    private fun setOnClickListener() {
+        with(binding) {
+            efabTransportReq.setOnClickListener {
+                findNavController().navigate(R.id.action_transportFragment_to_transportReqFragment)
+            }
 
-        binding.efabTransportReq.setOnClickListener {
-            findNavController().navigate(R.id.action_transportFragment_to_transportReqFragment)
-        }
-        binding.mbtgVolunteer.setOnClickListener {
-            findNavController().navigate(R.id.action_transportFragment_to_transportVolFragment)
-        }
-        binding.btnMove.setOnClickListener {
-            findNavController().navigate(R.id.action_transportFragment_to_loginFragment)
+            efabTransportVol.setOnClickListener {
+                findNavController().navigate(R.id.action_transportFragment_to_transportVolFragment)
+            }
+
+            mbtgTransport.addOnButtonCheckedListener { _, checkedId, isChecked ->
+                if (isChecked) {
+                    when (checkedId) {
+                        R.id.mbtg_request -> {
+                            efabTransportReq.visibility = View.VISIBLE
+                            efabTransportVol.visibility = View.GONE
+                        }
+                        else -> {
+                            efabTransportVol.visibility = View.VISIBLE
+                            efabTransportReq.visibility = View.GONE
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -62,6 +83,7 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
                 .position(sesac)
                 .title("sesac")
         )
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(6.5f))
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sesac))
     }
 }
