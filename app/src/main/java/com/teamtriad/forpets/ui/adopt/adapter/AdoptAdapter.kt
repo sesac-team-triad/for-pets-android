@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.teamtriad.forpets.data.source.network.AbandonmentInfo
 import com.teamtriad.forpets.databinding.RvItemAdoptBinding
 import com.teamtriad.forpets.ui.adopt.AdoptFragmentDirections
+import com.teamtriad.forpets.util.glide
 
 class AdoptAdapter(private val dataSet: List<AbandonmentInfo>) :
     RecyclerView.Adapter<AdoptAdapter.ViewHolder>() {
@@ -52,9 +52,7 @@ class AdoptAdapter(private val dataSet: List<AbandonmentInfo>) :
             }
 
             with(binding) {
-                Glide.with(itemView.context)
-                    .load(data.imageUrl.replaceFirst("http:", "https:"))
-                    .into(sivThumbnail)
+                sivThumbnail.glide(data.imageUrl)
                 tvRegion.text = data.careAddr.toRough()
                 tvSex.text = data.sex
                 tvAge.text = data.age

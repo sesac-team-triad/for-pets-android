@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
 import com.teamtriad.forpets.databinding.FragmentAdoptDetailBinding
+import com.teamtriad.forpets.util.glide
 
 class AdoptDetailFragment : Fragment() {
 
@@ -31,9 +31,7 @@ class AdoptDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) { // TODO: ViewModel을 사용하여 데이터를 전달받기.
-            Glide.with(requireContext())
-                .load(args.imageUrl.replaceFirst("http:", "https:"))
-                .into(ivImage)
+            ivImage.glide(args.imageUrl)
 
             btnCare.setOnClickListener {
                 val intent = Intent(Intent.ACTION_DIAL)
