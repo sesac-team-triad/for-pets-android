@@ -29,10 +29,13 @@
             app:destination="@id/adoptDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/chatFragment"
-        android:name="com.teamtriad.forpets.ui.chat.ChatFragment"
-        android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
+        android:id="@+id/chatlistFragment"
+        android:name="com.teamtriad.forpets.ui.chat.ChatListFragment"
+        tools:layout="@layout/fragment_chat_list">
+        <action
+            android:id="@+id/action_chatListFragment_to_chatRoomFragment"
+            app:destination="@id/chatroomFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.teamtriad.forpets.ui.profile.ProfileFragment"
@@ -111,4 +114,13 @@
         android:id="@+id/locationPickerForNavigation"
         android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerForNavigation"
         android:label="LocationPickerForNavigation" />
+    <fragment
+        android:id="@+id/chatroomFragment"
+        android:label=""
+        android:name="com.teamtriad.forpets.ui.chat.ChatRoomFragment"
+        tools:layout="@layout/fragment_chat_room">
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+    </fragment>
 </navigation>
