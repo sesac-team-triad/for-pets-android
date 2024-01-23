@@ -8,6 +8,7 @@
     <string name="adopt_detail_appbar">상세정보</string>
     <string name="login_appbar">로그인</string>
     <string name="signup_appbar">회원가입</string>
+    <string name="chatroom_title">%1$s</string>
 
     <!-- BottomNavigationView -->
     <string name="transport">이동봉사</string>
@@ -91,12 +92,12 @@
     <string name="login_toast_not_found">사용자가 존재하지 않거나 비밀번호가 일치하지 않습니다!</string>
     <string name="login_toast_server_error">사용자 확인 실패! (서버 오류)</string>
     <string name="login_toast_network_error">사용자 확인 실패! (네트워크 오류)</string>
-    <string name="login_toast_welcome">환영합니다! %1$s님</string>
+    <string name="login_toast_welcome">환영합니다!</string>
 
     <!-- 데이트 피커 -->
     <string name="date_picker_title">출발일 - 도착일</string>
 
-    <!--회원가입 화면-->
+    <!-- 회원가입 화면 -->
     <string name="sign_up_tv_title">회원가입</string>
     <string name="sign_up_til_email_helper">이메일 주소로 가입할 수 있습니다.</string>
     <string name="sign_up_cert_number">인증번호 입력</string>
@@ -110,5 +111,8 @@
     <string name="sign_up_toast_exist_email">이미 존재하는 이메일입니다.</string>
     <string name="sign_up_toast_guide_password">비밀번호는 6자리 이상입니다.</string>
     <string name="sign_up_toast_guide_email">이메일 형식으로 입력하세요.</string>
+
+    <!-- 채팅 화면 -->
+    <string name="chatting_et_keyboard">메시지 보내기</string>
 
 </resources>
