@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="gray">#808080</color>
+    <color name="dark_gray">#333333</color>
     <color name="gray_50">#EDEDED</color>
     <color name="gray_100">#E5E5E5</color>
     <color name="gray_200">#D0D0D0</color>
@@ -16,4 +17,6 @@
     <color name="purple_900">#4A425F</color>
 
     <color name="purple">#E8DEF8</color>
+
+    <color name="blue_400">#4C89FF</color>
 </resources>
