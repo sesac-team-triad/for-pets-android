@@ -12,7 +12,7 @@
         android:icon="@drawable/ic_adopt"
         android:title="@string/adopt" />
     <item
-        android:id="@+id/chatFragment"
+        android:id="@+id/chatlistFragment"
         android:enabled="true"
         android:icon="@drawable/ic_chat"
         android:title="@string/chat" />

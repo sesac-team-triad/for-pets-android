@@ -96,7 +96,7 @@ class SignUpUserFragment : Fragment() {
     private fun saveUserDataToDatabase(user: User) {
         val databaseReference =
             FirebaseDatabase.getInstance("https://for-pets-77777-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("Users")
+                .getReference("User")
         val userId = databaseReference.push().key
         databaseReference.child(userId!!).setValue(user)
         showToast(getString(R.string.login_toast_welcome))

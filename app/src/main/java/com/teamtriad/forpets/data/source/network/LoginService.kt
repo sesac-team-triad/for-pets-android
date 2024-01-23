@@ -4,6 +4,6 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface LoginService {
-    @GET("Users.json")
+    @GET("User.json")
     fun getAllUserData(): Call<Map<String, User>>
 }

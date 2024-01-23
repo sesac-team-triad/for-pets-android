@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.transportFragment, R.id.adoptFragment, R.id.chatFragment, R.id.profileFragment
+                R.id.transportFragment, R.id.adoptFragment, R.id.chatlistFragment, R.id.profileFragment
             )
         )
 
@@ -49,8 +49,9 @@ class MainActivity : AppCompatActivity() {
             if (
                 destination.id == R.id.transportFragment
                 || destination.id == R.id.adoptFragment
-                || destination.id == R.id.chatFragment
+                || destination.id == R.id.chatlistFragment
                 || destination.id == R.id.profileFragment
+                || destination.id == R.id.chatroomFragment
             ) {
                 binding.toolbar.visibility = View.GONE
             } else {
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             if (
                 destination.id == R.id.transportFragment
                 || destination.id == R.id.adoptFragment
-                || destination.id == R.id.chatFragment
+                || destination.id == R.id.chatlistFragment
                 || destination.id == R.id.profileFragment
             ) {
                 binding.bnv.visibility = View.VISIBLE

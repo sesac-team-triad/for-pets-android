@@ -1,5 +1,6 @@
 package com.teamtriad.forpets.ui.login
 
+import android.annotation.SuppressLint
 import com.teamtriad.forpets.data.source.network.LoginService
 import android.os.Bundle
 import android.util.Log
@@ -69,6 +70,7 @@ class LoginFragment : Fragment() {
         val call = loginService.getAllUserData()
 
         call.enqueue(object : Callback<Map<String, User>> {
+            @SuppressLint("StringFormatInvalid")
             override fun onResponse(
                 call: Call<Map<String, User>>,
                 response: Response<Map<String, User>>
@@ -84,7 +86,7 @@ class LoginFragment : Fragment() {
                         }
                         if (foundUser != null) {
                             showToast(getString(R.string.login_toast_welcome, foundUser.nickname))
-                            findNavController().navigate(R.id.action_loginFragment_to_signUpUserFragment)
+                            findNavController().navigate(R.id.action_loginFragment_to_transportFragment)
                         } else {
                             showToast(getString(R.string.login_toast_not_found))
                         }
