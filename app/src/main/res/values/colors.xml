@@ -20,4 +20,7 @@
     <color name="yellowGreen">#E3F0D6</color>
     <color name="orange">#FD9E2D</color>
     <color name="gray_500">#9E9E9B</color>
+    <color name="green_600">#43B05C</color>
+
+    <color name="color">#b7ff7b</color>
 </resources>

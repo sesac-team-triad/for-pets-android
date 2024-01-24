@@ -19,6 +19,7 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
 
     private var _binding: FragmentTransportBinding? = null
     private val binding get() = _binding!!
+    private lateinit var map: GoogleMap
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +62,7 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
                             efabTransportReq.visibility = View.VISIBLE
                             efabTransportVol.visibility = View.GONE
                         }
+
                         else -> {
                             efabTransportVol.visibility = View.VISIBLE
                             efabTransportReq.visibility = View.GONE
@@ -77,13 +79,35 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        val sesac = LatLng(37.560,  127.064)
-        googleMap.addMarker(
+        map = googleMap
+        val sesac = LatLng(37.560, 127.064)
+        map.addMarker(
             MarkerOptions()
                 .position(sesac)
                 .title("sesac")
         )
-        googleMap.moveCamera(CameraUpdateFactory.zoomTo(6.5f))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sesac))
+        map.setOnMarkerClickListener {
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(sesac, 13f))
+            map.moveCamera(CameraUpdateFactory.newLatLng(sesac))
+            true
+        }
+
+        map.setOnCameraMoveListener {
+            binding.efabTransportReq.shrink()
+        }
+        map.setOnCameraIdleListener {
+            binding.efabTransportReq.extend()
+        }
+
+        map.moveCamera(CameraUpdateFactory.zoomTo(6.5f))
+        map.moveCamera(CameraUpdateFactory.newLatLng(sesac))
+    }
+
+    private fun addMarker(position: LatLng, title: String) {
+        val markerOptions = MarkerOptions()
+            .position(position)
+            .title(title)
+
+        map.addMarker(markerOptions)
     }
 }

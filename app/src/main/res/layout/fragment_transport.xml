@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.transport.TransportFragment">
 
-    <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
+    <androidx.fragment.app.FragmentContainerView xmlns:map="http://schemas.android.com/apk/res-auto"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
@@ -64,17 +64,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/efab_transport_vol"
-            style="@style/Pet_Fab_Color"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:visibility="gone"
-            android:contentDescription="@string/all_fab_transport_vol_desc"
-            android:text="@string/all_fab_transport_vol"
-            app:icon="@drawable/ic_fab_create"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/efab_transport_vol"
+        style="@style/Pet_Fab_Color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/all_fab_transport_vol_desc"
+        android:text="@string/all_fab_transport_vol"
+        android:visibility="gone"
+        app:icon="@drawable/ic_fab_create"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
