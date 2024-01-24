@@ -16,11 +16,23 @@
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/ib_paw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:src="@drawable/ic_paw"
+        android:contentDescription="@string/transport_iv_paw_desc"
+        app:layout_constraintBottom_toTopOf="@id/iv_moving"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_abroad"
+        android:background="@android:color/transparent"/>
+
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/mbtg_transport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="6dp"
         app:checkedButton="@id/mbtg_request"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,12 +64,91 @@
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
+    <View
+        android:id="@+id/v_abroad_background"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="9dp"
+        android:background="@drawable/shape_circle_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/iv_abroad"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="18dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_travel"
+        app:layout_constraintBottom_toBottomOf="@id/v_abroad_background"
+        app:layout_constraintEnd_toEndOf="@id/v_abroad_background"
+        app:layout_constraintStart_toStartOf="@id/v_abroad_background"
+        app:layout_constraintTop_toTopOf="@id/v_abroad_background" />
+
+    <TextView
+        android:id="@+id/tv_abroad_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:text="해외봉사"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/v_abroad_background"
+        app:layout_constraintEnd_toEndOf="@id/iv_abroad"
+        app:layout_constraintStart_toStartOf="@id/iv_abroad"
+        app:layout_constraintTop_toBottomOf="@id/iv_abroad" />
+
+    <View
+        android:id="@+id/v_moving_background"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="9dp"
+        android:background="@drawable/shape_circle_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_abroad_background" />
+
+    <ImageButton
+        android:id="@+id/iv_moving"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="18dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_destination"
+        app:layout_constraintBottom_toBottomOf="@id/v_moving_background"
+        app:layout_constraintEnd_toEndOf="@id/v_moving_background"
+        app:layout_constraintStart_toStartOf="@id/v_moving_background"
+        app:layout_constraintTop_toTopOf="@id/v_moving_background" />
+
+    <TextView
+        android:id="@+id/tv_moving_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="14dp"
+        android:text="이동중"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/v_moving_background"
+        app:layout_constraintEnd_toEndOf="@id/iv_moving"
+        app:layout_constraintStart_toStartOf="@id/iv_moving"
+        app:layout_constraintTop_toBottomOf="@id/iv_moving" />
+
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/iv_moving"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/iv_abroad"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/efab_transport_req"
         style="@style/Pet_Fab_Color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="9dp"
         android:contentDescription="@string/all_fab_transport_req_desc"
         android:text="@string/all_fab_transport_req"
         app:icon="@drawable/ic_fab_create"
@@ -69,7 +160,7 @@
         style="@style/Pet_Fab_Color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="9dp"
         android:contentDescription="@string/all_fab_transport_vol_desc"
         android:text="@string/all_fab_transport_vol"
         android:visibility="gone"

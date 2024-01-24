@@ -49,6 +49,10 @@ object Places {
             Markers(
                 LatLng(35.1330039, 126.902402),
                 title = "남구"
+            ),
+            Markers(
+                LatLng(33.499568, 126.531138),
+                title = "제주시"
             )
         )
     }
