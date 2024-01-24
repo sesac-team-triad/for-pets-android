@@ -21,6 +21,7 @@ import java.util.Calendar
 import java.util.TimeZone
 
 
+private const val LOCATION = "location"
 class TransportVolFragment : Fragment() {
 
     private var _binding: FragmentTransportVolBinding? = null
@@ -50,13 +51,17 @@ class TransportVolFragment : Fragment() {
             }
 
             tietFrom.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportVolFragment_to_locationPickerForNavigation)
+                val action = TransportVolFragmentDirections
+                    .actionTransportVolFragmentToLocationPickerForNavigation(LOCATION)
+
+                findNavController().navigate(action)
             }
 
             tietTo.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportVolFragment_to_locationPickerForNavigation)
+                val action = TransportVolFragmentDirections
+                    .actionTransportVolFragmentToLocationPickerForNavigation(LOCATION)
+
+                findNavController().navigate(action)
             }
 
             btnPost.setOnClickListener {

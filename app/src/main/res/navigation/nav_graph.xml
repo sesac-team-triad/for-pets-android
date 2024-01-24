@@ -76,6 +76,9 @@
         <action
             android:id="@+id/action_transportListsFragment_to_transportVolFragment"
             app:destination="@id/transportVolFragment" />
+        <action
+            android:id="@+id/action_transportListsFragment_to_locationPickerForNavigation"
+            app:destination="@id/locationPickerForNavigation" />
     </fragment>
     <fragment
         android:id="@+id/adoptDetailFragment"
@@ -110,5 +113,9 @@
     <dialog
         android:id="@+id/locationPickerForNavigation"
         android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerForNavigation"
-        android:label="LocationPickerForNavigation" />
+        android:label="LocationPickerForNavigation" >
+        <argument
+            android:name="Location"
+            app:argType="string" />
+    </dialog>
 </navigation>

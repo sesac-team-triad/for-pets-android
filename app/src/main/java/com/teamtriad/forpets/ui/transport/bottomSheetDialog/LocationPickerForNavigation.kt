@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.BottomSheetLocationBinding
 import com.teamtriad.forpets.model.tmp.Location
+
+private const val ONLY_COUNTY = "onlyCounty"
 
 class LocationPickerForNavigation : BottomSheetDialogFragment() {
 
@@ -18,6 +21,7 @@ class LocationPickerForNavigation : BottomSheetDialogFragment() {
     private lateinit var selectedDistrict: String
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var counties: Map<String, List<String>>
+    private val args: LocationPickerForNavigationArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,8 +36,13 @@ class LocationPickerForNavigation : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         counties = Location.loadLocationMap()
 
-        setData()
-        getData()
+        if (args.Location == ONLY_COUNTY) {
+            setData()
+            getCountyData()
+        } else {
+            setData()
+            getData()
+        }
 
         binding.btnSave.setOnClickListener {
         }
@@ -46,6 +55,14 @@ class LocationPickerForNavigation : BottomSheetDialogFragment() {
             counties.keys.toTypedArray()
         )
         binding.actvCounty.setAdapter(adapter)
+    }
+
+    private fun getCountyData() {
+        with(binding) {
+            actvCounty.setOnItemClickListener { _, _, _, _ ->
+                selectedCounty = tilBottomCounty.editText?.text.toString()
+            }
+        }
     }
 
     private fun getData() {

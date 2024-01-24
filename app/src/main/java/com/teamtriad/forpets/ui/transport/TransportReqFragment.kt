@@ -23,6 +23,8 @@ import com.teamtriad.forpets.util.formatDateWithYear
 import java.util.Calendar
 import java.util.TimeZone
 
+private const val LOCATION = "location"
+
 class TransportReqFragment : Fragment() {
 
     private var _binding: FragmentTransportReqBinding? = null
@@ -76,13 +78,17 @@ class TransportReqFragment : Fragment() {
             }
 
             tietFrom.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportReqFragment_to_locationPickerForNavigation)
+                val action = TransportReqFragmentDirections
+                    .actionTransportReqFragmentToLocationPickerForNavigation(LOCATION)
+
+                findNavController().navigate(action)
             }
 
             tietTo.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportReqFragment_to_locationPickerForNavigation)
+                val action = TransportReqFragmentDirections
+                    .actionTransportReqFragmentToLocationPickerForNavigation(LOCATION)
+
+                findNavController().navigate(action)
             }
 
             sivPetImage.setOnClickListener {
