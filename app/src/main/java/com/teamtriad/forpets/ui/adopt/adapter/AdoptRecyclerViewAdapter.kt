@@ -21,7 +21,7 @@ import java.util.Date
 class AdoptRecyclerViewAdapter(private val lifecycleScope: LifecycleCoroutineScope) :
     RecyclerView.Adapter<AdoptRecyclerViewAdapter.ViewHolder>() {
 
-    private var pageNo: Int = 0
+    private var pageNo: Int = 0         // 마지막으로 요청한 페이지 번호(pageNo) 매개변수의 값을 관리
     private val dataSet = mutableListOf<AbandonmentInfo>()
 
     private val adoptService: AdoptService by lazy { AdoptService.getService() }
@@ -64,15 +64,17 @@ class AdoptRecyclerViewAdapter(private val lifecycleScope: LifecycleCoroutineSco
                 }
             } catch (e: HttpException) {
                 Log.e("AdoptRVAdapter", "retrofit2.HttpException occurred.")
+
+                pageNo--
             } catch (e: SocketTimeoutException) {
                 Log.e("AdoptRVAdapter", "java.net.SocketTimeoutException occurred.")
+
+                pageNo--
             } catch (e: JsonDataException) {
                 Log.e(
                     "AdoptRVAdapter",
                     "One of the required fields may be missing from the response message."
                 )
-
-                pageNo++
             }
         }
     }
