@@ -18,7 +18,8 @@ interface AdoptService {
     suspend fun getAbandonmentPublic(
         @Query("bgnde") bgnde: String,
         @Query("endde") endde: String,
-        @Query("numOfRows") numOfRows: String
+        @Query("pageNo") pageNo: String,
+        @Query("numOfRows") numOfRows: String = "40",
     ): Response<AbandonmentPublic>
 
     companion object {
