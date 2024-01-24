@@ -55,6 +55,7 @@
     <!-- 이동봉사 화면 -->
     <string name="transport_mbtg_request">요청자</string>
     <string name="transport_mbtg_volunteer">봉사자</string>
+    <string name="transport_iv_paw_desc">오늘 구조된 동물과 현재까지 누적된 이동봉사 수를 보여주는 버튼입니다</string>
 
     <!-- 봉사자 등록 화면 -->
     <string name="vol_til_from_detail_hint">상세 출발 지역</string>
