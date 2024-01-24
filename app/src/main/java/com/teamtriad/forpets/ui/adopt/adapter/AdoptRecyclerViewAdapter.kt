@@ -58,8 +58,10 @@ class AdoptRecyclerViewAdapter(private val lifecycleScope: LifecycleCoroutineSco
                             .body
                             ?.items
                             ?.item
-                    ).let {
-                        notifyItemRangeInserted(dataSet.size - it, it)
+                    ).run {
+                        if (this >= 1) {
+                            notifyItemRangeInserted(dataSet.size - this, this)
+                        }
                     }
                 }
             } catch (e: HttpException) {
@@ -84,18 +86,35 @@ class AdoptRecyclerViewAdapter(private val lifecycleScope: LifecycleCoroutineSco
 
         val abandonmentInfos = item.toMutableList()
 
-        do {
-            if (dataSet.find {
-                    it.noticeNo == abandonmentInfos[0].noticeNo
-                } == null) break
-
-            abandonmentInfos.removeFirst()
-        } while (abandonmentInfos.isNotEmpty())
+        with(abandonmentInfos) {
+            adjustItemInversion()
+            adjustItemDuplicate()
+        }
 
         return abandonmentInfos.run {
             dataSet.addAll(this)
 
             size
+        }
+    }
+
+    private fun MutableList<AbandonmentInfo>.adjustItemInversion() {
+        if (dataSet.isEmpty()) return
+
+        while (isNotEmpty()) {
+            if (dataSet[dataSet.lastIndex].happenDate >= this[0].happenDate) break
+
+            removeFirst()
+        }
+    }
+
+    private fun MutableList<AbandonmentInfo>.adjustItemDuplicate() {
+        while (isNotEmpty()) {
+            if (dataSet.find {
+                    it.noticeNo == this[0].noticeNo
+                } == null) break
+
+            removeFirst()
         }
     }
 
