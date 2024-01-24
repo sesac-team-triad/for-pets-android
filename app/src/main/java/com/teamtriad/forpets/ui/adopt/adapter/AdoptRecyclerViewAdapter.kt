@@ -86,16 +86,12 @@ class AdoptRecyclerViewAdapter(private val lifecycleScope: LifecycleCoroutineSco
 
         val abandonmentInfos = item.toMutableList()
 
-        with(abandonmentInfos) {
-            adjustItemInversion()
-            adjustItemDuplicate()
-        }
+        abandonmentInfos.adjustItemInversion()
+        abandonmentInfos.adjustItemDuplicate()
 
-        return abandonmentInfos.run {
-            dataSet.addAll(this)
+        dataSet.addAll(abandonmentInfos)
 
-            size
-        }
+        return abandonmentInfos.size
     }
 
     private fun MutableList<AbandonmentInfo>.adjustItemInversion() {
