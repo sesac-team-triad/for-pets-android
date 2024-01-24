@@ -12,6 +12,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportBinding
 import com.teamtriad.forpets.model.tmp.Markers
@@ -33,7 +35,6 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setMapFragment()
         setOnClickListeners()
     }
@@ -71,6 +72,21 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
                         }
                     }
                 }
+            }
+
+            ibPaw.setOnClickListener {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(getString(R.string.transport_dialog_title))
+                    .setMessage(getString(R.string.transport_dialog_message))
+                    .setPositiveButton(getString(R.string.transport_dialog_confirm_btn)) { dialog, _ ->
+                        val bnv = requireActivity().findViewById<BottomNavigationView>(R.id.bnv)
+                        bnv.selectedItemId = R.id.adoptFragment
+                        dialog.dismiss()
+                    }
+                    .setNegativeButton(getString(R.string.transport_dialog_cancel_btn)) { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
             }
         }
     }
