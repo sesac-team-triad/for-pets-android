@@ -14,6 +14,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportBinding
+import com.teamtriad.forpets.model.tmp.Markers
+import com.teamtriad.forpets.model.tmp.Places
 
 class TransportFragment : Fragment(), OnMapReadyCallback {
 
@@ -31,9 +33,9 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setMapFragment()
-        setOnClickListener()
 
+        setMapFragment()
+        setOnClickListeners()
     }
 
     private fun setMapFragment() {
@@ -45,7 +47,7 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
     }
 
-    private fun setOnClickListener() {
+    private fun setOnClickListeners() {
         with(binding) {
             efabTransportReq.setOnClickListener {
                 findNavController().navigate(R.id.action_transportFragment_to_transportReqFragment)
@@ -73,41 +75,47 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    override fun onMapReady(googleMap: GoogleMap) {
+        val sesac = LatLng(37.560, 127.064)
+        map = googleMap
+        with(map) {
+            moveCamera(CameraUpdateFactory.zoomTo(6.5f))
+            moveCamera(CameraUpdateFactory.newLatLng(sesac))
+
+            addMarker(Places.getMarkerData())
+            setClickListeners()
+        }
+    }
+
+    private fun addMarker(list: List<Markers>) {
+        list.forEach { marker ->
+            val markerOptions = MarkerOptions()
+                .position(marker.place)
+                .title(marker.title)
+            map.addMarker(markerOptions)!!
+        }
+    }
+
+    private fun setClickListeners() {
+        with(map) {
+            setOnCameraMoveListener {
+                binding.efabTransportReq.shrink()
+            }
+
+            setOnCameraIdleListener {
+                binding.efabTransportReq.extend()
+            }
+
+            setOnMarkerClickListener {
+                moveCamera(CameraUpdateFactory.newLatLngZoom(it.position, 13f))
+                moveCamera(CameraUpdateFactory.newLatLng(it.position))
+                true
+            }
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap
-        val sesac = LatLng(37.560, 127.064)
-        map.addMarker(
-            MarkerOptions()
-                .position(sesac)
-                .title("sesac")
-        )
-        map.setOnMarkerClickListener {
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(sesac, 13f))
-            map.moveCamera(CameraUpdateFactory.newLatLng(sesac))
-            true
-        }
-
-        map.setOnCameraMoveListener {
-            binding.efabTransportReq.shrink()
-        }
-        map.setOnCameraIdleListener {
-            binding.efabTransportReq.extend()
-        }
-
-        map.moveCamera(CameraUpdateFactory.zoomTo(6.5f))
-        map.moveCamera(CameraUpdateFactory.newLatLng(sesac))
-    }
-
-    private fun addMarker(position: LatLng, title: String) {
-        val markerOptions = MarkerOptions()
-            .position(position)
-            .title(title)
-
-        map.addMarker(markerOptions)
     }
 }
