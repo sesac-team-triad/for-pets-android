@@ -3,11 +3,13 @@ package com.teamtriad.forpets.data.source.network
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.teamtriad.forpets.BuildConfig
+import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.util.concurrent.TimeUnit
 
 interface AdoptService {
 
@@ -32,6 +34,12 @@ interface AdoptService {
                         .addLast(KotlinJsonAdapterFactory())
                         .build()
                 )
+            )
+            .client(
+                OkHttpClient.Builder()
+                    .connectTimeout(15, TimeUnit.SECONDS)
+                    .readTimeout(120, TimeUnit.SECONDS)
+                    .build()
             )
             .build()
             .create(AdoptService::class.java)
