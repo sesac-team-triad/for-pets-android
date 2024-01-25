@@ -15,8 +15,24 @@ object Places {
                 title = "새싹"
             ),
             Markers(
-                LatLng(37.550937, 126.849642),
+                LatLng(37.575104, 126.849641),
                 title = "강서구"
+            ),
+            Markers(
+                LatLng(37.55395, 126.849642),
+                title = "강서구"
+            ),
+            Markers(
+                LatLng(37.560939, 126.849643),
+                title = "강서구"
+            ),
+            Markers(
+                LatLng(37.514575, 127.0495556),
+                title = "강남구"
+            ),
+            Markers(
+                LatLng(37.63695556, 127.0277194),
+                title = "강북구"
             ),
             Markers(
                 LatLng(37.5247583, 129.1142625),
