@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportListsBinding
-import com.teamtriad.forpets.ui.transport.adpater.TransportListsViewPagerAdapter
+import com.teamtriad.forpets.ui.transport.adapter.TransportListsViewPagerAdapter
 
 class TransportListsFragment : Fragment() {
 
