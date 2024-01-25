@@ -14,7 +14,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentViewPagerVolListBinding
 import com.teamtriad.forpets.model.tmp.Volunteers
-import com.teamtriad.forpets.ui.transport.adpater.VolListRecyclerViewAdapter
+import com.teamtriad.forpets.ui.transport.adapter.VolListRecyclerViewAdapter
 import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerForFragmentManager
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear

@@ -1,4 +1,4 @@
-package com.teamtriad.forpets.ui.transport.adpater
+package com.teamtriad.forpets.ui.transport.adapter
 
 import android.transition.AutoTransition
 import android.transition.TransitionManager
