@@ -16,6 +16,11 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="Pet_TextView_SmallWhite" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/small</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="Pet_TextView_SmallBoldBlack" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/small</item>
         <item name="android:textStyle">bold</item>
