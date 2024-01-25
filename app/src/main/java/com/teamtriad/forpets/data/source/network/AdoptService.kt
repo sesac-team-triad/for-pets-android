@@ -19,7 +19,7 @@ interface AdoptService {
         @Query("bgnde") bgnde: String,
         @Query("endde") endde: String,
         @Query("pageNo") pageNo: String,
-        @Query("numOfRows") numOfRows: String = "40",
+        @Query("numOfRows") numOfRows: String = "30",
     ): Response<AbandonmentPublic>
 
     companion object {

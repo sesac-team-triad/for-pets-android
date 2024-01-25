@@ -37,7 +37,7 @@ class AdoptRecyclerViewAdapter(private val lifecycleScope: LifecycleCoroutineSco
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(dataSet[position])
 
-        if (position == dataSet.size - 1) requestAbandonmentInfos()
+        if (position == dataSet.size - 9) requestAbandonmentInfos()
     }
 
     override fun getItemCount() = dataSet.size
