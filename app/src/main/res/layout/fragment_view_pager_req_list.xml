@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:paddingHorizontal="16dp"
     tools:context=".ui.transport.ViewPagerReqListFragment">
 
@@ -57,8 +60,10 @@
         app:layout_constraintTop_toBottomOf="@id/til_animal_choice">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_from"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:focusable="false" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -74,8 +79,10 @@
         app:layout_constraintTop_toBottomOf="@id/til_animal_choice">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_to"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:focusable="false" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
