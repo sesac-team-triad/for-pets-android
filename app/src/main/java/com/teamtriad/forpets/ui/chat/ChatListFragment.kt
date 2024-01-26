@@ -1,18 +1,18 @@
 package com.teamtriad.forpets.ui.chat
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.teamtriad.forpets.data.source.network.User
-import com.teamtriad.forpets.ui.chat.adapter.ChatListRecyclerViewAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.teamtriad.forpets.R
-import com.teamtriad.forpets.data.source.network.LoginService
+import com.teamtriad.forpets.data.source.network.ChatList
+import com.teamtriad.forpets.data.source.network.ChatService
 import com.teamtriad.forpets.databinding.FragmentChatListBinding
+import com.teamtriad.forpets.ui.chat.adapter.ChatListRecyclerViewAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,16 +23,16 @@ class ChatListFragment : Fragment(), ChatListRecyclerViewAdapter.OnItemClickList
     private var _binding: FragmentChatListBinding? = null
     private val binding get() = _binding!!
 
-    private val userListAdapter = ChatListRecyclerViewAdapter(this)
+    private val chatListAdapter = ChatListRecyclerViewAdapter(this)
 
     private val databaseUrl =
         "https://for-pets-77777-default-rtdb.asia-southeast1.firebasedatabase.app/"
 
-    private val loginService: LoginService by lazy {
+    private val chatService: ChatService by lazy {
         createApiService()
     }
 
-    private fun createApiService(): LoginService {
+    private fun createApiService(): ChatService {
         val moshi = Moshi.Builder()
             .addLast(KotlinJsonAdapterFactory())
             .build()
@@ -42,8 +42,9 @@ class ChatListFragment : Fragment(), ChatListRecyclerViewAdapter.OnItemClickList
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
 
-        return retrofit.create(LoginService::class.java)
+        return retrofit.create(ChatService::class.java)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,37 +57,38 @@ class ChatListFragment : Fragment(), ChatListRecyclerViewAdapter.OnItemClickList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvUserList.adapter = userListAdapter
-        fetchUserData()
+        binding.rvChatList.adapter = chatListAdapter
+        fetchChatListData()
     }
 
-    private fun fetchUserData() {
-        val call = loginService.getAllUserData()
+    private fun fetchChatListData() {
+        val call = chatService.getChatList()
 
-        call.enqueue(object : Callback<Map<String, User>> {
+        call.enqueue(object : Callback<Map<String, ChatList>> {
             override fun onResponse(
-                call: Call<Map<String, User>>,
-                response: Response<Map<String, User>>
+                call: Call<Map<String, ChatList>>,
+                response: Response<Map<String, ChatList>>
             ) {
                 if (response.isSuccessful) {
                     try {
-                        val allUserData = response.body()
-                        val userList = mutableListOf<User>()
-
-                        allUserData?.values?.forEach { user ->
-                            val nickname = user.nickname
-                            val newUser = User("", "", nickname)
-                            userList.add(newUser)
+                        val chatListData = response.body()
+                        val chatList = mutableListOf<ChatList>()
+                        Log.d("확인1", "$chatListData")
+                        Log.d("확인2", "$chatList")
+                        chatListData?.values?.forEach { chatListItem ->
+                            chatList.add(chatListItem)
                         }
 
-                        userListAdapter.submitList(userList)
+                        chatListAdapter.submitList(chatList)
                     } catch (e: Exception) {
                     }
                 } else {
+                    Log.d("확인1", "asd")
+                    Log.d("확인2", "asd")
                 }
             }
 
-            override fun onFailure(call: Call<Map<String, User>>, t: Throwable) {
+            override fun onFailure(call: Call<Map<String, ChatList>>, t: Throwable) {
             }
         })
     }
@@ -96,8 +98,13 @@ class ChatListFragment : Fragment(), ChatListRecyclerViewAdapter.OnItemClickList
         _binding = null
     }
 
-    override fun onItemClick(user: User) {
-        val action = ChatListFragmentDirections.actionChatListFragmentToChatRoomFragment(nickname = user.nickname)
+
+    override fun onItemClick(chatList: ChatList) {
+        val action =
+            ChatListFragmentDirections.actionChatListFragmentToChatRoomFragment(
+                friendName = chatList.friendName,
+                roomId = chatList.roomId
+            )
         findNavController().navigate(action)
     }
 }
