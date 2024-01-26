@@ -7,24 +7,25 @@
     tools:context=".ui.chat.ChatRoomFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:layout_width="0dp"
         android:id="@+id/toolbar"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:subtitle=""
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:subtitleTextAppearance="@style/Pet_TextView_LargeBlack"
+        app:subtitle="" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_chatting"
+        android:id="@+id/rv_chat_room"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/et_input_window"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/rv_item_chatroom" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        tools:listitem="@layout/rv_item_chat_room" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_schedule"
@@ -46,15 +47,14 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/shape_chatting_input_window"
         android:hint="@string/chatting_et_keyboard"
-        android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         android:paddingHorizontal="20dp"
         android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_send"
         app:layout_constraintHorizontal_weight="9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_chatting" />
+        app:layout_constraintTop_toBottomOf="@id/rv_chat_room" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_send"
