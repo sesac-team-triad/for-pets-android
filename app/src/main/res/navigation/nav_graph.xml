@@ -116,11 +116,14 @@
         android:label="LocationPickerForNavigation" />
     <fragment
         android:id="@+id/chatroomFragment"
-        android:label=""
         android:name="com.teamtriad.forpets.ui.chat.ChatRoomFragment"
+        android:label=""
         tools:layout="@layout/fragment_chat_room">
         <argument
-            android:name="nickname"
+            android:name="friendName"
+            app:argType="string" />
+        <argument
+            android:name="roomId"
             app:argType="string" />
     </fragment>
 </navigation>
