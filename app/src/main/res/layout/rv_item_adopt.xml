@@ -44,7 +44,7 @@
         style="@style/Pet_TextView_XSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4.5dp"
+        android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="@id/tv_region_label"
         app:layout_constraintStart_toEndOf="@id/tv_region_label"
         app:layout_constraintTop_toTopOf="@id/tv_region_label" />
@@ -65,7 +65,7 @@
         style="@style/Pet_TextView_XSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4.5dp"
+        android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="@id/tv_sex_label"
         app:layout_constraintStart_toEndOf="@id/tv_sex_label"
         app:layout_constraintTop_toTopOf="@id/tv_sex_label" />
@@ -88,7 +88,7 @@
         style="@style/Pet_TextView_XSmallBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4.5dp"
+        android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="@id/tv_age_label"
         app:layout_constraintStart_toEndOf="@id/tv_age_label"
         app:layout_constraintTop_toTopOf="@id/tv_age_label" />
