@@ -6,33 +6,68 @@
     android:layout_height="wrap_content">
 
     <ImageView
-
-        android:id="@+id/iv_user"
+        android:id="@+id/iv_friend"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:src="@drawable/ic_user"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_nickname"
-        style="@style/Pet_TextView_XXLargeBoldBlack"
+        android:id="@+id/tv_friend_name"
+        style="@style/Pet_TextView_LargeBoldBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        app:layout_constraintBottom_toBottomOf="@id/iv_user"
-        app:layout_constraintStart_toEndOf="@id/iv_user"
-        app:layout_constraintTop_toTopOf="@id/iv_user" />
+        app:layout_constraintStart_toEndOf="@id/iv_friend"
+        app:layout_constraintTop_toTopOf="@id/iv_friend"
+        tools:text="도와줘멍냥" />
+
+    <TextView
+        android:id="@+id/tv_last_message"
+        style="@style/Pet_TextView_LargeGray700"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/tv_friend_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_friend_name"
+        tools:text="연락주셔서 감사합니다!" />
+
+    <TextView
+        android:id="@+id/tv_last_message_time"
+        style="@style/Pet_TextView_MiddleBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_friend_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="오후 3:20" />
+
+    <TextView
+        android:id="@+id/tv_last_message_count"
+        style="@style/Pet_TextView_MiddleBoldWhite"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/shape_chatting_count"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_last_message_time"
+        tools:text="1" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="20dp"
-        android:background="#39505050"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/gray_50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_user" />
+        app:layout_constraintTop_toBottomOf="@id/tv_last_message" />
 </androidx.constraintlayout.widget.ConstraintLayout>
