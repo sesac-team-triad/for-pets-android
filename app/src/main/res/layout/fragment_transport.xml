@@ -7,7 +7,7 @@
     tools:context=".ui.transport.TransportFragment">
 
     <androidx.fragment.app.FragmentContainerView xmlns:map="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/map"
+        android:id="@+id/fcb_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -21,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
+        android:layout_marginTop="2dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/transport_iv_paw_desc"
         android:src="@drawable/ic_paw"
@@ -33,14 +34,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        app:checkedButton="@id/mbtg_request"
+        app:checkedButton="@id/btn_request"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:singleSelection="true">
 
         <Button
-            android:id="@+id/mbtg_request"
+            android:id="@+id/btn_request"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +53,7 @@
             app:selectionRequired="true" />
 
         <Button
-            android:id="@+id/mbtg_volunteer"
+            android:id="@+id/btn_volunteer"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,6 +81,7 @@
         android:layout_height="50dp"
         android:layout_marginBottom="18dp"
         android:background="@android:color/transparent"
+        android:contentDescription="@string/transport_ib_abroad_desc"
         android:src="@drawable/ic_travel"
         app:layout_constraintBottom_toBottomOf="@id/v_abroad_background"
         app:layout_constraintEnd_toEndOf="@id/v_abroad_background"
@@ -91,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="14dp"
-        android:text="해외봉사"
+        android:text="@string/transport_tv_abroad_title"
         android:textSize="10sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/v_abroad_background"
@@ -115,6 +117,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginBottom="18dp"
         android:background="@android:color/transparent"
+        android:contentDescription="@string/transport_tv_moving_desc"
         android:src="@drawable/ic_destination"
         app:layout_constraintBottom_toBottomOf="@id/v_moving_background"
         app:layout_constraintEnd_toEndOf="@id/v_moving_background"
@@ -127,21 +130,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="14dp"
-        android:text="이동중"
+        android:text="@string/transport_tv_moving_title"
         android:textSize="10sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/v_moving_background"
         app:layout_constraintEnd_toEndOf="@id/iv_moving"
         app:layout_constraintStart_toStartOf="@id/iv_moving"
         app:layout_constraintTop_toBottomOf="@id/iv_moving" />
-
-    <!--    <ImageButton-->
-    <!--        android:id="@+id/iv_moving"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/iv_abroad"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/efab_transport_req"
