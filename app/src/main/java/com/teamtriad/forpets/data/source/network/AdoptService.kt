@@ -37,8 +37,7 @@ interface AdoptService {
             )
             .client(
                 OkHttpClient.Builder()
-                    .connectTimeout(15, TimeUnit.SECONDS)
-                    .readTimeout(120, TimeUnit.SECONDS)
+                    .readTimeout(60, TimeUnit.SECONDS)
                     .build()
             )
             .build()
