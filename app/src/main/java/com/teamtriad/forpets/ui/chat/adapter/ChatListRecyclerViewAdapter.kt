@@ -2,21 +2,17 @@ package com.teamtriad.forpets.ui.chat.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.teamtriad.forpets.R
-import com.teamtriad.forpets.data.source.network.User
+import com.teamtriad.forpets.data.source.network.ChatList
 import com.teamtriad.forpets.databinding.RvItemChatListBinding
 
 class ChatListRecyclerViewAdapter(private val itemClickListener: OnItemClickListener) :
-    ListAdapter<User, ChatListRecyclerViewAdapter.ViewHolder>(UserDiffCallback()) {
+    ListAdapter<ChatList, ChatListRecyclerViewAdapter.ViewHolder>(ChatListDiffCallback()) {
 
     interface OnItemClickListener {
-        fun onItemClick(user: User)
+        fun onItemClick(chatList: ChatList)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,22 +28,26 @@ class ChatListRecyclerViewAdapter(private val itemClickListener: OnItemClickList
     class ViewHolder(private val binding: RvItemChatListBinding, private val itemClickListener: OnItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(user: User) {
-            binding.tvNickname.text = user.nickname
-
+        fun bind(chatList: ChatList) {
+            binding.tvFriendName.text = chatList.friendName
+            binding.tvLastMessage.text = chatList.lastMessage
+            binding.tvLastMessageTime.text = chatList.lastMessageTime
+            binding.tvLastMessageCount.text = chatList.lastMessageCount.toString()
             binding.root.setOnClickListener {
-                itemClickListener.onItemClick(user)
+                itemClickListener.onItemClick(chatList)
             }
         }
     }
 
-    private class UserDiffCallback : DiffUtil.ItemCallback<User>() {
-        override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
-            return oldItem.nickname == newItem.nickname
+    private class ChatListDiffCallback : DiffUtil.ItemCallback<ChatList>() {
+        override fun areItemsTheSame(oldItem: ChatList, newItem: ChatList): Boolean {
+            return oldItem.roomId == newItem.roomId
         }
 
-        override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
-            return oldItem.email == newItem.email
+        override fun areContentsTheSame(oldItem: ChatList, newItem: ChatList): Boolean {
+            return oldItem.lastMessage == newItem.lastMessage &&
+                    oldItem.lastMessageTime == newItem.lastMessageTime &&
+                    oldItem.lastMessageCount == newItem.lastMessageCount
         }
     }
 }
