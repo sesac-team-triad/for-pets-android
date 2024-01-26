@@ -11,13 +11,11 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.maps.android.clustering.ClusterManager
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportBinding
-import com.teamtriad.forpets.model.tmp.Markers
 import com.teamtriad.forpets.model.tmp.Places
 import com.teamtriad.forpets.ui.transport.marker.CustomClusterManager
 import com.teamtriad.forpets.ui.transport.marker.MarkerItem
@@ -47,9 +45,23 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
         val mapFragment = SupportMapFragment.newInstance()
         requireActivity().supportFragmentManager
             .beginTransaction()
-            .add(R.id.map, mapFragment)
+            .add(R.id.fcb_map, mapFragment)
             .commit()
         mapFragment.getMapAsync(this)
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        map = googleMap
+        setUpCluster()
+    }
+
+    private fun setUpCluster() {
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.560, 127.064), 6.5f))
+
+        clusterManager = CustomClusterManager(requireContext(), map, binding)
+
+        addItems()
+        setClusterClickListeners()
     }
 
     private fun setOnClickListeners() {
@@ -65,7 +77,7 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
             mbtgTransport.addOnButtonCheckedListener { _, checkedId, isChecked ->
                 if (isChecked) {
                     when (checkedId) {
-                        R.id.mbtg_request -> {
+                        R.id.btn_request -> {
                             efabTransportReq.visibility = View.VISIBLE
                             efabTransportVol.visibility = View.GONE
                         }
@@ -95,37 +107,7 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap
-        setUpCluster()
-    }
-
-    private fun addMarker(list: List<Markers>) {
-        list.forEach { marker ->
-            val markerOptions = MarkerOptions()
-                .position(marker.place)
-                .title(marker.title)
-            map.addMarker(markerOptions)!!
-        }
-    }
-
-    private fun setUpCluster() {
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.560, 127.064), 6.5f))
-
-        clusterManager = CustomClusterManager(requireContext(), map, binding)
-
-        map.setOnCameraIdleListener(clusterManager)
-        map.setOnMarkerClickListener(clusterManager)
-        addItems()
-        setClickListeners()
-
-        map.setOnCameraMoveListener {
-            binding.efabTransportReq.shrink()
-            binding.efabTransportVol.shrink()
-        }
-    }
-
-    private fun setClickListeners() {
+    private fun setClusterClickListeners() {
         with(clusterManager) {
             setOnClusterClickListener {
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(it.position, 10f))
@@ -137,6 +119,15 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(it.position, 13f))
                 map.moveCamera(CameraUpdateFactory.newLatLng(it.position))
                 true
+            }
+        }
+
+        with(map) {
+            setOnCameraIdleListener(clusterManager)
+            setOnMarkerClickListener(clusterManager)
+            setOnCameraMoveListener {
+                binding.efabTransportReq.shrink()
+                binding.efabTransportVol.shrink()
             }
         }
     }
