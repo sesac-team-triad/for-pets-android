@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="Pet_TextView_XSmallDarkGray" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/xSmall</item>
+        <item name="android:textColor">@color/dark_gray</item>
+    </style>
+
+    <style name="Pet_TextView_XXSmallGray700" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/xxSmall</item>
+        <item name="android:textColor">@color/gray_700</item>
+    </style>
+
     <style name="Pet_TextView_XSmallBlack" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/xSmall</item>
         <item name="android:textColor">@color/black</item>
@@ -33,6 +43,12 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="Pet_TextView_MiddleBoldWhite" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/middle</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="Pet_TextView_LargeBlack" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/large</item>
         <item name="android:textColor">@color/black</item>
@@ -41,6 +57,11 @@
     <style name="Pet_TextView_LargeWhite" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/large</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Pet_TextView_LargeGray700" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/large</item>
+        <item name="android:textColor">@color/gray_700</item>
     </style>
 
     <style name="Pet_TextView_LargeBoldBlack" parent="TextAppearance.AppCompat">
