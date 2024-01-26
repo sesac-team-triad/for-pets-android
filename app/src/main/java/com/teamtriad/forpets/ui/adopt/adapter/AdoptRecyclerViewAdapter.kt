@@ -37,48 +37,50 @@ class AdoptRecyclerViewAdapter(private val lifecycleScope: LifecycleCoroutineSco
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(dataSet[position])
 
-        if (position == dataSet.size - 9) requestAbandonmentInfos()
+        if (position == dataSet.size - 9) lifecycleScope.launch {
+            requestAbandonmentInfos()
+        }
     }
 
     override fun getItemCount() = dataSet.size
 
-    fun requestAbandonmentInfos() {
-        lifecycleScope.launch {
-            try {
-                val response = adoptService.getAbandonmentPublic(
-                    "20240101",
-                    Date().toYyyyMmDd(),
-                    (++pageNo).toString()
-                )
+    suspend fun requestAbandonmentInfos(): Int {
+        try {
+            val response = adoptService.getAbandonmentPublic(
+                "20240101",
+                Date().toYyyyMmDd(),
+                (++pageNo).toString()
+            )
 
-                if (response.isSuccessful) {
-                    updateDataSet(
-                        response.body()!!
-                            .response
-                            .body
-                            ?.items
-                            ?.item
-                    ).run {
-                        if (this >= 1) {
-                            notifyItemRangeInserted(dataSet.size - this, this)
-                        }
+            if (response.isSuccessful) {
+                updateDataSet(
+                    response.body()!!
+                        .response
+                        .body
+                        ?.items
+                        ?.item
+                ).run {
+                    if (this >= 1) {
+                        notifyItemRangeInserted(dataSet.size - this, this)
                     }
                 }
-            } catch (e: HttpException) {
-                Log.e("AdoptRVAdapter", "retrofit2.HttpException occurred.")
-
-                pageNo--
-            } catch (e: SocketTimeoutException) {
-                Log.e("AdoptRVAdapter", "java.net.SocketTimeoutException occurred.")
-
-                pageNo--
-            } catch (e: JsonDataException) {
-                Log.e(
-                    "AdoptRVAdapter",
-                    "One of the required fields may be missing from the response message."
-                )
             }
+        } catch (e: HttpException) {
+            Log.e("AdoptRVAdapter", "retrofit2.HttpException occurred.")
+
+            pageNo--
+        } catch (e: SocketTimeoutException) {
+            Log.e("AdoptRVAdapter", "java.net.SocketTimeoutException occurred.")
+
+            pageNo--
+        } catch (e: JsonDataException) {
+            Log.e(
+                "AdoptRVAdapter",
+                "One of the required fields may be missing from the response message."
+            )
         }
+
+        return dataSet.size
     }
 
     private fun updateDataSet(item: List<AbandonmentInfo>?): Int {

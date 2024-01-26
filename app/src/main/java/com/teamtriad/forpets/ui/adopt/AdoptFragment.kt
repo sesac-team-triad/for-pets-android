@@ -8,11 +8,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.teamtriad.forpets.databinding.FragmentAdoptBinding
 import com.teamtriad.forpets.ui.adopt.adapter.AdoptRecyclerViewAdapter
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class AdoptFragment : Fragment() {
 
     private var _binding: FragmentAdoptBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var recyclerViewAdapter: AdoptRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +31,17 @@ class AdoptFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.root.adapter = AdoptRecyclerViewAdapter(lifecycleScope).apply {
-            requestAbandonmentInfos()
+        recyclerViewAdapter = AdoptRecyclerViewAdapter(lifecycleScope)
+        binding.rvAdopt.adapter = recyclerViewAdapter
+
+        with(lifecycleScope) {
+            val deferred: Deferred<Int> = async {
+                recyclerViewAdapter.requestAbandonmentInfos()
+            }
+
+            launch {
+                if (deferred.await() == 0) binding.tvFallback.visibility = View.VISIBLE
+            }
         }
     }
 
