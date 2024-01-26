@@ -24,6 +24,8 @@ class AdoptRecyclerViewAdapter(private val lifecycleScope: LifecycleCoroutineSco
     private var pageNo: Int = 0         // 마지막으로 요청한 페이지 번호(pageNo) 매개변수의 값을 관리
     private val dataSet = mutableListOf<AbandonmentInfo>()
 
+    private val noticeNoSet = mutableSetOf<String>()
+
     private val adoptService: AdoptService by lazy { AdoptService.getService() }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
@@ -92,6 +94,11 @@ class AdoptRecyclerViewAdapter(private val lifecycleScope: LifecycleCoroutineSco
         abandonmentInfos.adjustItemDuplicate()
 
         dataSet.addAll(abandonmentInfos)
+        noticeNoSet.addAll(
+            abandonmentInfos.map {
+                it.noticeNo
+            }
+        )
 
         return abandonmentInfos.size
     }
@@ -107,12 +114,8 @@ class AdoptRecyclerViewAdapter(private val lifecycleScope: LifecycleCoroutineSco
     }
 
     private fun MutableList<AbandonmentInfo>.adjustItemDuplicate() {
-        while (isNotEmpty()) {
-            if (dataSet.find {
-                    it.noticeNo == this[0].noticeNo
-                } == null) break
-
-            removeFirst()
+        removeAll {
+            noticeNoSet.contains(it.noticeNo)
         }
     }
 
