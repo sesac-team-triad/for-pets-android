@@ -9,13 +9,80 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/siv_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="61dp"
+        android:layout_height="61dp"
         android:background="@color/white"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearance="@style/Pet_ImageView_CornerSize12" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_req_card_purple"
+        app:layout_constraintBottom_toBottomOf="@id/tv_name"
+        app:layout_constraintEnd_toEndOf="@id/tv_name"
+        app:layout_constraintStart_toStartOf="@id/tv_name"
+        app:layout_constraintTop_toTopOf="@id/tv_name" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/Pet_TextView_XXSmallWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9.5dp"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="0.5dp"
+        android:text="@string/req_list_tv_name"
+        app:layout_constraintBottom_toTopOf="@id/tv_departure_date"
+        app:layout_constraintStart_toEndOf="@id/siv_image"
+        app:layout_constraintTop_toTopOf="@id/siv_image"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_req_card_purple"
+        app:layout_constraintBottom_toBottomOf="@id/tv_departure_date"
+        app:layout_constraintEnd_toEndOf="@id/tv_departure_date"
+        app:layout_constraintStart_toStartOf="@id/tv_departure_date"
+        app:layout_constraintTop_toTopOf="@id/tv_departure_date" />
+
+    <TextView
+        android:id="@+id/tv_departure_date"
+        style="@style/Pet_TextView_XXSmallWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9.5dp"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="0.5dp"
+        android:text="@string/req_list_tv_departure_date"
+        app:layout_constraintBottom_toTopOf="@id/tv_journey"
+        app:layout_constraintStart_toEndOf="@id/siv_image"
+        app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_req_card_purple"
+        app:layout_constraintBottom_toBottomOf="@id/tv_journey"
+        app:layout_constraintEnd_toEndOf="@id/tv_journey"
+        app:layout_constraintStart_toStartOf="@id/tv_journey"
+        app:layout_constraintTop_toTopOf="@id/tv_journey" />
+
+    <TextView
+        android:id="@+id/tv_journey"
+        style="@style/Pet_TextView_XXSmallWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9.5dp"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="0.5dp"
+        android:text="@string/req_list_tv_journey"
+        app:layout_constraintBottom_toBottomOf="@id/siv_image"
+        app:layout_constraintStart_toEndOf="@id/siv_image"
+        app:layout_constraintTop_toBottomOf="@id/tv_departure_date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
