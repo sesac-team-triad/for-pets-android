@@ -60,6 +60,7 @@
     <string name="req_list_tv_name">이름</string>
     <string name="req_list_tv_departure_date">출발일</string>
     <string name="req_list_tv_journey">여정</string>
+    <string name="req_list_siv_image_desc">이동봉사자 분을 기다리고 있는 동물의 사진입니다</string>
 
     <!-- 봉사자 등록 화면 -->
     <string name="vol_til_from_detail_hint">상세 출발 지역</string>
