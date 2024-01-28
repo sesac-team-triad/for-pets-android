@@ -1,5 +1,6 @@
 package com.teamtriad.forpets.ui.transport
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -57,13 +58,48 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
 
     private fun setUpCluster() {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-            LatLng(37.560, 127.064), 6.5f)
+            LatLng(36.0, 127.809), 7.0f)
         )
 
         clusterManager = CustomClusterManager(requireContext(), map, binding)
 
         addItems()
         setClusterClickListeners()
+    }
+
+    private fun addItems() {
+        val list = Places.getMarkerData()
+
+        list.forEachIndexed { index, it ->
+            val offsetItem = MarkerItem(it.place, it.title, "$index")
+            clusterManager.addItem(offsetItem)
+        }
+    }
+
+    @SuppressLint("PotentialBehaviorOverride")
+    private fun setClusterClickListeners() {
+        with(clusterManager) {
+            setOnClusterClickListener {
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(it.position, 10f))
+                map.moveCamera(CameraUpdateFactory.newLatLng(it.position))
+                true
+            }
+
+            setOnClusterItemClickListener {
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(it.position, 13f))
+                map.moveCamera(CameraUpdateFactory.newLatLng(it.position))
+                true
+            }
+        }
+
+        with(map) {
+            setOnCameraIdleListener(clusterManager)
+            setOnMarkerClickListener(clusterManager)
+            setOnCameraMoveListener {
+                binding.efabTransportReq.shrink()
+                binding.efabTransportVol.shrink()
+            }
+        }
     }
 
     private fun setOnClickListeners() {
@@ -106,40 +142,6 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
                     }
                     .show()
             }
-        }
-    }
-
-    private fun setClusterClickListeners() {
-        with(clusterManager) {
-            setOnClusterClickListener {
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(it.position, 10f))
-                map.moveCamera(CameraUpdateFactory.newLatLng(it.position))
-                true
-            }
-
-            setOnClusterItemClickListener {
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(it.position, 13f))
-                map.moveCamera(CameraUpdateFactory.newLatLng(it.position))
-                true
-            }
-        }
-
-        with(map) {
-            setOnCameraIdleListener(clusterManager)
-            setOnMarkerClickListener(clusterManager)
-            setOnCameraMoveListener {
-                binding.efabTransportReq.shrink()
-                binding.efabTransportVol.shrink()
-            }
-        }
-    }
-
-    private fun addItems() {
-        val list = Places.getMarkerData()
-
-        list.forEachIndexed { index, it ->
-            val offsetItem = MarkerItem(it.place, it.title, "$index")
-            clusterManager.addItem(offsetItem)
         }
     }
 
