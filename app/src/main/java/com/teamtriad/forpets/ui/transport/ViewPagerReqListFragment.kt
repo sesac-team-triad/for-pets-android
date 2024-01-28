@@ -9,11 +9,14 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.teamtriad.forpets.databinding.FragmentViewPagerReqListBinding
+import com.teamtriad.forpets.ui.transport.adapter.ReqListRecyclerViewAdapter
 
 class ViewPagerReqListFragment : Fragment() {
 
     private var _binding: FragmentViewPagerReqListBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var recyclerViewAdapter: ReqListRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +43,9 @@ class ViewPagerReqListFragment : Fragment() {
                 navigateToLocationPickerDialog(false)
             }
         }
+
+        recyclerViewAdapter = ReqListRecyclerViewAdapter(listOf(object {}, object {}))
+        binding.rvReqList.adapter = recyclerViewAdapter
     }
 
     private fun navigateToLocationPickerDialog(onlyCounty: Boolean) {
