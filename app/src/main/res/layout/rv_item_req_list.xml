@@ -12,6 +12,7 @@
         android:layout_width="61dp"
         android:layout_height="61dp"
         android:background="@color/white"
+        android:contentDescription="@string/req_list_siv_image_desc"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
