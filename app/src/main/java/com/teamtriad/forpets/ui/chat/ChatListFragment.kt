@@ -1,10 +1,10 @@
 package com.teamtriad.forpets.ui.chat
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.squareup.moshi.Moshi
@@ -45,7 +45,6 @@ class ChatListFragment : Fragment(), ChatListRecyclerViewAdapter.OnItemClickList
         return retrofit.create(ChatService::class.java)
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,46 +57,33 @@ class ChatListFragment : Fragment(), ChatListRecyclerViewAdapter.OnItemClickList
         super.onViewCreated(view, savedInstanceState)
 
         binding.rvChatList.adapter = chatListAdapter
+
         fetchChatListData()
     }
 
     private fun fetchChatListData() {
-        val call = chatService.getChatList()
-
-        call.enqueue(object : Callback<Map<String, ChatList>> {
+        chatService.getChatList().enqueue(object : Callback<Map<String, ChatList>> {
             override fun onResponse(
                 call: Call<Map<String, ChatList>>,
                 response: Response<Map<String, ChatList>>
             ) {
                 if (response.isSuccessful) {
-                    try {
-                        val chatListData = response.body()
-                        val chatList = mutableListOf<ChatList>()
-                        Log.d("확인1", "$chatListData")
-                        Log.d("확인2", "$chatList")
-                        chatListData?.values?.forEach { chatListItem ->
-                            chatList.add(chatListItem)
-                        }
-
-                        chatListAdapter.submitList(chatList)
-                    } catch (e: Exception) {
-                    }
+                    val chatListMap = response.body()
+                    chatListAdapter.submitList(chatListMap?.values?.toList())
                 } else {
-                    Log.d("확인1", "asd")
-                    Log.d("확인2", "asd")
+                    Toast.makeText(requireContext(), "채팅목록 가져오기 실패", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Map<String, ChatList>>, t: Throwable) {
+                Toast.makeText(
+                    requireContext(),
+                    "채팅 목록을 불러오는데 실패했습니다.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 
     override fun onItemClick(chatList: ChatList) {
         val action =
@@ -106,5 +92,10 @@ class ChatListFragment : Fragment(), ChatListRecyclerViewAdapter.OnItemClickList
                 roomId = chatList.roomId
             )
         findNavController().navigate(action)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

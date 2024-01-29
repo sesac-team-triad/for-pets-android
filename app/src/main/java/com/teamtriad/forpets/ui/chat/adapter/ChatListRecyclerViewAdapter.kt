@@ -25,14 +25,17 @@ class ChatListRecyclerViewAdapter(private val itemClickListener: OnItemClickList
         holder.bind(getItem(position))
     }
 
-    class ViewHolder(private val binding: RvItemChatListBinding, private val itemClickListener: OnItemClickListener) :
+    class ViewHolder(
+        private val binding: RvItemChatListBinding,
+        private val itemClickListener: OnItemClickListener
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(chatList: ChatList) {
             binding.tvFriendName.text = chatList.friendName
             binding.tvLastMessage.text = chatList.lastMessage
             binding.tvLastMessageTime.text = chatList.lastMessageTime
-            binding.tvLastMessageCount.text = chatList.lastMessageCount.toString()
+            binding.tvUnreadMessageCount.text = chatList.unreadMessageCount.toString()
             binding.root.setOnClickListener {
                 itemClickListener.onItemClick(chatList)
             }
@@ -47,7 +50,7 @@ class ChatListRecyclerViewAdapter(private val itemClickListener: OnItemClickList
         override fun areContentsTheSame(oldItem: ChatList, newItem: ChatList): Boolean {
             return oldItem.lastMessage == newItem.lastMessage &&
                     oldItem.lastMessageTime == newItem.lastMessageTime &&
-                    oldItem.lastMessageCount == newItem.lastMessageCount
+                    oldItem.unreadMessageCount == newItem.unreadMessageCount
         }
     }
 }

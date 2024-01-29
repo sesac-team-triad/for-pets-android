@@ -1,4 +1,4 @@
-package com.teamtriad.forpets.ui.transport.adpater
+package com.teamtriad.forpets.ui.transport.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
