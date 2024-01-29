@@ -38,6 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:selectionRequired="true"
         app:singleSelection="true">
 
         <Button
@@ -49,8 +50,7 @@
             android:text="@string/transport_mbtg_request"
             android:textColor="@color/selector_segmented_button_text_color"
             android:textSize="16sp"
-            android:textStyle="bold"
-            app:selectionRequired="true" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btn_volunteer"
