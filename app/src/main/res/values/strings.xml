@@ -114,5 +114,6 @@
 
     <!-- 채팅 화면 -->
     <string name="chatting_et_keyboard">메시지 보내기</string>
+    <string name="chatting_appointment_cancle">취소</string>
 
 </resources>
