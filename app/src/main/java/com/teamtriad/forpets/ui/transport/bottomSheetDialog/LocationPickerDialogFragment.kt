@@ -11,9 +11,7 @@ import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.BottomSheetLocationBinding
 import com.teamtriad.forpets.model.tmp.Location
 
-private const val ONLY_COUNTY = "onlyCounty"
-
-class LocationPickerForNavigation : BottomSheetDialogFragment() {
+class LocationPickerDialogFragment : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetLocationBinding? = null
     private val binding get() = _binding!!
@@ -21,7 +19,7 @@ class LocationPickerForNavigation : BottomSheetDialogFragment() {
     private lateinit var selectedDistrict: String
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var counties: Map<String, List<String>>
-    private val args: LocationPickerForNavigationArgs by navArgs()
+    private val args: LocationPickerDialogFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,11 +30,12 @@ class LocationPickerForNavigation : BottomSheetDialogFragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         counties = Location.loadLocationMap()
 
-        if (args.Location == ONLY_COUNTY) {
+        if (args.onlyCounty == ONLY_COUNTY) {
             setData()
             getCountyData()
         } else {
@@ -88,5 +87,9 @@ class LocationPickerForNavigation : BottomSheetDialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val ONLY_COUNTY = true
     }
 }

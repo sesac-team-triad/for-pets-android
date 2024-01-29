@@ -15,13 +15,12 @@ import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportVolBinding
+import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
 import java.util.Calendar
 import java.util.TimeZone
 
-
-private const val LOCATION = "location"
 class TransportVolFragment : Fragment() {
 
     private var _binding: FragmentTransportVolBinding? = null
@@ -52,14 +51,14 @@ class TransportVolFragment : Fragment() {
 
             tietFrom.setOnClickListener {
                 val action = TransportVolFragmentDirections
-                    .actionTransportVolFragmentToLocationPickerForNavigation(LOCATION)
+                    .actionTransportVolFragmentToLocationPickerForNavigation(!LocationPickerDialogFragment.ONLY_COUNTY)
 
                 findNavController().navigate(action)
             }
 
             tietTo.setOnClickListener {
                 val action = TransportVolFragmentDirections
-                    .actionTransportVolFragmentToLocationPickerForNavigation(LOCATION)
+                    .actionTransportVolFragmentToLocationPickerForNavigation(!LocationPickerDialogFragment.ONLY_COUNTY)
 
                 findNavController().navigate(action)
             }
