@@ -14,5 +14,5 @@ data class AbandonmentPublic(
 @JsonClass(generateAdapter = true)
 data class Response(
     val header: ResponseHeader,
-    val body: ResponseBody,
+    val body: ResponseBody?,
 )
