@@ -68,9 +68,7 @@ class LoginFragment : Fragment() {
 
     private fun checkIfUserExists() {
         val call = loginService.getAllUserData()
-
         call.enqueue(object : Callback<Map<String, User>> {
-            @SuppressLint("StringFormatInvalid")
             override fun onResponse(
                 call: Call<Map<String, User>>,
                 response: Response<Map<String, User>>
@@ -85,7 +83,7 @@ class LoginFragment : Fragment() {
                             it.email == enteredEmail && it.password == enteredPassword
                         }
                         if (foundUser != null) {
-                            showToast(getString(R.string.login_toast_welcome, foundUser.nickname))
+                            showToast(getString(R.string.login_toast_welcome))
                             findNavController().navigate(R.id.action_loginFragment_to_transportFragment)
                         } else {
                             showToast(getString(R.string.login_toast_not_found))

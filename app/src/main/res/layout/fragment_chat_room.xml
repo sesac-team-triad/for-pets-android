@@ -10,12 +10,13 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_arrow_back"
-        app:subtitleTextAppearance="@style/Pet_TextView_LargeBlack"
-        app:subtitle="" />
+        app:subtitle=""
+        app:subtitleTextAppearance="@style/Pet_TextView_LargeBlack" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_chat_room"
