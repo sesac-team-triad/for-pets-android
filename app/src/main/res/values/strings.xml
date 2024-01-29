@@ -84,6 +84,7 @@
     <string name="bottom_btn_input">입력하기</string>
 
     <!-- 입양 목록 화면 -->
+    <string name="adopt_tv_fallback">잠시 후에 다시 돌아와 주세요!</string>
     <string name="adopt_tv_region_label">지역 :</string>
 
     <!-- 입양 상세화면 -->
