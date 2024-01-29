@@ -34,6 +34,9 @@ class TransportFragment : Fragment() {
         binding.btnMove.setOnClickListener {
             findNavController().navigate(R.id.action_transportFragment_to_loginFragment)
         }
+        binding.btnMoveList.setOnClickListener {
+            findNavController().navigate(R.id.action_transportFragment_to_userListFragment)
+        }
     }
 
     override fun onDestroyView() {
