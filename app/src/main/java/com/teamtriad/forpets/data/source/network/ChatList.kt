@@ -8,5 +8,5 @@ data class ChatList(
     val friendName: String,
     val lastMessage: String,
     val lastMessageTime: String,
-    val lastMessageCount: Int
+    val unreadMessageCount: Int
 )
