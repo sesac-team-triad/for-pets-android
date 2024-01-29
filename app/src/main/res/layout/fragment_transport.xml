@@ -60,10 +60,19 @@
         android:id="@+id/btn_move"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="로그인 이동"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="로그인 이동"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btn_move_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="유저 리스트 이동"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_move" />
 </androidx.constraintlayout.widget.ConstraintLayout>
