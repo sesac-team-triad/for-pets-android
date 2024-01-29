@@ -4,15 +4,17 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ChatService {
 
-    @GET("Conversation/ChatList.json")
+    @GET("conversation/chatlist.json")
     fun getChatList(): Call<Map<String, ChatList>>
 
-    @GET("Conversation/ChatRoom.json")
-    fun getChatRoom(): Call<Map<String, ChatRoom>>
+    @GET("conversation/chatroom/{roomId}.json")
+    fun getChatRoom(@Path("roomId") roomId: String): Call<ChatRoom>
 
-    @POST("Conversation/ChatRoom.json")
+    @POST("conversation/chatroom.json")
     fun sendChatMessage(@Body chatRoom: ChatRoom): Call<ResponseBody>
+
 }
