@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_transportFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_transportFragment_to_userListFragment"
+            app:destination="@id/userListFragment" />
     </fragment>
     <fragment
         android:id="@+id/adoptFragment"
@@ -125,5 +128,14 @@
         <argument
             android:name="roomId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/userListFragment"
+        android:name="com.teamtriad.forpets.ui.chat.UserListFragment"
+        android:label="fragment_user_list"
+        tools:layout="@layout/fragment_user_list" >
+        <action
+            android:id="@+id/action_userListFragment_to_chatroomFragment"
+            app:destination="@id/chatroomFragment" />
     </fragment>
 </navigation>
