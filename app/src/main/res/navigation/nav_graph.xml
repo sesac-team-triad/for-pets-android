@@ -50,8 +50,8 @@
             android:id="@+id/action_transportReqFragment_to_transportListsFragment"
             app:destination="@id/transportListsFragment" />
         <action
-            android:id="@+id/action_transportReqFragment_to_locationPickerForNavigation"
-            app:destination="@id/locationPickerForNavigation" />
+            android:id="@+id/action_transportReqFragment_to_locationPickerDialogFragment"
+            app:destination="@id/locationPickerDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/transportVolFragment"
@@ -65,8 +65,8 @@
             android:id="@+id/action_transportVolFragment_to_transportListsFragment"
             app:destination="@id/transportListsFragment" />
         <action
-            android:id="@+id/action_transportVolFragment_to_locationPickerForNavigation"
-            app:destination="@id/locationPickerForNavigation" />
+            android:id="@+id/action_transportVolFragment_to_locationPickerDialogFragment"
+            app:destination="@id/locationPickerDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/transportListsFragment"
@@ -76,6 +76,9 @@
         <action
             android:id="@+id/action_transportListsFragment_to_transportVolFragment"
             app:destination="@id/transportVolFragment" />
+        <action
+            android:id="@+id/action_transportListsFragment_to_locationPickerDialogFragment"
+            app:destination="@id/locationPickerDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/adoptDetailFragment"
@@ -108,7 +111,11 @@
             app:destination="@id/transportFragment" />
     </fragment>
     <dialog
-        android:id="@+id/locationPickerForNavigation"
-        android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerForNavigation"
-        android:label="LocationPickerForNavigation" />
+        android:id="@+id/locationPickerDialogFragment"
+        android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment"
+        android:label="LocationPickerForNavigation" >
+        <argument
+            android:name="onlyCounty"
+            app:argType="boolean" />
+    </dialog>
 </navigation>

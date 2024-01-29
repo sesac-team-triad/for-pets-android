@@ -6,64 +6,163 @@
     android:layout_height="match_parent"
     tools:context=".ui.transport.TransportFragment">
 
+    <androidx.fragment.app.FragmentContainerView xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fcb_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ib_paw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="2dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/transport_iv_paw_desc"
+        android:src="@drawable/ic_paw"
+        app:layout_constraintBottom_toTopOf="@id/iv_moving"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_abroad" />
+
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/mbtg_transport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="6dp"
+        app:checkedButton="@id/btn_request"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:selectionRequired="true"
         app:singleSelection="true">
 
         <Button
-            android:id="@+id/mbtg_request"
-            style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/btn_request"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/transport_mbtg_request" />
+            android:backgroundTint="@color/yellowGreen"
+            android:text="@string/transport_mbtg_request"
+            android:textColor="@color/selector_segmented_button_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <Button
-            android:id="@+id/mbtg_volunteer"
-            style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/btn_volunteer"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/transport_mbtg_volunteer" />
+            android:backgroundTint="@color/yellowGreen"
+            android:text="@string/transport_mbtg_volunteer"
+            android:textColor="@color/selector_segmented_button_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <View
+        android:id="@+id/v_abroad_background"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="9dp"
+        android:background="@drawable/shape_circle_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/iv_abroad"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="18dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/transport_ib_abroad_desc"
+        android:src="@drawable/ic_travel"
+        app:layout_constraintBottom_toBottomOf="@id/v_abroad_background"
+        app:layout_constraintEnd_toEndOf="@id/v_abroad_background"
+        app:layout_constraintStart_toStartOf="@id/v_abroad_background"
+        app:layout_constraintTop_toTopOf="@id/v_abroad_background" />
+
+    <TextView
+        android:id="@+id/tv_abroad_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
+        android:text="@string/transport_tv_abroad_title"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/v_abroad_background"
+        app:layout_constraintEnd_toEndOf="@id/iv_abroad"
+        app:layout_constraintStart_toStartOf="@id/iv_abroad"
+        app:layout_constraintTop_toBottomOf="@id/iv_abroad" />
+
+    <View
+        android:id="@+id/v_moving_background"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="9dp"
+        android:background="@drawable/shape_circle_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_abroad_background" />
+
+    <ImageButton
+        android:id="@+id/iv_moving"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="18dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/transport_tv_moving_desc"
+        android:src="@drawable/ic_destination"
+        app:layout_constraintBottom_toBottomOf="@id/v_moving_background"
+        app:layout_constraintEnd_toEndOf="@id/v_moving_background"
+        app:layout_constraintStart_toStartOf="@id/v_moving_background"
+        app:layout_constraintTop_toTopOf="@id/v_moving_background" />
+
+    <TextView
+        android:id="@+id/tv_moving_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="13dp"
+        android:text="@string/transport_tv_moving_title"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/v_moving_background"
+        app:layout_constraintEnd_toEndOf="@id/iv_moving"
+        app:layout_constraintStart_toStartOf="@id/iv_moving"
+        app:layout_constraintTop_toBottomOf="@id/iv_moving" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/efab_transport_req"
         style="@style/Pet_Fab_Color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="9dp"
         android:contentDescription="@string/all_fab_transport_req_desc"
         android:text="@string/all_fab_transport_req"
         app:icon="@drawable/ic_fab_create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!--    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton-->
-    <!--        android:id="@+id/efab_transport_vol"-->
-    <!--        style="@style/Fab"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="16dp"-->
-    <!--        android:contentDescription="@string/fab_transport_req_desc"-->
-    <!--        android:text="@string/fab_transport_vol"-->
-    <!--        app:icon="@drawable/ic_fab_create"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent" />-->
-
-    <Button
-        android:id="@+id/btn_move"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/efab_transport_vol"
+        style="@style/Pet_Fab_Color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="9dp"
+        android:contentDescription="@string/all_fab_transport_vol_desc"
+        android:text="@string/all_fab_transport_vol"
+        android:visibility="gone"
+        app:icon="@drawable/ic_fab_create"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="로그인 이동"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

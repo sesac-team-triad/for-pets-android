@@ -88,6 +88,7 @@
     <style name="Pet_Fab_Color" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
         <item name="iconTint">@color/white</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:backgroundTint">@color/green_600</item>
     </style>
 
 </resources>
