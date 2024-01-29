@@ -51,14 +51,14 @@ class TransportVolFragment : Fragment() {
 
             tietFrom.setOnClickListener {
                 val action = TransportVolFragmentDirections
-                    .actionTransportVolFragmentToLocationPickerForNavigation(!LocationPickerDialogFragment.ONLY_COUNTY)
+                    .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
 
                 findNavController().navigate(action)
             }
 
             tietTo.setOnClickListener {
                 val action = TransportVolFragmentDirections
-                    .actionTransportVolFragmentToLocationPickerForNavigation(!LocationPickerDialogFragment.ONLY_COUNTY)
+                    .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
 
                 findNavController().navigate(action)
             }

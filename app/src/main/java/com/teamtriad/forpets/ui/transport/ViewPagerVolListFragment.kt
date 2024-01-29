@@ -71,14 +71,14 @@ class ViewPagerVolListFragment : Fragment() {
 
             tietFrom.setOnClickListener {
                 val action = TransportListsFragmentDirections
-                    .actionTransportListsFragmentToLocationPickerForNavigation(LocationPickerDialogFragment.ONLY_COUNTY)
+                    .actionTransportListsFragmentToLocationPickerDialogFragment(LocationPickerDialogFragment.ONLY_COUNTY)
 
                 findNavController().navigate(action)
             }
 
             tietTo.setOnClickListener {
                 val action = TransportListsFragmentDirections
-                    .actionTransportListsFragmentToLocationPickerForNavigation(LocationPickerDialogFragment.ONLY_COUNTY)
+                    .actionTransportListsFragmentToLocationPickerDialogFragment(LocationPickerDialogFragment.ONLY_COUNTY)
 
                 findNavController().navigate(action)
             }
