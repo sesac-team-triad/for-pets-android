@@ -50,22 +50,28 @@ class TransportVolFragment : Fragment() {
             }
 
             tietFrom.setOnClickListener {
-                val action = TransportVolFragmentDirections
-                    .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+                if (findNavController().currentDestination?.id == R.id.transportVolFragment) {
+                    val action = TransportVolFragmentDirections
+                        .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
 
-                findNavController().navigate(action)
+                    findNavController().navigate(action)
+                }
             }
 
             tietTo.setOnClickListener {
-                val action = TransportVolFragmentDirections
-                    .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+                if (findNavController().currentDestination?.id == R.id.transportVolFragment) {
+                    val action = TransportVolFragmentDirections
+                        .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
 
-                findNavController().navigate(action)
+                    findNavController().navigate(action)
+                }
             }
 
             btnPost.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportVolFragment_to_transportListsFragment)
+                if (findNavController().currentDestination?.id == R.id.transportVolFragment) {
+                    findNavController()
+                        .navigate(R.id.action_transportVolFragment_to_transportListsFragment)
+                }
             }
         }
     }
@@ -138,8 +144,11 @@ class TransportVolFragment : Fragment() {
     }
 
     private fun showDatePicker() {
-        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
-        addDatePickerButtonClickListener()
+        val dialog = requireActivity().supportFragmentManager.findFragmentByTag("vol")
+        if (dialog?.isAdded != true) {
+            dateRangePicker.show(requireActivity().supportFragmentManager, "vol")
+            addDatePickerButtonClickListener()
+        }
     }
 
     private fun addDatePickerButtonClickListener() {

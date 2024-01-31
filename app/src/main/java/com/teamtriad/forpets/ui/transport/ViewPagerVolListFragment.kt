@@ -70,22 +70,32 @@ class ViewPagerVolListFragment : Fragment() {
             }
 
             tietFrom.setOnClickListener {
-                val action = TransportListsFragmentDirections
-                    .actionTransportListsFragmentToLocationPickerDialogFragment(LocationPickerDialogFragment.ONLY_COUNTY)
+                if (findNavController().currentDestination?.id == R.id.transportListsFragment) {
+                    val action = TransportListsFragmentDirections
+                        .actionTransportListsFragmentToLocationPickerDialogFragment(
+                            LocationPickerDialogFragment.ONLY_COUNTY
+                        )
 
-                findNavController().navigate(action)
+                    findNavController().navigate(action)
+                }
             }
 
             tietTo.setOnClickListener {
-                val action = TransportListsFragmentDirections
-                    .actionTransportListsFragmentToLocationPickerDialogFragment(LocationPickerDialogFragment.ONLY_COUNTY)
+                if (findNavController().currentDestination?.id == R.id.transportListsFragment) {
+                    val action = TransportListsFragmentDirections
+                        .actionTransportListsFragmentToLocationPickerDialogFragment(
+                            LocationPickerDialogFragment.ONLY_COUNTY
+                        )
 
-                findNavController().navigate(action)
+                    findNavController().navigate(action)
+                }
             }
 
             efabVolList.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportListsFragment_to_transportVolFragment)
+                if (findNavController().currentDestination?.id == R.id.transportListsFragment) {
+                    findNavController()
+                        .navigate(R.id.action_transportListsFragment_to_transportVolFragment)
+                }
             }
         }
     }
@@ -123,8 +133,11 @@ class ViewPagerVolListFragment : Fragment() {
     }
 
     private fun showDatePicker() {
-        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
-        addDatePickerButtonClickListener()
+        val dialog = requireActivity().supportFragmentManager.findFragmentByTag("volList")
+        if (dialog?.isAdded != true) {
+            dateRangePicker.show(requireActivity().supportFragmentManager, "volList")
+            addDatePickerButtonClickListener()
+        }
     }
 
     private fun addDatePickerButtonClickListener() {
