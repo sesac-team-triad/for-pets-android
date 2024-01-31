@@ -15,5 +15,5 @@ data class ResponseBody(
 
 @JsonClass(generateAdapter = true)
 data class Items(
-    val item: List<AbandonmentInfo>,
+    val item: List<AbandonmentInfo>?,
 )

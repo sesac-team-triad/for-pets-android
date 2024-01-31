@@ -14,8 +14,8 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentViewPagerVolListBinding
 import com.teamtriad.forpets.model.tmp.Volunteers
-import com.teamtriad.forpets.ui.transport.adpater.VolListRecyclerViewAdapter
-import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerForFragmentManager
+import com.teamtriad.forpets.ui.transport.adapter.VolListRecyclerViewAdapter
+import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
 import java.util.Calendar
@@ -70,11 +70,17 @@ class ViewPagerVolListFragment : Fragment() {
             }
 
             tietFrom.setOnClickListener {
-                showModalBottomSheet()
+                val action = TransportListsFragmentDirections
+                    .actionTransportListsFragmentToLocationPickerDialogFragment(LocationPickerDialogFragment.ONLY_COUNTY)
+
+                findNavController().navigate(action)
             }
 
             tietTo.setOnClickListener {
-                showModalBottomSheet()
+                val action = TransportListsFragmentDirections
+                    .actionTransportListsFragmentToLocationPickerDialogFragment(LocationPickerDialogFragment.ONLY_COUNTY)
+
+                findNavController().navigate(action)
             }
 
             efabVolList.setOnClickListener {
@@ -82,14 +88,6 @@ class ViewPagerVolListFragment : Fragment() {
                     .navigate(R.id.action_transportListsFragment_to_transportVolFragment)
             }
         }
-    }
-
-    private fun showModalBottomSheet() {
-        val bottomSheet = LocationPickerForFragmentManager()
-        bottomSheet.show(
-            requireActivity().supportFragmentManager,
-            LocationPickerForFragmentManager.TAG
-        )
     }
 
     private fun setDatePicker() {
