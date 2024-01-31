@@ -65,7 +65,7 @@
                 android:id="@+id/til_from"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10.5dp"
                 android:hint="@string/all_from"
                 app:layout_constraintEnd_toEndOf="@id/til_date"
                 app:layout_constraintStart_toStartOf="@id/til_date"
