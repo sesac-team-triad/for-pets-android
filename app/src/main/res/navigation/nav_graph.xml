@@ -128,6 +128,9 @@
         <argument
             android:name="roomId"
             app:argType="string" />
+        <argument
+            android:name="friendEmail"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/userListFragment"
