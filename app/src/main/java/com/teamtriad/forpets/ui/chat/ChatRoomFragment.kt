@@ -3,6 +3,7 @@ package com.teamtriad.forpets.ui.chat
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +38,6 @@ class ChatRoomFragment : Fragment() {
     private lateinit var user: FirebaseUser
 
     private var myUid: String? = null
-    private var receiverUid: String? = null
     private var senderEmail: String = ""
     private var senderName: String = ""
 
@@ -55,26 +55,30 @@ class ChatRoomFragment : Fragment() {
         binding.rvChatRoom.adapter = adapter
         auth = FirebaseAuth.getInstance()
         user = auth.currentUser ?: return
-        receiverUid = arguments?.getString("receiverUid")
         getUserInfo()
         setupMessageListener()
 
-        val roomId: String? = arguments?.getString("roomId") ?: createChatId(myUid!!, receiverUid!!)
+        val roomId: String? = arguments?.getString("roomId")
+        val email: String? = arguments?.getString("friendEmail")
         binding.btnSend.setOnClickListener {
             roomId?.let {
                 val receiverName = arguments?.getString("friendName") ?: ""
-                sendMessage(roomId, receiverName)
+                sendMessage(email!!, receiverName)
             }
         }
 
         binding.btnSchedule.setOnClickListener {
-            showScheduleInputDialog(roomId)
+            showScheduleInputDialog()
         }
     }
 
-    private fun setupMessageListener() {
-        database = FirebaseDatabase.getInstance(databaseUrl).reference.child("chats").child(createChatId(myUid!!, receiverUid!!))
-        database.addChildEventListener(object : ChildEventListener {
+    fun setupMessageListener() {
+        val roomId: String? = arguments?.getString("roomId")
+        database =
+            FirebaseDatabase.getInstance("https://for-pets-77777-default-rtdb.asia-southeast1.firebasedatabase.app/").reference.child(
+                "chat"
+            )
+        database.child(roomId!!).addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val message = snapshot.getValue(ChatMessage::class.java)
                 if (message != null) {
@@ -86,40 +90,40 @@ class ChatRoomFragment : Fragment() {
                     adapter.notifyItemInserted(messages.size - 1)
                 }
             }
-
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
-
             override fun onChildRemoved(snapshot: DataSnapshot) {}
-
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
-
             override fun onCancelled(error: DatabaseError) {}
         })
     }
 
-    private fun sendMessage(receiverUid: String, receiverName: String) {
+    private fun sendMessage(receiverEmail: String, receiverName: String) {
         val content = binding.etInputWindow.text.toString().trim()
         if (content.isNotEmpty()) {
             user.let {
                 val message = ChatMessage(
                     senderEmail,
-                    receiverUid,
+                    receiverEmail,
                     content,
                     System.currentTimeMillis(),
                     senderName,
                     receiverName,
                 )
-                database.push().setValue(message)
+                val roomId: String? = arguments?.getString("roomId")
+                database.child(roomId!!).push().setValue(message)
                 binding.etInputWindow.text.clear()
             }
         }
     }
 
+
+
     private fun getUserInfo() {
         myUid = FirebaseAuth.getInstance().currentUser?.uid.toString()
         user.let {
             database =
-                FirebaseDatabase.getInstance(databaseUrl).getReference("user")
+                FirebaseDatabase.getInstance(databaseUrl)
+                    .getReference("user")
             database.child(myUid!!).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val nickname = snapshot.child("nickname").value.toString()
@@ -130,22 +134,92 @@ class ChatRoomFragment : Fragment() {
 
                 override fun onCancelled(error: DatabaseError) {
                 }
+
             })
         }
     }
 
-    private fun showScheduleInputDialog(roomId: String?) {
-        // 코드는 여기에 추가하세요.
+
+    private fun showScheduleInputDialog() {
+        val currentDate = Calendar.getInstance()
+        val year = currentDate.get(Calendar.YEAR)
+        val month = currentDate.get(Calendar.MONTH)
+        val day = currentDate.get(Calendar.DAY_OF_MONTH)
+        val hour = currentDate.get(Calendar.HOUR_OF_DAY)
+        val minute = currentDate.get(Calendar.MINUTE)
+
+        var selectedYear = year
+        var selectedMonth = month
+        var selectedDay = day
+        var selectedHour = hour
+        var selectedMinute = minute
+
+        val scheduleInputDialog = ScheduleInputDialog(
+            requireContext(),
+            object : ScheduleInputDialog.OnScheduleInputListener {
+                override fun onInputReceived(
+                    dogName: String,
+                    departureLocation: String,
+                    destinationLocation: String
+                ) {
+                    val appointmentDatabase =
+                        FirebaseDatabase.getInstance(databaseUrl).reference.child(
+                            "appointment"
+                        )
+
+                    val selectedDate = currentDate.apply {
+                        set(Calendar.YEAR, selectedYear)
+                        set(Calendar.MONTH, selectedMonth)
+                        set(Calendar.DAY_OF_MONTH, selectedDay)
+                        set(Calendar.HOUR_OF_DAY, selectedHour)
+                        set(Calendar.MINUTE, selectedMinute)
+                        set(Calendar.SECOND, 0)
+                    }.time
+
+                    // 약속 예약 데이터를 생성
+                    val formattedDate =
+                        SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault()).format(
+                            selectedDate
+                        )
+                    val appointmentData = mapOf(
+                        "dogName" to dogName,
+                        "departureLocation" to departureLocation,
+                        "destinationLocation" to destinationLocation,
+                        "appointmentTime" to formattedDate
+                    )
+
+                    appointmentDatabase.push().setValue(appointmentData)
+                    val message = "약속이 예약되었습니다.\n" +
+                            "강아지 이름: $dogName\n" +
+                            "출발지역: $departureLocation\n" +
+                            "도착지역: $destinationLocation\n" +
+                            "약속 시간: $formattedDate"
+                    Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+                }
+            })
+
+
+        val datePickerDialog = DatePickerDialog(requireContext(), { _, year, month, day ->
+
+            val timePickerDialog = TimePickerDialog(requireContext(), { _, hour, minute ->
+                selectedYear = year
+                selectedMonth = month
+                selectedDay = day
+                selectedHour = hour
+                selectedMinute = minute
+                scheduleInputDialog.show()
+            }, hour, minute, true)
+
+            timePickerDialog.show()
+        }, year, month, day)
+
+        datePickerDialog.show()
     }
 
-    private fun createChatId(senderUid: String, receiverUid: String): String {
-        val uids = listOf(senderUid, receiverUid).sorted()
-        return "${uids[0]}_${uids[1]}"
-    }
 
     data class ChatMessage(
         var senderEmail: String = "",
-        val receiverUid: String = "",
+        val receiverEmail: String = "",
         val content: String = "",
         val timestamp: Long = 0,
         var senderName: String = "",

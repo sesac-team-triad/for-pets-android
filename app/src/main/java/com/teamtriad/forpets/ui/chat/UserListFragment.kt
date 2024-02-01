@@ -1,6 +1,7 @@
 package com.teamtriad.forpets.ui.chat
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.teamtriad.forpets.databinding.FragmentUserListBinding
 import com.teamtriad.forpets.ui.chat.adapter.UserListRecyclerViewAdapter
+import java.util.UUID
 
 class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickListener {
     private var _binding: FragmentUserListBinding? = null
@@ -38,7 +40,6 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
             FirebaseDatabase.getInstance("https://for-pets-77777-default-rtdb.asia-southeast1.firebasedatabase.app/").reference.child(
                 "user"
             )
-
         userAdapter = UserListRecyclerViewAdapter(this)
         binding.rvUserList.adapter = userAdapter
 
@@ -64,16 +65,18 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
     }
 
     override fun onItemClick(user: Users) {
+        val roomId = UUID.randomUUID().toString()
         val action =
             UserListFragmentDirections.actionUserListFragmentToChatroomFragment(
-                roomId = user.email,
-                friendName = user.nickname
+                roomId = roomId,
+                friendName = user.nickname,
+                friendEmail = user.email
             )
         findNavController().navigate(action)
     }
 }
 
 data class Users(
-    val email: String = "",
-    val nickname: String = ""
+    val nickname: String = "",
+    val email: String = ""
 )

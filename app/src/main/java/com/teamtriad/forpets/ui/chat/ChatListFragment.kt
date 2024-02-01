@@ -89,7 +89,8 @@ class ChatListFragment : Fragment(), ChatListRecyclerViewAdapter.OnItemClickList
         val action =
             ChatListFragmentDirections.actionChatListFragmentToChatRoomFragment(
                 friendName = chatList.friendName,
-                roomId = chatList.roomId
+                roomId = chatList.roomId,
+                friendEmail = chatList.friendName
             )
         findNavController().navigate(action)
     }
