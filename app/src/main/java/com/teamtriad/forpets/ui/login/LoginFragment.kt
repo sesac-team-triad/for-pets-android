@@ -1,7 +1,5 @@
 package com.teamtriad.forpets.ui.login
 
-import android.annotation.SuppressLint
-import com.teamtriad.forpets.data.source.network.LoginService
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,9 +8,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.teamtriad.forpets.R
+import com.teamtriad.forpets.data.source.network.LoginService
 import com.teamtriad.forpets.data.source.network.User
 import com.teamtriad.forpets.databinding.FragmentLoginBinding
 import retrofit2.Call
@@ -29,6 +35,10 @@ class LoginFragment : Fragment() {
     private val databaseUrl =
         "https://for-pets-77777-default-rtdb.asia-southeast1.firebasedatabase.app/"
 
+    private lateinit var userDB: DatabaseReference
+
+    private var auth: FirebaseAuth? = null
+    private var user: FirebaseUser? = null
 
     // apiService를 처음 사용할 때 createApiService() 함수가 호출 후 캐시된 값이 계속해서 반환
     private val loginService: LoginService by lazy {
@@ -58,13 +68,43 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        auth = FirebaseAuth.getInstance()
+
+        userDB = FirebaseDatabase.getInstance(databaseUrl).getReference("user")
+
         binding.btnLogin.setOnClickListener {
-            checkIfUserExists()
+            checkIfUserExist()
+            //checkIfUserExists()
         }
         binding.tvSignup.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signUpUserFragment)
         }
     }
+
+    private fun checkIfUserExist() {
+        val email = binding.tietEmail.text.toString()
+        val password = binding.tietPassword.text.toString()
+        auth!!.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+            user = FirebaseAuth.getInstance().currentUser
+            val userId = user!!.uid
+            if (it.isSuccessful) {
+                userDB.child(userId).addListenerForSingleValueEvent(object: ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        showToast(getString(R.string.login_toast_welcome))
+                        Log.d("확인1", "$snapshot")
+                        findNavController().navigate(R.id.action_loginFragment_to_transportFragment)
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+
+            }
+        }
+    }
+
 
     private fun checkIfUserExists() {
         val call = loginService.getAllUserData()
@@ -84,6 +124,10 @@ class LoginFragment : Fragment() {
                         }
                         if (foundUser != null) {
                             showToast(getString(R.string.login_toast_welcome))
+                            val user = FirebaseAuth.getInstance().currentUser
+                            val uid = FirebaseAuth.getInstance().currentUser?.uid
+                            Log.d("확인1", "$user")
+                            Log.d("확인2", "$uid")
                             findNavController().navigate(R.id.action_loginFragment_to_transportFragment)
                         } else {
                             showToast(getString(R.string.login_toast_not_found))
@@ -112,3 +156,4 @@ class LoginFragment : Fragment() {
         _binding = null
     }
 }
+

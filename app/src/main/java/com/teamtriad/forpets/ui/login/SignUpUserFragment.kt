@@ -3,6 +3,7 @@ package com.teamtriad.forpets.ui.login
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.teamtriad.forpets.databinding.FragmentSignUpUserBinding
 import com.google.android.gms.tasks.Task
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.data.source.network.User
+import kotlin.math.log
 
 class SignUpUserFragment : Fragment() {
 
@@ -96,9 +98,8 @@ class SignUpUserFragment : Fragment() {
     private fun saveUserDataToDatabase(user: User) {
         val databaseReference =
             FirebaseDatabase.getInstance("https://for-pets-77777-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("User")
-        val userId = databaseReference.push().key
-        databaseReference.child(userId!!).setValue(user)
+                .getReference("user")
+        databaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).setValue(user)
         showToast(getString(R.string.login_toast_welcome))
         findNavController().navigate(R.id.action_signUpUserFragment_to_transportFragment)
     }
