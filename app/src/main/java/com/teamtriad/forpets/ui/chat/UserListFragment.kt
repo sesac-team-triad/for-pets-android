@@ -1,11 +1,11 @@
 package com.teamtriad.forpets.ui.chat
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
@@ -24,12 +24,15 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
     private lateinit var userAdapter: UserListRecyclerViewAdapter
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
+    private lateinit var viewModel: ChatViewModel // ChatViewModel 추가
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentUserListBinding.inflate(inflater, container, false)
+        viewModel =
+            ViewModelProvider(requireActivity())[ChatViewModel::class.java]
         return binding.root
     }
 
@@ -65,7 +68,8 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
     }
 
     override fun onItemClick(user: Users) {
-        val roomId = UUID.randomUUID().toString()
+        val roomId = viewModel.getRoomId() ?: UUID.randomUUID().toString()
+        viewModel.setRoomId(roomId)
         val action =
             UserListFragmentDirections.actionUserListFragmentToChatroomFragment(
                 roomId = roomId,
@@ -80,3 +84,5 @@ data class Users(
     val nickname: String = "",
     val email: String = ""
 )
+
+
