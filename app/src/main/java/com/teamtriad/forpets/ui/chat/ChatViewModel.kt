@@ -3,13 +3,13 @@ package com.teamtriad.forpets.ui.chat
 import androidx.lifecycle.ViewModel
 
 class ChatViewModel : ViewModel() {
-    private var roomId: String? = null
+    private var roomKey: String? = null
 
-    fun getRoomId(): String? {
-        return roomId
+    fun getRoomKey(): String? {
+        return roomKey
     }
 
     fun setRoomId(newRoomId: String) {
-        roomId = newRoomId
+        roomKey = newRoomId
     }
 }

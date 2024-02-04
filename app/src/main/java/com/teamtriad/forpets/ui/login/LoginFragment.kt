@@ -91,7 +91,6 @@ class LoginFragment : Fragment() {
                 userDB.child(userId).addListenerForSingleValueEvent(object: ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         showToast(getString(R.string.login_toast_welcome))
-                        Log.d("확인1", "$snapshot")
                         findNavController().navigate(R.id.action_loginFragment_to_transportFragment)
                     }
 

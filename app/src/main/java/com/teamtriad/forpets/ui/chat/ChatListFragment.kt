@@ -88,7 +88,7 @@ class ChatListFragment : Fragment(), ChatListRecyclerViewAdapter.OnItemClickList
     override fun onItemClick(chatList: ChatList) {
         val action =
             ChatListFragmentDirections.actionChatListFragmentToChatRoomFragment(
-                roomId = "roomId",
+                roomKey = "roomId",
                 reqUid = "reqUid",
                 reqNickname = "reqNickname",
                 volUid = "volUid",

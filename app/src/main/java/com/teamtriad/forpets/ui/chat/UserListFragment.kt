@@ -17,7 +17,6 @@ import com.google.firebase.database.ValueEventListener
 import com.teamtriad.forpets.data.source.network.User
 import com.teamtriad.forpets.databinding.FragmentUserListBinding
 import com.teamtriad.forpets.ui.chat.adapter.UserListRecyclerViewAdapter
-import java.util.UUID
 
 class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickListener {
     private var _binding: FragmentUserListBinding? = null
@@ -94,12 +93,12 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
         val volUid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val volNickname = currentNickname
 
-        findExistingRoomId(reqUid, volUid) { existingRoomId ->
-            val roomId = existingRoomId ?: UUID.randomUUID().toString()
-            val transportReqKey = UUID.randomUUID().toString()
+        findExistingRoomKey(reqUid, volUid) { existingRoomKey ->
+            val roomKey = existingRoomKey ?: database.push().key.toString()
+            val transportReqKey = database.push().child("transportReqKey").push().key ?: ""
 
             val action = UserListFragmentDirections.actionUserListFragmentToChatroomFragment(
-                roomId = roomId,
+                roomKey = roomKey,
                 reqUid = reqUid,
                 reqNickname = reqNickname,
                 volUid = volUid,
@@ -110,12 +109,12 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
         }
     }
 
-    private fun findExistingRoomId(reqUid: String, volUid: String, callback: (String?) -> Unit) {
+    private fun findExistingRoomKey(reqUid: String, volUid: String, callback: (String?) -> Unit) {
         val database = FirebaseDatabase.getInstance(databaseUrl).reference.child("chat")
 
         database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var roomId: String? = null
+                var roomKey: String? = null
 
                 for (chatSnapshot in snapshot.children) {
                     val reqUidInChat = chatSnapshot.child("reqUid").getValue(String::class.java)
@@ -124,11 +123,11 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
                     if ((reqUidInChat == reqUid && volUidInChat == volUid) ||
                         (reqUidInChat == volUid && volUidInChat == reqUid)
                     ) {
-                        roomId = chatSnapshot.key
+                        roomKey = chatSnapshot.key
                         break
                     }
                 }
-                callback(roomId)
+                callback(roomKey)
             }
 
             override fun onCancelled(error: DatabaseError) {
