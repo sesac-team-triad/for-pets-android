@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
+import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -48,24 +51,43 @@ class ChatRoomFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val reqNickname = args.reqNickname
+        initializeView()
 
+        val currentUserID = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+        adapter = ChatRoomRecyclerViewAdapter(currentUserID)
+        binding.rvChatRoom.adapter = adapter
+
+        val reqNickname = args.reqNickname
         binding.toolbar.subtitle = reqNickname
+
         binding.toolbar.setNavigationOnClickListener {
+            onBackButtonPress()
             findNavController().navigateUp()
         }
-
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            onBackButtonPress()
+        }
         binding.btnSend.setOnClickListener {
             sendMessage()
         }
         binding.btnSchedule.setOnClickListener {
             showScheduleInputDialog()
         }
+        loadMessages()
+    }
+
+    private fun initializeView() {
+        requireActivity().window.setSoftInputMode(SOFT_INPUT_ADJUST_RESIZE)
+    }
+
+    private fun onBackButtonPress() {
+        requireActivity().window.setSoftInputMode(SOFT_INPUT_ADJUST_PAN)
+        findNavController().navigateUp()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun sendMessage() {
-        val roomId = args.roomId
+        val roomKey = args.roomKey
         val reqUid = args.reqUid
         val reqNickname = args.reqNickname
         val volUid = args.volUid
@@ -77,10 +99,10 @@ class ChatRoomFragment : Fragment() {
         if (content.isNotEmpty()) {
             val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
             val time = timeFormat.format(Date())
-            val messages = ChatMessage(content, time, senderUid!!)
+            val messages = ChatMessage(content, time, senderUid!!, volNickname)
 
             database = FirebaseDatabase.getInstance(databaseUrl).reference
-            val chatRef = database.child("chat").child(roomId)
+            val chatRef = database.child("chat").child(roomKey)
 
             chatRef.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -95,6 +117,7 @@ class ChatRoomFragment : Fragment() {
                         chatRef.setValue(initialData)
                     }
                     chatRef.child("messages").push().setValue(messages)
+                    adapter.submitList(adapter.currentList + listOf(messages))
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -104,6 +127,31 @@ class ChatRoomFragment : Fragment() {
         }
     }
 
+    private fun loadMessages() {
+        val roomKey = args.roomKey
+        database = FirebaseDatabase.getInstance(databaseUrl).reference
+        val chatRef = database.child("chat").child(roomKey).child("messages")
+        chatRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val messages = mutableListOf<ChatMessage>()
+
+                for (messageSnapshot in snapshot.children) {
+                    val content = messageSnapshot.child("content").getValue(String::class.java) ?: ""
+                    val time = messageSnapshot.child("time").getValue(String::class.java) ?: ""
+                    val senderUid = messageSnapshot.child("senderUid").getValue(String::class.java) ?: ""
+                    val volNickname = messageSnapshot.child("volNickname").getValue(String::class.java) ?: ""
+
+                    val message = ChatMessage(content, time, senderUid, volNickname)
+                    messages.add(message)
+                }
+
+                adapter.submitList(messages)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
 
     private fun showScheduleInputDialog() {
         val currentDate = Calendar.getInstance()
@@ -183,7 +231,8 @@ class ChatRoomFragment : Fragment() {
     data class ChatMessage(
         var content: String,
         var time: String,
-        var senderUid: String
+        var senderUid: String,
+        var volNickname: String
     )
 
     override fun onDestroyView() {
