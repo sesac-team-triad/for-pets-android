@@ -88,9 +88,12 @@ class ChatListFragment : Fragment(), ChatListRecyclerViewAdapter.OnItemClickList
     override fun onItemClick(chatList: ChatList) {
         val action =
             ChatListFragmentDirections.actionChatListFragmentToChatRoomFragment(
-                friendName = chatList.friendName,
-                roomId = chatList.roomId,
-                friendEmail = chatList.friendName
+                roomId = "roomId",
+                reqUid = "reqUid",
+                reqNickname = "reqNickname",
+                volUid = "volUid",
+                volNickname = "volNickname",
+                transportReqKey = "transportReqKey"
             )
         findNavController().navigate(action)
     }
