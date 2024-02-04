@@ -16,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.teamtriad.forpets.databinding.FragmentSignUpUserBinding
 import com.google.android.gms.tasks.Task
 import com.teamtriad.forpets.R
-import com.teamtriad.forpets.data.source.network.User
+import com.teamtriad.forpets.data.source.network.model.User
 
 class SignUpUserFragment : Fragment() {
 

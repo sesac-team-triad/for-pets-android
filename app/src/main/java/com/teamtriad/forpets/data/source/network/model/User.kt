@@ -1,4 +1,4 @@
-package com.teamtriad.forpets.data.source.network
+package com.teamtriad.forpets.data.source.network.model
 
 import com.squareup.moshi.JsonClass
 
