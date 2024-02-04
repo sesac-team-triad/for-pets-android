@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Pet_TextView_XSmallDarkGray" parent="TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/xSmall</item>
+    <style name="Pet_TextView_LargeDarkGray" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/large</item>
         <item name="android:textColor">@color/dark_gray</item>
     </style>
 
