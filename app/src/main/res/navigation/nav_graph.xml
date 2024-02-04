@@ -123,13 +123,22 @@
         android:label=""
         tools:layout="@layout/fragment_chat_room">
         <argument
-            android:name="friendName"
-            app:argType="string" />
-        <argument
             android:name="roomId"
             app:argType="string" />
         <argument
-            android:name="friendEmail"
+            android:name="reqUid"
+            app:argType="string" />
+        <argument
+            android:name="reqNickname"
+            app:argType="string" />
+        <argument
+            android:name="volUid"
+            app:argType="string" />
+        <argument
+            android:name="volNickname"
+            app:argType="string" />
+        <argument
+            android:name="transportReqKey"
             app:argType="string" />
     </fragment>
     <fragment

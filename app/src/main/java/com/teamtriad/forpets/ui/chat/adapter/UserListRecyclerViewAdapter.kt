@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.teamtriad.forpets.data.source.network.User
 import com.teamtriad.forpets.databinding.RvItemUserListBinding
-import com.teamtriad.forpets.ui.chat.Users
 
 class UserListRecyclerViewAdapter(
     private val itemClickListener: OnItemClickListener
-) : ListAdapter<Users, UserListRecyclerViewAdapter.ViewHolder>(UserDiffCallback()) {
+) : ListAdapter<User, UserListRecyclerViewAdapter.ViewHolder>(UserDiffCallback()) {
 
     interface OnItemClickListener {
-        fun onItemClick(user: Users)
+        fun onItemClick(user: User)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,7 +31,7 @@ class UserListRecyclerViewAdapter(
         private val itemClickListener: OnItemClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(user: Users) {
+        fun bind(user: User) {
             binding.tvUser.text = user.nickname
             binding.root.setOnClickListener {
                 itemClickListener.onItemClick(user)
@@ -40,12 +40,12 @@ class UserListRecyclerViewAdapter(
     }
 }
 
-class UserDiffCallback : DiffUtil.ItemCallback<Users>() {
-    override fun areItemsTheSame(oldItem: Users, newItem: Users): Boolean {
+class UserDiffCallback : DiffUtil.ItemCallback<User>() {
+    override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: Users, newItem: Users): Boolean {
+    override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
         return oldItem == newItem
     }
 }
