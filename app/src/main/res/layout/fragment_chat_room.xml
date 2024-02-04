@@ -10,18 +10,17 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_arrow_back"
-        app:subtitle=""
-        app:subtitleTextAppearance="@style/Pet_TextView_LargeBlack" />
+        app:subtitleTextAppearance="@style/Pet_TextView_XLargeBlack" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_chat_room"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/et_input_window"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +35,7 @@
         android:background="@drawable/ic_schedule"
         app:layout_constraintBottom_toBottomOf="@id/et_input_window"
         app:layout_constraintEnd_toStartOf="@id/et_input_window"
-        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintHorizontal_weight="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/et_input_window" />
 
@@ -44,8 +43,8 @@
         android:id="@+id/et_input_window"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/shape_chatting_input_window"
         android:hint="@string/chatting_et_keyboard"
         android:inputType="textMultiLine"
@@ -53,7 +52,7 @@
         android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_send"
-        app:layout_constraintHorizontal_weight="9"
+        app:layout_constraintHorizontal_weight="8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_chat_room" />
 

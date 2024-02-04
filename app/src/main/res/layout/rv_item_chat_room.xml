@@ -17,6 +17,7 @@
 
     <TextView
         android:id="@+id/tv_friend_name"
+        style="@style/Pet_TextView_MiddleBlack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -26,7 +27,7 @@
 
     <TextView
         android:id="@+id/tv_friend_message"
-        style="@style/Pet_TextView_XSmallDarkGray"
+        style="@style/Pet_TextView_LargeDarkGray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -46,7 +47,7 @@
 
     <TextView
         android:id="@+id/tv_my_message"
-        style="@style/Pet_TextView_XSmallDarkGray"
+        style="@style/Pet_TextView_LargeDarkGray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
