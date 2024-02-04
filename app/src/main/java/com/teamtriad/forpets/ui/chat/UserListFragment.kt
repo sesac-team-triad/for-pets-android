@@ -24,6 +24,9 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
     private val binding get() = _binding!!
 
     private lateinit var database: DatabaseReference
+    private val databaseUrl =
+        "https://for-pets-77777-default-rtdb.asia-southeast1.firebasedatabase.app/"
+
     private lateinit var userAdapter: UserListRecyclerViewAdapter
     private lateinit var viewModel: ChatViewModel
     private var currentNickname: String = ""
@@ -41,7 +44,7 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         database =
-            FirebaseDatabase.getInstance("https://for-pets-77777-default-rtdb.asia-southeast1.firebasedatabase.app/").reference.child(
+            FirebaseDatabase.getInstance(databaseUrl).reference.child(
                 "user"
             )
 
@@ -58,7 +61,7 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val reqUid = snapshot.key.toString()
                 val nickname = snapshot.child("nickname").value.toString()
-                val user = User(reqUid, "",  "",nickname)
+                val user = User(reqUid, "", "", nickname)
                 userList.add(user)
                 userAdapter.submitList(userList)
             }
@@ -85,22 +88,53 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
 
 
     override fun onItemClick(user: User) {
-        val roomId = UUID.randomUUID().toString()
+
         val reqUid = user.uid
         val reqNickname = user.nickname
         val volUid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val volNickname = currentNickname
-        val transportReqKey = UUID.randomUUID().toString()
 
-        val action = UserListFragmentDirections.actionUserListFragmentToChatroomFragment(
-            roomId = roomId,
-            reqUid = reqUid,
-            reqNickname = reqNickname,
-            volUid = volUid,
-            volNickname = volNickname,
-            transportReqKey = transportReqKey
-        )
-        findNavController().navigate(action)
+        findExistingRoomId(reqUid, volUid) { existingRoomId ->
+            val roomId = existingRoomId ?: UUID.randomUUID().toString()
+            val transportReqKey = UUID.randomUUID().toString()
+
+            val action = UserListFragmentDirections.actionUserListFragmentToChatroomFragment(
+                roomId = roomId,
+                reqUid = reqUid,
+                reqNickname = reqNickname,
+                volUid = volUid,
+                volNickname = volNickname,
+                transportReqKey = transportReqKey
+            )
+            findNavController().navigate(action)
+        }
+    }
+
+    private fun findExistingRoomId(reqUid: String, volUid: String, callback: (String?) -> Unit) {
+        val database = FirebaseDatabase.getInstance(databaseUrl).reference.child("chat")
+
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var roomId: String? = null
+
+                for (chatSnapshot in snapshot.children) {
+                    val reqUidInChat = chatSnapshot.child("reqUid").getValue(String::class.java)
+                    val volUidInChat = chatSnapshot.child("volUid").getValue(String::class.java)
+
+                    if ((reqUidInChat == reqUid && volUidInChat == volUid) ||
+                        (reqUidInChat == volUid && volUidInChat == reqUid)
+                    ) {
+                        roomId = chatSnapshot.key
+                        break
+                    }
+                }
+                callback(roomId)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(null)
+            }
+        })
     }
 
     override fun onDestroyView() {
