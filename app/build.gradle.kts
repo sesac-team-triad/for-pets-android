@@ -1,5 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -21,12 +19,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField(
-            "String", "ABANDONMENT_API_KEY", gradleLocalProperties(rootDir).getProperty(
-                "ABANDONMENT_API_KEY"
-            )
-        )
     }
 
     buildTypes {
@@ -52,9 +44,6 @@ android {
     }
 
     secrets {
-        propertiesFileName = "secrets.properties"
-        defaultPropertiesFileName = "local.properties"
-        ignoreList.add("keyToIgnore")
         ignoreList.add("sdk.*")
     }
 }
