@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamtriad.forpets.ForPetsApplication.Companion.remoteDatabaseService
+import com.teamtriad.forpets.data.LocationRepository
 import com.teamtriad.forpets.data.TransportRepository
 import com.teamtriad.forpets.data.source.network.model.Appointment
-import com.teamtriad.forpets.data.source.network.model.Location
+import com.teamtriad.forpets.data.source.network.model.District
 import com.teamtriad.forpets.data.source.network.model.Moving
 import com.teamtriad.forpets.data.source.network.model.TransportReq
 import com.teamtriad.forpets.data.source.network.model.TransportVol
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 class TransportViewModel : ViewModel() {
 
     private val transportRepository = TransportRepository(remoteDatabaseService)
-//    private val locationRepository = LocationRepository()
+    private val locationRepository = LocationRepository(remoteDatabaseService)
 //    private val appointmentRepository = AppointmentRepository()
 //    private val userRepository = UserRepository()
 //    private val storageRepository = StorageRepository()
@@ -27,8 +28,8 @@ class TransportViewModel : ViewModel() {
     private var _transportVolMap = MutableLiveData<Map<String, TransportVol>>()
     val transportVolMap: LiveData<Map<String, TransportVol>> get() = _transportVolMap
 
-    private var _locationMap = MutableLiveData<Map<String, Map<String, Location>>>()
-    val locationMap: LiveData<Map<String, Map<String, Location>>> get() = _locationMap
+    private var _locationMap = MutableLiveData<Map<String, Map<String, District>>>()
+    val locationMap: LiveData<Map<String, Map<String, District>>> get() = _locationMap
 
     private var _appointmentMap = MutableLiveData<Map<String, Appointment>>()
     val appointmentMap: LiveData<Map<String, Appointment>> get() = _appointmentMap
@@ -120,6 +121,15 @@ class TransportViewModel : ViewModel() {
     fun deleteTransportVolByKey(key: String) {
         viewModelScope.launch {
             transportRepository.deleteTransportVolByKey(key)
+        }
+    }
+
+    /**
+     * 등록된 시/도들의 목록을 전부 가져옵니다.
+     */
+    fun getAllCountyMap() {
+        viewModelScope.launch {
+            _locationMap.value = locationRepository.getAllCountyMap() ?: mapOf()
         }
     }
 }
