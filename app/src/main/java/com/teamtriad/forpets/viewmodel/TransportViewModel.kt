@@ -39,9 +39,9 @@ class TransportViewModel : ViewModel() {
     init {
         _transportReqMap.value = mapOf()
         _transportVolMap.value = mapOf()
+        _locationMap.value = mapOf()
         _appointmentMap.value = mapOf()
         _movingMap.value = mapOf()
-        _locationMap.value = mapOf()
     }
 
     /**
@@ -69,64 +69,57 @@ class TransportViewModel : ViewModel() {
         return transportRepository.getTransportReqByKey(key)
     }
 
-//    /**
-//     * 이동봉사 요청글을 변경합니다.
-//     */
-//    fun updateTransportReqByKey(key: String, transportReq: TransportReq) {
-//        viewModelScope.launch {
-//            transportRepository.updateTransportReqByKey(key, transportReq)
-//        }
-//    }
-//
-//    /**
-//     * 이동봉사 요청글을 삭제합니다.
-//     */
-//    fun deleteTransportReqByKey(key: String) {
-//        viewModelScope.launch {
-//            transportRepository.deleteTransportReqByKey(key)
-//        }
-//    }
-//
-//    /**
-//     * 봉사자 글을 저장합니다.
-//     */
-//    fun addTransportVol(transportVol: TransportVol) {
-//        viewModelScope.launch {
-//            transportRepository.addTransportVol(transportVol)
-//        }
-//    }
-//
-//    /**
-//     * 등록된 봉사자 글들의 목록을 전부 가져옵니다.
-//     */
-//    fun getAllTransportVolMap() {
-//        viewModelScope.launch {
-//            _transportVolMap.value = transportRepository.getAllTransportVolMap()
-//        }
-//    }
-//
-//    /**
-//     * 봉사자 글을 가져옵니다.
-//     */
-//    fun getTransportVolByKey(key: String): TransportVol {
-//        return transportRepository.getTransportVolByKey(key)
-//    }
-//
-//    /**
-//     * 봉사자 글을 변경합니다.
-//     */
-//    fun updateTransportVolByKey(key: String, transportVol: TransportVol) {
-//        viewModelScope.launch {
-//            transportRepository.updateTransportVolByKey(key, transportVol)
-//        }
-//    }
-//
-//    /**
-//     * 봉사자 글을 삭제합니다.
-//     */
-//    fun deleteTransportVolByKey(key: String) {
-//        viewModelScope.launch {
-//            transportRepository.deleteTransportVolByKey(key)
-//        }
-//    }
+    /**
+     * 이동봉사 요청글을 변경합니다.
+     */
+    fun updateTransportReqByKey(key: String, transportReq: TransportReq) {
+        viewModelScope.launch {
+            transportRepository.updateTransportReqByKey(key, transportReq)
+        }
+    }
+
+    /**
+     * 이동봉사 요청글을 삭제합니다.
+     */
+    fun deleteTransportReqByKey(key: String) {
+        viewModelScope.launch {
+            transportRepository.deleteTransportReqByKey(key)
+        }
+    }
+
+    /**
+     * 봉사자 글을 저장합니다.
+     */
+    fun addTransportVol(transportVol: TransportVol) {
+        viewModelScope.launch {
+            transportRepository.addTransportVol(transportVol)
+        }
+    }
+
+    /**
+     * 등록된 봉사자 글들의 목록을 전부 가져옵니다.
+     */
+    fun getAllTransportVolMap() {
+        viewModelScope.launch {
+            _transportVolMap.value = transportRepository.getAllTransportVolMap()
+        }
+    }
+
+    /**
+     * 봉사자 글을 변경합니다.
+     */
+    fun updateTransportVolByKey(key: String, transportVol: TransportVol) {
+        viewModelScope.launch {
+            transportRepository.updateTransportVolByKey(key, transportVol)
+        }
+    }
+
+    /**
+     * 봉사자 글을 삭제합니다.
+     */
+    fun deleteTransportVolByKey(key: String) {
+        viewModelScope.launch {
+            transportRepository.deleteTransportVolByKey(key)
+        }
+    }
 }
