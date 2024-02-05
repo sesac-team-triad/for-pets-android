@@ -1,4 +1,4 @@
-package com.teamtriad.forpets.data.source
+package com.teamtriad.forpets.data
 
 import android.util.Log
 import com.teamtriad.forpets.data.source.network.RemoteDatabaseService

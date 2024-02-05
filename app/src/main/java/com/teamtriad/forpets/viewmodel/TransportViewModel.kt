@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.teamtriad.forpets.ForPetsApplication.Companion.remoteDatabaseService
 import com.teamtriad.forpets.data.LocationRepository
 import com.teamtriad.forpets.data.TransportRepository
-import com.teamtriad.forpets.data.source.AppointmentRepository
+import com.teamtriad.forpets.data.AppointmentRepository
 import com.teamtriad.forpets.data.source.network.model.Appointment
 import com.teamtriad.forpets.data.source.network.model.CompletedDate
 import com.teamtriad.forpets.data.source.network.model.District
