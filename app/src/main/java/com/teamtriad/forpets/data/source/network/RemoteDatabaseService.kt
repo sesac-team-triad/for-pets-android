@@ -1,5 +1,6 @@
 package com.teamtriad.forpets.data.source.network
 
+import com.teamtriad.forpets.data.source.network.model.District
 import com.teamtriad.forpets.data.source.network.model.TransportReq
 import com.teamtriad.forpets.data.source.network.model.TransportVol
 import retrofit2.Response
@@ -54,4 +55,7 @@ interface RemoteDatabaseService {
     suspend fun deleteTransportVolByKey(
         @Path("key") key: String
     ): Response<Unit>
+
+    @GET("location.json")
+    suspend fun getAllCountyMap(): Response<Map<String, Map<String, District>>>
 }

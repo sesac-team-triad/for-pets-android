@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Location(
+data class District(
     val latitude: String,
     val longitude: String,
     @Json(name = "transport-req-count") val transportReqCount: Int,
