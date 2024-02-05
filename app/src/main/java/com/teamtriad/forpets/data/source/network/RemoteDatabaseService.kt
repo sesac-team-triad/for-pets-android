@@ -78,13 +78,13 @@ interface RemoteDatabaseService {
     ): Response<Appointment>
 
     @PATCH("appointment/{key}.json")
-    suspend fun updateProgressByKey(
+    suspend fun updateAppointmentProgressByKey(
         @Path("key") key: String,
         @Body progress: Int
     ): Response<Unit>
 
     @PATCH("appointment/{key}.json")
-    suspend fun updateCompletedDateByKey(
+    suspend fun updateAppointmentCompletedDateByKey(
         @Path("key") key: String,
         @Body completedDate: CompletedDate
     ): Response<Unit>
