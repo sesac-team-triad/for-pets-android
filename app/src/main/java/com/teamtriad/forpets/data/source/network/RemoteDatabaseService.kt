@@ -1,12 +1,17 @@
 package com.teamtriad.forpets.data.source.network
 
+import com.teamtriad.forpets.data.source.network.model.Appointment
+import com.teamtriad.forpets.data.source.network.model.CompletedDate
 import com.teamtriad.forpets.data.source.network.model.District
+import com.teamtriad.forpets.data.source.network.model.KeyResponse
+import com.teamtriad.forpets.data.source.network.model.Moving
 import com.teamtriad.forpets.data.source.network.model.TransportReq
 import com.teamtriad.forpets.data.source.network.model.TransportVol
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -58,4 +63,47 @@ interface RemoteDatabaseService {
 
     @GET("location.json")
     suspend fun getAllCountyMap(): Response<Map<String, Map<String, District>>>
+
+    @POST("appointment.json")
+    suspend fun addAppointment(
+        @Body appointment: Appointment
+    ): Response<KeyResponse>
+
+    @GET("appointment.json")
+    suspend fun getAllAppointmentMap(): Response<Map<String, Appointment>>
+
+    @GET("appointment/{key}.json")
+    suspend fun getAppointmentByKey(
+        @Path("key") key: String
+    ): Response<Appointment>
+
+    @PATCH("appointment/{key}.json")
+    suspend fun updateProgressByKey(
+        @Path("key") key: String,
+        @Body progress: Int
+    ): Response<Unit>
+
+    @PATCH("appointment/{key}.json")
+    suspend fun updateCompletedDateByKey(
+        @Path("key") key: String,
+        @Body completedDate: CompletedDate
+    ): Response<Unit>
+
+    @DELETE("appointment/{key}.json")
+    suspend fun deleteAppointmentByKey(
+        @Path("key") key: String
+    ): Response<Unit>
+
+    @POST("moving.json")
+    suspend fun addMoving(
+        @Body moving: Moving
+    ): Response<Unit>
+
+    @GET("moving.json")
+    suspend fun getAllMovingMap(): Response<Map<String, Moving>>
+
+    @DELETE("moving/{key}.json")
+    suspend fun deleteMovingByKey(
+        @Path("key") key: String
+    ): Response<Unit>
 }
