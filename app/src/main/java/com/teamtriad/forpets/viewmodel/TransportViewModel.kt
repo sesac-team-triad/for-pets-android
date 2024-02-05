@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamtriad.forpets.ForPetsApplication.Companion.remoteDatabaseService
+import com.teamtriad.forpets.data.AppointmentRepository
 import com.teamtriad.forpets.data.LocationRepository
 import com.teamtriad.forpets.data.TransportRepository
-import com.teamtriad.forpets.data.AppointmentRepository
+import com.teamtriad.forpets.data.UserRepository
 import com.teamtriad.forpets.data.source.network.model.Appointment
 import com.teamtriad.forpets.data.source.network.model.CompletedDate
 import com.teamtriad.forpets.data.source.network.model.District
@@ -22,8 +23,7 @@ class TransportViewModel : ViewModel() {
     private val transportRepository = TransportRepository(remoteDatabaseService)
     private val locationRepository = LocationRepository(remoteDatabaseService)
     private val appointmentRepository = AppointmentRepository(remoteDatabaseService)
-//    private val userRepository = UserRepository()
-//    private val storageRepository = StorageRepository()
+    private val userRepository = UserRepository(remoteDatabaseService)
 
     private var _transportReqMap = MutableLiveData<Map<String, TransportReq>>()
     val transportReqMap: LiveData<Map<String, TransportReq>> get() = _transportReqMap
@@ -211,5 +211,12 @@ class TransportViewModel : ViewModel() {
         viewModelScope.launch {
             appointmentRepository.deleteMovingByKey(key)
         }
+    }
+
+    /**
+     * 유저의 닉네임을 가져옵니다.
+     */
+    suspend fun getUserNicknameByUid(uid: String): String? {
+        return userRepository.getUserNicknameByUid(uid)
     }
 }
