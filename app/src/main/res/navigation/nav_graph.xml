@@ -113,7 +113,7 @@
     <dialog
         android:id="@+id/locationPickerDialogFragment"
         android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment"
-        android:label="LocationPickerForNavigation" >
+        android:label="LocationPicker">
         <argument
             android:name="onlyCounty"
             app:argType="boolean" />
