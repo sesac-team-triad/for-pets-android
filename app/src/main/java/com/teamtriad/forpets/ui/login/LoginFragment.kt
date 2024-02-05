@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -15,6 +16,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.teamtriad.forpets.R
@@ -88,22 +91,29 @@ class LoginFragment : Fragment() {
             user = FirebaseAuth.getInstance().currentUser
             val userId = user!!.uid
             if (it.isSuccessful) {
-                userDB.child(userId).addListenerForSingleValueEvent(object: ValueEventListener {
+                userDB.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         showToast(getString(R.string.login_toast_welcome))
+                        getFCMToken()
                         findNavController().navigate(R.id.action_loginFragment_to_transportFragment)
                     }
-
                     override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
                     }
-
                 })
-
             }
         }
     }
 
+    private fun getFCMToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            if (it.isSuccessful) {
+                val token = it.result
+                user = FirebaseAuth.getInstance().currentUser
+                val userId = user!!.uid
+                userDB.child(userId).child("fcmtoken").setValue(token)
+            }
+        }
+    }
 
     private fun checkIfUserExists() {
         val call = loginService.getAllUserData()

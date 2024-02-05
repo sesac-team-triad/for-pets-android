@@ -87,7 +87,7 @@ class SignUpUserFragment : Fragment() {
 
         auth!!.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val user = User("", email, password, nickname)
+                val user = User("", email, password, nickname, "")
                 saveUserDataToDatabase(user)
             } else {
                 handleRegistrationFailure(task)
