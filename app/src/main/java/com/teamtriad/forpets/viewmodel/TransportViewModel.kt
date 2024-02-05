@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.teamtriad.forpets.ForPetsApplication.Companion.remoteDatabaseService
 import com.teamtriad.forpets.data.TransportRepository
-import com.teamtriad.forpets.data.source.network.RemoteDatabaseService
 import com.teamtriad.forpets.data.source.network.model.Appointment
 import com.teamtriad.forpets.data.source.network.model.Location
 import com.teamtriad.forpets.data.source.network.model.Moving
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class TransportViewModel : ViewModel() {
 
-    private val transportRepository = TransportRepository(RemoteDatabaseService.getService())
+    private val transportRepository = TransportRepository(remoteDatabaseService)
 //    private val locationRepository = LocationRepository()
 //    private val appointmentRepository = AppointmentRepository()
 //    private val userRepository = UserRepository()
