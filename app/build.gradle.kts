@@ -1,5 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -21,12 +19,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField(
-            "String", "ABANDONMENT_API_KEY", gradleLocalProperties(rootDir).getProperty(
-                "ABANDONMENT_API_KEY"
-            )
-        )
     }
 
     buildTypes {
@@ -52,9 +44,6 @@ android {
     }
 
     secrets {
-        propertiesFileName = "secrets.properties"
-        defaultPropertiesFileName = "local.properties"
-        ignoreList.add("keyToIgnore")
         ignoreList.add("sdk.*")
     }
 }
@@ -81,13 +70,12 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
 
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
 
     implementation("com.google.android.gms:play-services-maps:18.2.0")
-    implementation("com.google.android.gms:play-services-location:21.0.1")
-    implementation("com.google.maps.android:android-maps-utils:3.8.0")
+    implementation("com.google.android.gms:play-services-location:21.1.0")
+    implementation("com.google.maps.android:android-maps-utils:3.8.2")
     implementation("com.google.maps.android:maps-utils-ktx:5.0.0")
-
-    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
 }

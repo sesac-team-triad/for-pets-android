@@ -1,5 +1,6 @@
 package com.teamtriad.forpets.data.source.network
 
+import com.teamtriad.forpets.data.source.network.model.User
 import retrofit2.Call
 import retrofit2.http.GET
 

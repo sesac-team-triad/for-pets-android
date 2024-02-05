@@ -7,8 +7,8 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.moshi.JsonDataException
-import com.teamtriad.forpets.data.source.network.AbandonmentInfo
 import com.teamtriad.forpets.data.source.network.AdoptService
+import com.teamtriad.forpets.data.source.network.model.AbandonmentInfo
 import com.teamtriad.forpets.databinding.RvItemAdoptBinding
 import com.teamtriad.forpets.ui.adopt.AdoptFragmentDirections
 import com.teamtriad.forpets.util.glide
