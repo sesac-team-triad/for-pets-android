@@ -22,12 +22,12 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
     private var _binding: FragmentUserListBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var database: DatabaseReference
+    private lateinit var userDatabase: DatabaseReference
+    private lateinit var chatDatabase: DatabaseReference
     private val databaseUrl =
         "https://for-pets-77777-default-rtdb.asia-southeast1.firebasedatabase.app/"
 
     private lateinit var userAdapter: UserListRecyclerViewAdapter
-    private lateinit var viewModel: ChatViewModel
     private var currentNickname: String = ""
 
     override fun onCreateView(
@@ -35,18 +35,19 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentUserListBinding.inflate(inflater, container, false)
-        viewModel =
-            ViewModelProvider(requireActivity())[ChatViewModel::class.java]
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        database =
+        userDatabase =
             FirebaseDatabase.getInstance(databaseUrl).reference.child(
                 "user"
             )
-
+        chatDatabase =
+            FirebaseDatabase.getInstance(databaseUrl).reference.child(
+                "chat"
+            )
         userAdapter = UserListRecyclerViewAdapter(this)
         binding.rvUserList.adapter = userAdapter
 
@@ -56,11 +57,11 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
 
     private fun fetchAllUsersInfo() {
         val userList = mutableListOf<User>()
-        database.addChildEventListener(object : ChildEventListener {
+        userDatabase.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val reqUid = snapshot.key.toString()
                 val nickname = snapshot.child("nickname").value.toString()
-                val user = User(reqUid, "", "", nickname)
+                val user = User(reqUid, "", "", nickname, "")
                 userList.add(user)
                 userAdapter.submitList(userList)
             }
@@ -74,7 +75,7 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
 
     private fun fetchCurrentUserInfo() {
         val volUid = FirebaseAuth.getInstance().currentUser?.uid
-        database.child(volUid!!)
+        userDatabase.child(volUid!!)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     currentNickname = snapshot.child("nickname").value.toString()
@@ -85,7 +86,6 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
             })
     }
 
-
     override fun onItemClick(user: User) {
 
         val reqUid = user.uid
@@ -94,8 +94,8 @@ class UserListFragment : Fragment(), UserListRecyclerViewAdapter.OnItemClickList
         val volNickname = currentNickname
 
         findExistingRoomKey(reqUid, volUid) { existingRoomKey ->
-            val roomKey = existingRoomKey ?: database.push().key.toString()
-            val transportReqKey = database.push().child("transportReqKey").push().key ?: ""
+            val roomKey = existingRoomKey ?: chatDatabase.push().key.toString()
+            val transportReqKey = chatDatabase.push().child("transportReqKey").push().key ?: ""
 
             val action = UserListFragmentDirections.actionUserListFragmentToChatroomFragment(
                 roomKey = roomKey,
