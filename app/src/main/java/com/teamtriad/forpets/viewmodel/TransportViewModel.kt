@@ -7,18 +7,21 @@ import androidx.lifecycle.viewModelScope
 import com.teamtriad.forpets.ForPetsApplication.Companion.remoteDatabaseService
 import com.teamtriad.forpets.data.LocationRepository
 import com.teamtriad.forpets.data.TransportRepository
+import com.teamtriad.forpets.data.source.AppointmentRepository
 import com.teamtriad.forpets.data.source.network.model.Appointment
+import com.teamtriad.forpets.data.source.network.model.CompletedDate
 import com.teamtriad.forpets.data.source.network.model.District
 import com.teamtriad.forpets.data.source.network.model.Moving
 import com.teamtriad.forpets.data.source.network.model.TransportReq
 import com.teamtriad.forpets.data.source.network.model.TransportVol
+import com.teamtriad.forpets.ui.chat.enums.AppointmentProgress
 import kotlinx.coroutines.launch
 
 class TransportViewModel : ViewModel() {
 
     private val transportRepository = TransportRepository(remoteDatabaseService)
     private val locationRepository = LocationRepository(remoteDatabaseService)
-//    private val appointmentRepository = AppointmentRepository()
+    private val appointmentRepository = AppointmentRepository(remoteDatabaseService)
 //    private val userRepository = UserRepository()
 //    private val storageRepository = StorageRepository()
 
@@ -55,7 +58,7 @@ class TransportViewModel : ViewModel() {
     }
 
     /**
-     * 등록된 이동봉사 요청글들의 목록을 전부 가져옵니다.
+     * 등록된 이동봉사 요청글들의 목록을 전부 가져옵니다.(LiveData)
      */
     fun getAllTransportReqMap() {
         viewModelScope.launch {
@@ -98,7 +101,7 @@ class TransportViewModel : ViewModel() {
     }
 
     /**
-     * 등록된 봉사자 글들의 목록을 전부 가져옵니다.
+     * 등록된 봉사자 글들의 목록을 전부 가져옵니다.(LiveData)
      */
     fun getAllTransportVolMap() {
         viewModelScope.launch {
@@ -125,11 +128,88 @@ class TransportViewModel : ViewModel() {
     }
 
     /**
-     * 등록된 시/도들의 목록을 전부 가져옵니다.
+     * 등록된 시/도들의 목록을 전부 가져옵니다.(LiveData)
      */
     fun getAllCountyMap() {
         viewModelScope.launch {
             _locationMap.value = locationRepository.getAllCountyMap() ?: mapOf()
+        }
+    }
+
+    /**
+     * 약속을 저장합니다.
+     */
+    suspend fun addAppointment(appointment: Appointment): String? {
+        return appointmentRepository.addAppointment(appointment)
+    }
+
+    /**
+     * 등록된 약속들의 목록을 전부 가져옵니다.(LiveData)
+     */
+    fun getAllAppointmentMap() {
+        viewModelScope.launch {
+            _appointmentMap.value = appointmentRepository.getAllAppointmentMap() ?: mapOf()
+        }
+    }
+
+    /**
+     * 약속을 가져옵니다.
+     */
+    suspend fun getAppointmentByKey(key: String): Appointment? {
+        return appointmentRepository.getAppointmentByKey(key)
+    }
+
+    /**
+     * 약속의 진행 상태를 변경합니다.
+     */
+    fun updateAppointmentProgressByKey(key: String, progress: AppointmentProgress) {
+        viewModelScope.launch {
+            appointmentRepository.updateAppointmentProgressByKey(key, progress.progress)
+        }
+    }
+
+    /**
+     * 약속의 완료 날짜를 변경합니다.
+     */
+    fun updateAppointmentCompletedDateByKey(key: String, completedDate: CompletedDate) {
+        viewModelScope.launch {
+            appointmentRepository.updateAppointmentCompletedDateByKey(key, completedDate)
+        }
+    }
+
+    /**
+     * 약속을 삭제합니다.
+     */
+    fun deleteAppointmentByKey(key: String) {
+        viewModelScope.launch {
+            appointmentRepository.deleteAppointmentByKey(key)
+        }
+    }
+
+    /**
+     * 이동중을 저장합니다.
+     */
+    fun addMoving(moving: Moving) {
+        viewModelScope.launch {
+            appointmentRepository.addMoving(moving)
+        }
+    }
+
+    /**
+     * 등록된 이동중들의 목록을 전부 가져옵니다.(LiveData)
+     */
+    fun getAllMovingMap() {
+        viewModelScope.launch {
+            _movingMap.value = appointmentRepository.getAllMovingMap()
+        }
+    }
+
+    /**
+     * 이동중을 삭제합니다.
+     */
+    fun deleteMovingByKey(key: String) {
+        viewModelScope.launch {
+            appointmentRepository.deleteMovingByKey(key)
         }
     }
 }
