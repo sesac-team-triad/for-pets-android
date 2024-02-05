@@ -10,13 +10,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.database.FirebaseDatabase
-import com.teamtriad.forpets.databinding.FragmentSignUpUserBinding
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.data.source.network.model.User
+import com.teamtriad.forpets.databinding.FragmentSignUpUserBinding
 
 class SignUpUserFragment : Fragment() {
 
@@ -85,7 +85,7 @@ class SignUpUserFragment : Fragment() {
 
         auth!!.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val user = User(email, password, nickname)
+                val user = User(email, password, nickname, "", "")
                 saveUserDataToDatabase(user)
             } else {
                 handleRegistrationFailure(task)
