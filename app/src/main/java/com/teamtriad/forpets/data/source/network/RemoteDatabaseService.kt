@@ -7,6 +7,7 @@ import com.teamtriad.forpets.data.source.network.model.KeyResponse
 import com.teamtriad.forpets.data.source.network.model.Moving
 import com.teamtriad.forpets.data.source.network.model.TransportReq
 import com.teamtriad.forpets.data.source.network.model.TransportVol
+import com.teamtriad.forpets.data.source.network.model.User
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -105,5 +106,32 @@ interface RemoteDatabaseService {
     @DELETE("moving/{key}.json")
     suspend fun deleteMovingByKey(
         @Path("key") key: String
+    ): Response<Unit>
+
+    @POST("user/{uid}.json")
+    suspend fun addUserByUid(
+        @Path("uid") uid: String,
+        @Body user: User
+    ): Response<Unit>
+
+    @GET("user/{uid}.json")
+    suspend fun getUserByUid(
+        @Path("uid") uid: String
+    ): Response<User>
+
+    @GET("user/{uid}/nickname.json")
+    suspend fun getUserNicknameByUid(
+        @Path("uid") uid: String
+    ): Response<String>
+
+    @PUT("user/{uid}.json")
+    suspend fun updateUserByUid(
+        @Path("uid") uid: String,
+        @Body user: User
+    ): Response<Unit>
+
+    @DELETE("user/{uid}.json")
+    suspend fun deleteUserByUid(
+        @Path("uid") uid: String
     ): Response<Unit>
 }
