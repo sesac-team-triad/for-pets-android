@@ -37,6 +37,11 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="Pet_TextView_MiddlePurple450" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/middle</item>
+        <item name="android:textColor">@color/purple_450</item>
+    </style>
+
     <style name="Pet_TextView_MiddleBoldBlack" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/middle</item>
         <item name="android:textStyle">bold</item>
