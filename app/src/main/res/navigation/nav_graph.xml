@@ -78,6 +78,12 @@
         android:label="@string/transport_lists_appbar"
         tools:layout="@layout/fragment_transport_lists">
         <action
+            android:id="@+id/action_transportListsFragment_to_locationPickerDialogFragment"
+            app:destination="@id/locationPickerDialogFragment" />
+        <action
+            android:id="@+id/action_transportListsFragment_to_transportReqFragment"
+            app:destination="@id/transportReqFragment" />
+        <action
             android:id="@+id/action_transportListsFragment_to_transportVolFragment"
             app:destination="@id/transportVolFragment" />
     </fragment>
