@@ -1,4 +1,4 @@
-package com.teamtriad.forpets.data.source.network
+package com.teamtriad.forpets.data.source.network.model
 
 import com.squareup.moshi.JsonClass
 
@@ -15,5 +15,5 @@ data class ResponseBody(
 
 @JsonClass(generateAdapter = true)
 data class Items(
-    val item: List<AbandonmentInfo>,
+    val item: List<AbandonmentInfo>?,
 )

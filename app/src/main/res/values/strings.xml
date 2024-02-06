@@ -55,6 +55,15 @@
     <!-- 이동봉사 화면 -->
     <string name="transport_mbtg_request">요청자</string>
     <string name="transport_mbtg_volunteer">봉사자</string>
+    <string name="transport_dialog_title">가족이 되어 주세요!</string>
+    <string name="transport_dialog_message">오늘의 구조 : 202마리\n이동 봉사 : 5건 (누적 18건)</string>
+    <string name="transport_dialog_confirm_btn">입양하러 가기</string>
+    <string name="transport_dialog_cancel_btn">취소</string>
+    <string name="transport_tv_abroad_title">해외봉사</string>
+    <string name="transport_tv_moving_title">이동중</string>
+    <string name="transport_iv_paw_desc">오늘 구조된 동물과 현재까지 누적된 이동봉사 수를 보여주는 버튼입니다</string>
+    <string name="transport_ib_abroad_desc">해외봉사 목록 화면으로 이동하는 버튼입니다</string>
+    <string name="transport_tv_moving_desc">이동봉사 목록 화면으로 이동하는 버튼입니다</string>
 
     <!-- 봉사요청 목록 화면 -->
     <string name="req_list_tv_name">이름</string>
@@ -81,6 +90,7 @@
     <string name="bottom_btn_input">입력하기</string>
 
     <!-- 입양 목록 화면 -->
+    <string name="adopt_tv_fallback">잠시 후에 다시 돌아와 주세요!</string>
     <string name="adopt_tv_region_label">지역 :</string>
 
     <!-- 입양 상세화면 -->

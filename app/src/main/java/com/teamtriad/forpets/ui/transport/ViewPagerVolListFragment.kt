@@ -15,7 +15,7 @@ import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentViewPagerVolListBinding
 import com.teamtriad.forpets.model.tmp.Volunteers
 import com.teamtriad.forpets.ui.transport.adapter.VolListRecyclerViewAdapter
-import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerForFragmentManager
+import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
 import java.util.Calendar
@@ -70,26 +70,34 @@ class ViewPagerVolListFragment : Fragment() {
             }
 
             tietFrom.setOnClickListener {
-                showModalBottomSheet()
+                if (findNavController().currentDestination?.id == R.id.transportListsFragment) {
+                    val action = TransportListsFragmentDirections
+                        .actionTransportListsFragmentToLocationPickerDialogFragment(
+                            LocationPickerDialogFragment.ONLY_COUNTY
+                        )
+
+                    findNavController().navigate(action)
+                }
             }
 
             tietTo.setOnClickListener {
-                showModalBottomSheet()
+                if (findNavController().currentDestination?.id == R.id.transportListsFragment) {
+                    val action = TransportListsFragmentDirections
+                        .actionTransportListsFragmentToLocationPickerDialogFragment(
+                            LocationPickerDialogFragment.ONLY_COUNTY
+                        )
+
+                    findNavController().navigate(action)
+                }
             }
 
             efabVolList.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportListsFragment_to_transportVolFragment)
+                if (findNavController().currentDestination?.id == R.id.transportListsFragment) {
+                    findNavController()
+                        .navigate(R.id.action_transportListsFragment_to_transportVolFragment)
+                }
             }
         }
-    }
-
-    private fun showModalBottomSheet() {
-        val bottomSheet = LocationPickerForFragmentManager()
-        bottomSheet.show(
-            requireActivity().supportFragmentManager,
-            LocationPickerForFragmentManager.TAG
-        )
     }
 
     private fun setDatePicker() {
@@ -125,8 +133,11 @@ class ViewPagerVolListFragment : Fragment() {
     }
 
     private fun showDatePicker() {
-        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
-        addDatePickerButtonClickListener()
+        val dialog = requireActivity().supportFragmentManager.findFragmentByTag("volList")
+        if (dialog?.isAdded != true) {
+            dateRangePicker.show(requireActivity().supportFragmentManager, "volList")
+            addDatePickerButtonClickListener()
+        }
     }
 
     private fun addDatePickerButtonClickListener() {

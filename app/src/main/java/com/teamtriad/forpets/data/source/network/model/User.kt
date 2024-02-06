@@ -1,4 +1,4 @@
-package com.teamtriad.forpets.data.source.network
+package com.teamtriad.forpets.data.source.network.model
 
 import com.squareup.moshi.JsonClass
 
@@ -6,5 +6,7 @@ import com.squareup.moshi.JsonClass
 data class User(
     val email: String,
     val password: String,
-    val nickname: String
+    val nickname: String,
+    val phone: String,
+    val token: String,
 )

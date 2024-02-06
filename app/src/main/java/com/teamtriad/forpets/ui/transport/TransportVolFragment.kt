@@ -15,11 +15,11 @@ import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportVolBinding
+import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
 import java.util.Calendar
 import java.util.TimeZone
-
 
 class TransportVolFragment : Fragment() {
 
@@ -50,18 +50,28 @@ class TransportVolFragment : Fragment() {
             }
 
             tietFrom.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportVolFragment_to_locationPickerForNavigation)
+                if (findNavController().currentDestination?.id == R.id.transportVolFragment) {
+                    val action = TransportVolFragmentDirections
+                        .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+
+                    findNavController().navigate(action)
+                }
             }
 
             tietTo.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportVolFragment_to_locationPickerForNavigation)
+                if (findNavController().currentDestination?.id == R.id.transportVolFragment) {
+                    val action = TransportVolFragmentDirections
+                        .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+
+                    findNavController().navigate(action)
+                }
             }
 
             btnPost.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportVolFragment_to_transportListsFragment)
+                if (findNavController().currentDestination?.id == R.id.transportVolFragment) {
+                    findNavController()
+                        .navigate(R.id.action_transportVolFragment_to_transportListsFragment)
+                }
             }
         }
     }
@@ -134,8 +144,11 @@ class TransportVolFragment : Fragment() {
     }
 
     private fun showDatePicker() {
-        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
-        addDatePickerButtonClickListener()
+        val dialog = requireActivity().supportFragmentManager.findFragmentByTag("vol")
+        if (dialog?.isAdded != true) {
+            dateRangePicker.show(requireActivity().supportFragmentManager, "vol")
+            addDatePickerButtonClickListener()
+        }
     }
 
     private fun addDatePickerButtonClickListener() {

@@ -18,6 +18,7 @@ import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportReqBinding
+import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
 import java.util.Calendar
@@ -76,23 +77,35 @@ class TransportReqFragment : Fragment() {
             }
 
             tietFrom.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportReqFragment_to_locationPickerForNavigation)
+                if (findNavController().currentDestination?.id == R.id.transportReqFragment) {
+                    val action = TransportReqFragmentDirections
+                        .actionTransportReqFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+
+                    findNavController().navigate(action)
+                }
             }
 
             tietTo.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportReqFragment_to_locationPickerForNavigation)
+                if (findNavController().currentDestination?.id == R.id.transportReqFragment) {
+                    val action = TransportReqFragmentDirections
+                        .actionTransportReqFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+
+                    findNavController().navigate(action)
+                }
             }
 
             sivPetImage.setOnClickListener {
-                pickMultipleMedia.launch(
-                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                )
+                if (findNavController().currentDestination?.id == R.id.transportReqFragment) {
+                    pickMultipleMedia.launch(
+                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                    )
+                }
             }
 
             btnPost.setOnClickListener {
-                findNavController().navigate(R.id.action_transportReqFragment_to_transportListsFragment)
+                if (findNavController().currentDestination?.id == R.id.transportReqFragment) {
+                    findNavController().navigate(R.id.action_transportReqFragment_to_transportListsFragment)
+                }
             }
         }
     }
@@ -112,7 +125,12 @@ class TransportReqFragment : Fragment() {
                 ) {
                 }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                override fun onTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    before: Int,
+                    count: Int
+                ) {
                 }
             }
             tietTitle.addTextChangedListener(textWatcher)
@@ -186,8 +204,11 @@ class TransportReqFragment : Fragment() {
     }
 
     private fun showDatePicker() {
-        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
-        addDatePickerButtonClickListener()
+        val dialog = requireActivity().supportFragmentManager.findFragmentByTag("req")
+        if (dialog?.isAdded != true) {
+            dateRangePicker.show(requireActivity().supportFragmentManager, "req")
+            addDatePickerButtonClickListener()
+        }
     }
 
     private fun addDatePickerButtonClickListener() {
