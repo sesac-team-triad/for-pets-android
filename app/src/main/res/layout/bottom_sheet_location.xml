@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="27dp"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/purple_100"
+        android:backgroundTint="@color/purple_450"
         android:text="@string/bottom_btn_input"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
