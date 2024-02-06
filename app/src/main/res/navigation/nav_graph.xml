@@ -15,9 +15,6 @@
         <action
             android:id="@+id/action_transportFragment_to_transportVolFragment"
             app:destination="@id/transportVolFragment" />
-        <action
-            android:id="@+id/action_transportFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/adoptFragment"
@@ -101,9 +98,6 @@
         android:name="com.teamtriad.forpets.ui.login.LoginFragment"
         android:label="@string/login_appbar"
         tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_transportFragment"
-            app:destination="@id/transportFragment" />
         <action
             android:id="@+id/action_loginFragment_to_signUpUserFragment"
             app:destination="@id/signUpUserFragment" />
