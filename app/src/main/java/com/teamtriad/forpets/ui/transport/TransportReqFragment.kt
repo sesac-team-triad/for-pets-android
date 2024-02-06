@@ -1,6 +1,5 @@
 package com.teamtriad.forpets.ui.transport
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -72,7 +71,6 @@ class TransportReqFragment : Fragment() {
             }
     }
 
-    @SuppressLint("RestrictedApi")
     private fun setOnClickListener() {
         with(binding) {
             tietDate.setSafeOnClickListener {
@@ -198,13 +196,8 @@ class TransportReqFragment : Fragment() {
             .build()
     }
 
-    @SuppressLint("RestrictedApi")
     private fun showDatePicker() {
         dateRangePicker.show(requireActivity().supportFragmentManager, "req")
-        val backstack = findNavController().currentBackStack
-        for (dest in backstack.value) {
-            Log.d("aa", dest.destination.toString())
-        }
         addDatePickerButtonClickListener()
     }
 
