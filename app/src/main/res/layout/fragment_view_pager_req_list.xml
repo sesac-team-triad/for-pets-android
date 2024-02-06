@@ -106,12 +106,14 @@
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/efab_register_req"
+        style="@style/Pet_TextView_MiddlePurple450"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/all_fab_transport_req_desc"
         android:text="@string/all_fab_transport_req"
-        app:icon="@drawable/ic_fab_create" />
+        app:icon="@drawable/ic_fab_create"
+        app:iconTint="@color/purple_450" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
