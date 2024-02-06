@@ -21,6 +21,7 @@ import com.teamtriad.forpets.databinding.FragmentTransportReqBinding
 import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
+import com.teamtriad.forpets.util.setSafeOnClickListener
 import java.util.Calendar
 import java.util.TimeZone
 
@@ -72,40 +73,32 @@ class TransportReqFragment : Fragment() {
 
     private fun setOnClickListener() {
         with(binding) {
-            tietDate.setOnClickListener {
+            tietDate.setSafeOnClickListener {
                 showDatePicker()
             }
 
-            tietFrom.setOnClickListener {
-                if (findNavController().currentDestination?.id == R.id.transportReqFragment) {
-                    val action = TransportReqFragmentDirections
-                        .actionTransportReqFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+            tietFrom.setSafeOnClickListener {
+                val action = TransportReqFragmentDirections
+                    .actionTransportReqFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
 
-                    findNavController().navigate(action)
-                }
+                findNavController().navigate(action)
             }
 
-            tietTo.setOnClickListener {
-                if (findNavController().currentDestination?.id == R.id.transportReqFragment) {
-                    val action = TransportReqFragmentDirections
-                        .actionTransportReqFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+            tietTo.setSafeOnClickListener {
+                val action = TransportReqFragmentDirections
+                    .actionTransportReqFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
 
-                    findNavController().navigate(action)
-                }
+                findNavController().navigate(action)
             }
 
-            sivPetImage.setOnClickListener {
-                if (findNavController().currentDestination?.id == R.id.transportReqFragment) {
-                    pickMultipleMedia.launch(
-                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                    )
-                }
+            sivPetImage.setSafeOnClickListener {
+                pickMultipleMedia.launch(
+                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                )
             }
 
-            btnPost.setOnClickListener {
-                if (findNavController().currentDestination?.id == R.id.transportReqFragment) {
-                    findNavController().navigate(R.id.action_transportReqFragment_to_transportListsFragment)
-                }
+            btnPost.setSafeOnClickListener {
+                findNavController().navigate(R.id.action_transportReqFragment_to_transportListsFragment)
             }
         }
     }
@@ -204,11 +197,8 @@ class TransportReqFragment : Fragment() {
     }
 
     private fun showDatePicker() {
-        val dialog = requireActivity().supportFragmentManager.findFragmentByTag("req")
-        if (dialog?.isAdded != true) {
-            dateRangePicker.show(requireActivity().supportFragmentManager, "req")
-            addDatePickerButtonClickListener()
-        }
+        dateRangePicker.show(requireActivity().supportFragmentManager, "req")
+        addDatePickerButtonClickListener()
     }
 
     private fun addDatePickerButtonClickListener() {

@@ -75,14 +75,14 @@
         android:label="@string/transport_lists_appbar"
         tools:layout="@layout/fragment_transport_lists">
         <action
-            android:id="@+id/action_transportListsFragment_to_locationPickerDialogFragment"
-            app:destination="@id/locationPickerDialogFragment" />
-        <action
             android:id="@+id/action_transportListsFragment_to_transportReqFragment"
             app:destination="@id/transportReqFragment" />
         <action
             android:id="@+id/action_transportListsFragment_to_transportVolFragment"
             app:destination="@id/transportVolFragment" />
+        <action
+            android:id="@+id/action_transportListsFragment_to_locationPickerDialogFragment"
+            app:destination="@id/locationPickerDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/adoptDetailFragment"
@@ -113,7 +113,8 @@
     </fragment>
     <dialog
         android:id="@+id/locationPickerDialogFragment"
-        android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment">
+        android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment"
+        android:label="LocationPicker">
         <argument
             android:name="onlyCounty"
             app:argType="boolean" />
