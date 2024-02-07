@@ -67,6 +67,9 @@
         <action
             android:id="@+id/action_transportVolFragment_to_locationPickerDialogFragment"
             app:destination="@id/locationPickerDialogFragment" />
+        <action
+            android:id="@+id/action_transportVolFragment_to_districtPickerDialogFragment"
+            app:destination="@id/districtPickerDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/transportListsFragment"
@@ -118,4 +121,8 @@
             android:name="onlyCounty"
             app:argType="boolean" />
     </dialog>
+    <dialog
+        android:id="@+id/districtPickerDialogFragment"
+        android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.DistrictPickerDialogFragment"
+        android:label="DistrictPickerDialogFragment" />
 </navigation>
