@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -18,10 +19,13 @@ import com.teamtriad.forpets.databinding.FragmentTransportVolBinding
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
 import com.teamtriad.forpets.util.setSafeOnClickListener
+import com.teamtriad.forpets.viewmodel.TransportViewModel
 import java.util.Calendar
 import java.util.TimeZone
 
 class TransportVolFragment : Fragment() {
+
+    private val transportViewModel: TransportViewModel by activityViewModels()
 
     private var _binding: FragmentTransportVolBinding? = null
     private val binding get() = _binding!!
@@ -41,6 +45,18 @@ class TransportVolFragment : Fragment() {
         setOnClickListener()
         makeEditTextBigger()
         checkButtonEnabled()
+
+        transportViewModel.clearAllSelectedLocations()
+
+        with(binding) {
+            transportViewModel.selectedFromCounty.observe(viewLifecycleOwner) {
+                tietFrom.setText(it)
+            }
+
+            transportViewModel.selectedToCounty.observe(viewLifecycleOwner) {
+                tietTo.setText(it)
+            }
+        }
     }
 
     private fun setOnClickListener() {
@@ -63,6 +79,7 @@ class TransportVolFragment : Fragment() {
 //
 //                findNavController().navigate(action)
                 findNavController().navigate(R.id.action_transportVolFragment_to_districtPickerDialogFragment)
+
             }
 
             btnPost.setSafeOnClickListener {

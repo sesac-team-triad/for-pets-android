@@ -5,15 +5,92 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.teamtriad.forpets.R
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.teamtriad.forpets.databinding.FragmentViewPagerReqListBinding
+import com.teamtriad.forpets.ui.transport.adapter.ReqListRecyclerViewAdapter
+import com.teamtriad.forpets.viewmodel.TransportViewModel
 
 class ViewPagerReqListFragment : Fragment() {
+
+    private val transportViewModel: TransportViewModel by activityViewModels()
+
+    private var _binding: FragmentViewPagerReqListBinding? = null
+    private val binding get() = _binding!!
+
+    private val recyclerViewAdapter by lazy { ReqListRecyclerViewAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_pager_req_list, container, false)
+    ): View {
+        _binding = FragmentViewPagerReqListBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        transportViewModel.clearAllSelectedLocations()
+
+        with(binding) {
+            setRecyclerView()
+            setFilteringEditTexts()
+        }
+    }
+
+    private fun navigateToLocationPickerDialog(isFrom: Boolean) {
+        val action =
+            TransportListsFragmentDirections.actionTransportListsFragmentToLocationPickerDialogFragment(
+                isFrom
+            )
+
+        findNavController().navigate(action)
+    }
+
+    private fun FragmentViewPagerReqListBinding.setRecyclerView() {
+        rvReqList.adapter = recyclerViewAdapter.apply {
+            transportViewModel.transportReqMap.observe(viewLifecycleOwner) {
+                submitList(it.map { it.value })
+            }
+        }
+
+        transportViewModel.getAllTransportReqMap()
+    }
+
+    private fun FragmentViewPagerReqListBinding.setFilteringEditTexts() {
+        tietFrom.setOnClickListener {
+            root.requestFocus()
+
+            navigateToLocationPickerDialog(true)
+        }
+        with(transportViewModel) {
+            selectedFromCounty.observe(viewLifecycleOwner) {
+                tietFrom.setText("${it} ${selectedFromDistrict.value}")
+            }
+            selectedFromDistrict.observe(viewLifecycleOwner) {
+                tietFrom.setText("${selectedFromCounty.value} ${it}")
+            }
+        }
+
+        tietTo.setOnClickListener {
+            root.requestFocus()
+
+            navigateToLocationPickerDialog(false)
+        }
+        with(transportViewModel) {
+            selectedToCounty.observe(viewLifecycleOwner) {
+                tietTo.setText("${it} ${selectedToDistrict.value}")
+            }
+            selectedToDistrict.observe(viewLifecycleOwner) {
+                tietTo.setText("${selectedToCounty.value} ${it}")
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

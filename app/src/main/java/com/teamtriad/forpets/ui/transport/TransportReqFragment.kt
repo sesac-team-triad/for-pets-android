@@ -12,20 +12,23 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportReqBinding
-import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
 import com.teamtriad.forpets.util.setSafeOnClickListener
+import com.teamtriad.forpets.viewmodel.TransportViewModel
 import java.util.Calendar
 import java.util.TimeZone
 
 class TransportReqFragment : Fragment() {
+
+    private val transportViewModel: TransportViewModel by activityViewModels()
 
     private var _binding: FragmentTransportReqBinding? = null
     private val binding get() = _binding!!
@@ -47,6 +50,24 @@ class TransportReqFragment : Fragment() {
         setOnClickListener()
         checkButtonEnabled()
         makeEditTextBigger()
+
+        transportViewModel.clearAllSelectedLocations()
+
+        with(transportViewModel) {
+            selectedFromCounty.observe(viewLifecycleOwner) {
+                binding.tietFrom.setText("${it} ${selectedFromDistrict.value}")
+            }
+            selectedFromDistrict.observe(viewLifecycleOwner) {
+                binding.tietFrom.setText("${selectedFromCounty.value} ${it}")
+            }
+
+            selectedToCounty.observe(viewLifecycleOwner) {
+                binding.tietTo.setText("${it} ${selectedToDistrict.value}")
+            }
+            selectedToDistrict.observe(viewLifecycleOwner) {
+                binding.tietTo.setText("${selectedToCounty.value} ${it}")
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -79,14 +100,14 @@ class TransportReqFragment : Fragment() {
 
             tietFrom.setSafeOnClickListener {
                 val action = TransportReqFragmentDirections
-                    .actionTransportReqFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+                    .actionTransportReqFragmentToLocationPickerDialogFragment(true)
 
                 findNavController().navigate(action)
             }
 
             tietTo.setSafeOnClickListener {
                 val action = TransportReqFragmentDirections
-                    .actionTransportReqFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+                    .actionTransportReqFragmentToLocationPickerDialogFragment(false)
 
                 findNavController().navigate(action)
             }

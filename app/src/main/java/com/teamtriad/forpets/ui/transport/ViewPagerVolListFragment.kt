@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -15,14 +16,16 @@ import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentViewPagerVolListBinding
 import com.teamtriad.forpets.model.tmp.Volunteers
 import com.teamtriad.forpets.ui.transport.adapter.VolListRecyclerViewAdapter
-import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
 import com.teamtriad.forpets.util.setSafeOnClickListener
+import com.teamtriad.forpets.viewmodel.TransportViewModel
 import java.util.Calendar
 import java.util.TimeZone
 
 class ViewPagerVolListFragment : Fragment() {
+
+    private val transportViewModel: TransportViewModel by activityViewModels()
 
     private var _binding: FragmentViewPagerVolListBinding? = null
     private val binding get() = _binding!!
@@ -42,6 +45,18 @@ class ViewPagerVolListFragment : Fragment() {
         setScrollListener()
         setRecyclerview()
         setOnClickListener()
+
+        transportViewModel.clearAllSelectedLocations()
+
+        with(binding) {
+            transportViewModel.selectedFromCounty.observe(viewLifecycleOwner) {
+                tietFrom.setText(it)
+            }
+
+            transportViewModel.selectedToCounty.observe(viewLifecycleOwner) {
+                tietTo.setText(it)
+            }
+        }
     }
 
     private fun setScrollListener() {
@@ -73,7 +88,8 @@ class ViewPagerVolListFragment : Fragment() {
             tietFrom.setSafeOnClickListener {
                 val action = TransportListsFragmentDirections
                     .actionTransportListsFragmentToLocationPickerDialogFragment(
-                        LocationPickerDialogFragment.ONLY_COUNTY
+                        isFrom = true,
+                        onlyCounty = true
                     )
 
                 findNavController().navigate(action)
@@ -82,7 +98,8 @@ class ViewPagerVolListFragment : Fragment() {
             tietTo.setSafeOnClickListener {
                 val action = TransportListsFragmentDirections
                     .actionTransportListsFragmentToLocationPickerDialogFragment(
-                        LocationPickerDialogFragment.ONLY_COUNTY
+                        isFrom = true,
+                        onlyCounty = true
                     )
 
                 findNavController().navigate(action)
