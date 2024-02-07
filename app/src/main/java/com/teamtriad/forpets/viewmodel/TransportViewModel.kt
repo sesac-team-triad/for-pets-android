@@ -58,6 +58,10 @@ class TransportViewModel : ViewModel() {
         _locationMap.value = mapOf()
         _appointmentMap.value = mapOf()
         _movingMap.value = mapOf()
+        _selectedFromCounty.value = ""
+        _selectedFromDistrict.value = ""
+        _selectedToCounty.value = ""
+        _selectedToDistrict.value = ""
     }
 
     /**
