@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -52,7 +53,10 @@ class ViewPagerReqListFragment : Fragment() {
     private fun FragmentViewPagerReqListBinding.setRecyclerView() {
         rvReqList.adapter = recyclerViewAdapter.apply {
             transportViewModel.transportReqMap.observe(viewLifecycleOwner) {
-                submitList(it.map { it.value })
+                submitList(transportViewModel.filterTransportReqMapToList(
+                    tietFrom.text.toString(),
+                    tietTo.text.toString()
+                ))
             }
         }
 
@@ -66,11 +70,20 @@ class ViewPagerReqListFragment : Fragment() {
             navigateToLocationPickerDialog(true)
         }
         with(transportViewModel) {
-            selectedFromCounty.observe(viewLifecycleOwner) {
-                tietFrom.setText("${it} ${selectedFromDistrict.value}")
-            }
             selectedFromDistrict.observe(viewLifecycleOwner) {
+                if (it.isEmpty() ||
+                    "${selectedFromCounty.value} ${it}" == tietFrom.text.toString()) return@observe
+
                 tietFrom.setText("${selectedFromCounty.value} ${it}")
+            }
+
+            tietFrom.doOnTextChanged { text, _, _, _ ->
+                (rvReqList.adapter as ReqListRecyclerViewAdapter).submitList(
+                    filterTransportReqMapToList(
+                        text.toString(),
+                        tietTo.text.toString()
+                    )
+                )
             }
         }
 
@@ -80,11 +93,20 @@ class ViewPagerReqListFragment : Fragment() {
             navigateToLocationPickerDialog(false)
         }
         with(transportViewModel) {
-            selectedToCounty.observe(viewLifecycleOwner) {
-                tietTo.setText("${it} ${selectedToDistrict.value}")
-            }
             selectedToDistrict.observe(viewLifecycleOwner) {
+                if (it.isEmpty() ||
+                    "${selectedToCounty.value} ${it}" == tietTo.text.toString()) return@observe
+
                 tietTo.setText("${selectedToCounty.value} ${it}")
+            }
+
+            tietTo.doOnTextChanged { text, _, _, _ ->
+                (rvReqList.adapter as ReqListRecyclerViewAdapter).submitList(
+                    filterTransportReqMapToList(
+                        tietFrom.text.toString(),
+                        text.toString()
+                    )
+                )
             }
         }
     }

@@ -258,4 +258,17 @@ class TransportViewModel : ViewModel() {
         _selectedToCounty.value = ""
         _selectedToDistrict.value = ""
     }
+
+    fun filterTransportReqMapToList(from: String, to: String): List<TransportReq> {
+        fun compareWithFrom(s: String) = from.isEmpty() || s == from
+        fun compareWithTo(s: String) = to.isEmpty() || s == to
+
+        return mutableListOf<TransportReq>().apply {
+            transportReqMap.value?.onEachIndexed { index, entry ->
+                if (compareWithFrom(entry.value.from) && compareWithTo(entry.value.to)) add(
+                    entry.value.apply { reqIndex = index }
+                )
+            }
+        }
+    }
 }

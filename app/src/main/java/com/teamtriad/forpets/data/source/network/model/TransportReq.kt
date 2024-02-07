@@ -18,4 +18,6 @@ data class TransportReq(
     val kind: String,
     @Json(name = "character-caution") val characterCaution: String,
     val message: String,
+    @Json(ignore = true)
+    var reqIndex: Int = -1,
 )
