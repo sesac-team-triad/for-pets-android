@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.teamtriad.forpets.databinding.FragmentViewPagerReqListBinding
 import com.teamtriad.forpets.ui.transport.adapter.ReqListRecyclerViewAdapter
+import com.teamtriad.forpets.util.setSafeOnClickListener
 import com.teamtriad.forpets.viewmodel.TransportViewModel
 
 class ViewPagerReqListFragment : Fragment() {
@@ -64,7 +65,7 @@ class ViewPagerReqListFragment : Fragment() {
     }
 
     private fun FragmentViewPagerReqListBinding.setFilteringEditTexts() {
-        tietFrom.setOnClickListener {
+        tietFrom.setSafeOnClickListener {
             root.requestFocus()
 
             navigateToLocationPickerDialog(true)
@@ -87,7 +88,7 @@ class ViewPagerReqListFragment : Fragment() {
             }
         }
 
-        tietTo.setOnClickListener {
+        tietTo.setSafeOnClickListener {
             root.requestFocus()
 
             navigateToLocationPickerDialog(false)
