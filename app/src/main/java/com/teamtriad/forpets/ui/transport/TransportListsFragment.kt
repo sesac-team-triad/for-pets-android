@@ -15,27 +15,34 @@ class TransportListsFragment : Fragment() {
     private var _binding: FragmentTransportListsBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var vp2Adapter: TransportListsViewPagerAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentTransportListsBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewPager = binding.vp2VolList
-        val tabLayout = binding.tlVolList
-        val tabTitleList =
-            listOf(getString(R.string.all_req_list), getString(R.string.all_vol_list))
-        val pagerAdapter = TransportListsViewPagerAdapter(tabTitleList,this)
 
-        viewPager.adapter = pagerAdapter
+        val tabTitleList = listOf(
+            getString(R.string.all_req_list),
+            getString(R.string.all_vol_list),
+        )
 
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = tabTitleList[position]
-        }.attach()
+        with(binding) {
+            vp2Adapter = TransportListsViewPagerAdapter(tabTitleList, this@TransportListsFragment)
+
+            vp2TransportLists.adapter = vp2Adapter
+
+            TabLayoutMediator(tlTransportLists, vp2TransportLists) { tab, position ->
+                tab.text = tabTitleList[position]
+            }.attach()
+        }
     }
 
     override fun onDestroyView() {

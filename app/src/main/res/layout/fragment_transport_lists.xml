@@ -7,26 +7,25 @@
     tools:context=".ui.transport.TransportListsFragment">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tl_vol_list"
+        android:id="@+id/tl_transport_lists"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/vp2_vol_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabTextAppearance="@style/Pet_TextView_XLargeBlack"
-        app:tabIndicatorHeight="2dp"
         app:tabIndicatorColor="@color/black"
+        app:tabIndicatorHeight="2dp"
+        app:tabTextAppearance="@style/Pet_TextView_XLargeBlack"
         app:tabTextColor="@color/black" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp2_vol_list"
+        android:id="@+id/vp2_transport_lists"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tl_vol_list" />
+        app:layout_constraintTop_toBottomOf="@id/tl_transport_lists" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

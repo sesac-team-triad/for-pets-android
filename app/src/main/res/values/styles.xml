@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="Pet_TextView_XXSmallBlack" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/xxSmall</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Pet_TextView_XXSmallWhite" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/xxSmall</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="Pet_TextView_XSmallBlack" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/xSmall</item>
         <item name="android:textColor">@color/black</item>
@@ -16,6 +26,11 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="Pet_TextView_SmallWhite" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/small</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="Pet_TextView_SmallBoldBlack" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/small</item>
         <item name="android:textStyle">bold</item>
@@ -25,6 +40,11 @@
     <style name="Pet_TextView_MiddleBlack" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/middle</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Pet_TextView_MiddlePurple450" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/middle</item>
+        <item name="android:textColor">@color/purple_450</item>
     </style>
 
     <style name="Pet_TextView_MiddleBoldBlack" parent="TextAppearance.AppCompat">
@@ -79,6 +99,10 @@
     <style name="Pet_ImageView_TopCornerSize10">
         <item name="cornerSizeTopLeft">10dp</item>
         <item name="cornerSizeTopRight">10dp</item>
+    </style>
+
+    <style name="Pet_ImageView_CornerSize12">
+        <item name="cornerSize">12dp</item>
     </style>
 
     <style name="Pet_ImageView_CornerSize30">
