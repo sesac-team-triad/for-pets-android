@@ -13,6 +13,7 @@ import com.teamtriad.forpets.databinding.RvItemAdoptBinding
 import com.teamtriad.forpets.ui.adopt.AdoptFragmentDirections
 import com.teamtriad.forpets.util.glide
 import com.teamtriad.forpets.util.setSafeOnClickListener
+import com.teamtriad.forpets.util.toRoughLocation
 import com.teamtriad.forpets.util.toYyyyMmDd
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -138,14 +139,9 @@ class AdoptRecyclerViewAdapter(private val lifecycleScope: LifecycleCoroutineSco
         }
 
         private fun bindData(data: AbandonmentInfo) {
-            fun String.toRough() = split(" ").filter { it != "" }
-                .let {
-                    it[0] + " " + it[1]
-                }
-
             with(binding) {
                 sivThumbnail.glide(data.imageUrl)
-                tvRegion.text = data.careAddr.toRough()
+                tvRegion.text = data.careAddr.toRoughLocation()
                 tvSex.text = data.sex
                 tvAge.text = data.age
             }
