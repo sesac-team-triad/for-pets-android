@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tv_district_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="성동구" />
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:src="@drawable/ic_clear"
-        android:background="@color/white"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="@id/tv_district_name"
         app:layout_constraintBottom_toBottomOf="@id/tv_district_name"
         app:layout_constraintEnd_toEndOf="parent"/>

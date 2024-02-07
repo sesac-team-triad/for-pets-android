@@ -46,11 +46,17 @@ class TransportViewModel : ViewModel() {
     private var _selectedFromDistrict = MutableLiveData<String>()
     val selectedFromDistrict: LiveData<String> get() = _selectedFromDistrict
 
+    private var _selectedFromDistrictList = MutableLiveData<List<String>>()
+    val selectedFromDistrictList: LiveData<List<String>> get() = _selectedFromDistrictList
+
     private var _selectedToCounty = MutableLiveData<String>()
     val selectedToCounty: LiveData<String> get() = _selectedToCounty
 
     private var _selectedToDistrict = MutableLiveData<String>()
     val selectedToDistrict: LiveData<String> get() = _selectedToDistrict
+
+    private var _selectedToDistrictList = MutableLiveData<List<String>>()
+    val selectedToDistrictList: LiveData<List<String>> get() = _selectedToDistrictList
 
     init {
         _transportReqMap.value = mapOf()
@@ -58,6 +64,12 @@ class TransportViewModel : ViewModel() {
         _locationMap.value = mapOf()
         _appointmentMap.value = mapOf()
         _movingMap.value = mapOf()
+        _selectedFromCounty.value = ""
+        _selectedFromDistrict.value = ""
+        _selectedFromDistrictList.value = listOf()
+        _selectedToCounty.value = ""
+        _selectedToDistrict.value = ""
+        _selectedToDistrictList.value = listOf()
     }
 
     /**
@@ -232,19 +244,16 @@ class TransportViewModel : ViewModel() {
         return userRepository.getUserNicknameByUid(uid)
     }
 
-
-    /**
-     * 봉사자 글 등록 화면
-     */
-    var selectedData = ""
-
-
     fun setSelectedFromCounty(county: String) {
         _selectedFromCounty.value = county
     }
 
     fun setSelectedFromDistrict(district: String) {
         _selectedFromDistrict.value = district
+    }
+
+    fun setSelectedFromDistrictList(districtList: List<String>) {
+        _selectedFromDistrictList.value = districtList
     }
 
     fun setSelectedToCounty(county: String) {
@@ -255,11 +264,17 @@ class TransportViewModel : ViewModel() {
         _selectedToDistrict.value = district
     }
 
+    fun setSelectedToDistrictList(districtList: List<String>) {
+        _selectedToDistrictList.value = districtList
+    }
+
     fun clearAllSelectedLocations() {
         _selectedFromCounty.value = ""
         _selectedFromDistrict.value = ""
+        _selectedFromDistrictList.value = listOf()
         _selectedToCounty.value = ""
         _selectedToDistrict.value = ""
+        _selectedToDistrictList.value = listOf()
     }
 
 }

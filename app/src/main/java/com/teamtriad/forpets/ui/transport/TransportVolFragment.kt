@@ -48,15 +48,7 @@ class TransportVolFragment : Fragment() {
 
         transportViewModel.clearAllSelectedLocations()
 
-        with(binding) {
-            transportViewModel.selectedFromCounty.observe(viewLifecycleOwner) {
-                tietFrom.setText(it)
-            }
-
-            transportViewModel.selectedToCounty.observe(viewLifecycleOwner) {
-                tietTo.setText(it)
-            }
-        }
+        displaySelectedLocation()
     }
 
     private fun setOnClickListener() {
@@ -66,19 +58,17 @@ class TransportVolFragment : Fragment() {
             }
 
             tietFrom.setSafeOnClickListener {
-//                val action = TransportVolFragmentDirections
-//                    .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
-//
-//                findNavController().navigate(action)
-                findNavController().navigate(R.id.action_transportVolFragment_to_districtPickerDialogFragment)
+                val action = TransportVolFragmentDirections
+                    .actionTransportVolFragmentToDistrictPickerDialogFragment(true)
+
+                findNavController().navigate(action)
             }
 
             tietTo.setSafeOnClickListener {
-//                val action = TransportVolFragmentDirections
-//                    .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
-//
-//                findNavController().navigate(action)
-                findNavController().navigate(R.id.action_transportVolFragment_to_districtPickerDialogFragment)
+                val action = TransportVolFragmentDirections
+                    .actionTransportVolFragmentToDistrictPickerDialogFragment(false)
+
+                findNavController().navigate(action)
 
             }
 
@@ -217,6 +207,40 @@ class TransportVolFragment : Fragment() {
             btnPost.apply {
                 isEnabled = allFieldsFilled
                 isCheckable = allFieldsFilled
+            }
+        }
+    }
+
+    private fun displaySelectedLocation() {
+        with(binding) {
+            var fromResult = ""
+            var toResult = ""
+
+            transportViewModel.selectedFromCounty.observe(viewLifecycleOwner) {
+                val county = "$it "
+                fromResult += county
+                tietFrom.setText(fromResult)
+            }
+            transportViewModel.selectedFromDistrictList.observe(viewLifecycleOwner) { list ->
+                var districts = ""
+                list.forEach { districts += "$it, " }
+                fromResult += districts
+                fromResult = fromResult.dropLast(2)
+                tietFrom.setText(fromResult)
+            }
+
+            transportViewModel.selectedToCounty.observe(viewLifecycleOwner) {
+                val county = "$it "
+                toResult += county
+                tietTo.setText(toResult)
+            }
+
+            transportViewModel.selectedToDistrictList.observe(viewLifecycleOwner) { list ->
+                var districts = ""
+                list.forEach { districts += "$it, " }
+                toResult += districts
+                toResult = toResult.dropLast(2)
+                tietTo.setText(toResult)
             }
         }
     }

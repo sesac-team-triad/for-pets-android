@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -20,8 +21,11 @@ import com.teamtriad.forpets.databinding.FragmentTransportBinding
 import com.teamtriad.forpets.model.tmp.Places
 import com.teamtriad.forpets.ui.transport.marker.CustomClusterManager
 import com.teamtriad.forpets.ui.transport.marker.MarkerItem
+import com.teamtriad.forpets.viewmodel.TransportViewModel
 
 class TransportFragment : Fragment(), OnMapReadyCallback {
+
+    private val viewModel: TransportViewModel by activityViewModels()
 
     private var _binding: FragmentTransportBinding? = null
     private val binding get() = _binding!!
@@ -40,6 +44,7 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         setMapFragment()
         setOnClickListeners()
+        viewModel.getAllCountyMap()
     }
 
     private fun setMapFragment() {

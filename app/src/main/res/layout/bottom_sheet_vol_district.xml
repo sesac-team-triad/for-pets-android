@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="16dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:paddingHorizontal="16dp">
 
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
         android:id="@+id/drag_handle"
@@ -73,14 +73,13 @@
         android:id="@+id/rv_district"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:padding="15dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/til_bottom_district"
-        app:layout_constraintStart_toStartOf="@id/til_bottom_district"
         app:layout_constraintEnd_toEndOf="@id/til_bottom_district"
+        app:layout_constraintStart_toStartOf="@id/til_bottom_district"
+        app:layout_constraintTop_toBottomOf="@id/til_bottom_district"
         tools:itemCount="3"
-        tools:listitem="@layout/rv_item_vol_district"/>
+        tools:listitem="@layout/rv_item_vol_district" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save"

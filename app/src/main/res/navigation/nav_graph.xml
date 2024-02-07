@@ -129,5 +129,9 @@
     <dialog
         android:id="@+id/districtPickerDialogFragment"
         android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.DistrictPickerDialogFragment"
-        android:label="DistrictPickerDialogFragment" />
+        android:label="DistrictPickerDialogFragment">
+        <argument
+            android:name="isFrom"
+            app:argType="boolean" />
+    </dialog>
 </navigation>
