@@ -8,6 +8,8 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentViewPagerReqListBinding
 import com.teamtriad.forpets.ui.transport.adapter.ReqListRecyclerViewAdapter
 import com.teamtriad.forpets.util.setSafeOnClickListener
@@ -39,6 +41,20 @@ class ViewPagerReqListFragment : Fragment() {
         with(binding) {
             setRecyclerView()
             setFilteringEditTexts()
+            efabRegisterReq.setSafeOnClickListener {
+                findNavController().navigate(R.id.action_transportListsFragment_to_transportReqFragment)
+            }
+            rvReqList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        efabRegisterReq.extend()
+                    } else if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                        efabRegisterReq.shrink()
+                    }
+
+                    super.onScrollStateChanged(recyclerView, newState)
+                }
+            })
         }
     }
 
