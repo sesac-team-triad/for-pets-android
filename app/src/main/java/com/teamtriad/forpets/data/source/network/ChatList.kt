@@ -1,12 +1,21 @@
-package com.teamtriad.forpets.data.source.network
-
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class ChatList(
-    val roomId: String,
+    val roomKey: String,
     val friendName: String,
+    val reqUid: String,
+    val volUid: String,
+    val token: String,
     val lastMessage: String,
     val lastMessageTime: String,
-    val unreadMessageCount: Int
-)
+    val unreadMessageCount: String,
+    val reqNickname: String,
+    val volNickname: String,
+    val transportReqKey: String
+) {
+    constructor() : this(
+        "", "", "","",
+         "", "", "", "","", "", ""
+    )
+}
