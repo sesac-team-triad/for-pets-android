@@ -219,4 +219,10 @@ class TransportViewModel : ViewModel() {
     suspend fun getUserNicknameByUid(uid: String): String? {
         return userRepository.getUserNicknameByUid(uid)
     }
+
+    /**
+     * 봉사자 글 등록 화면
+     */
+    var selectedData = ""
+
 }

@@ -15,7 +15,6 @@ import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportVolBinding
-import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
 import com.teamtriad.forpets.util.setSafeOnClickListener
@@ -51,17 +50,19 @@ class TransportVolFragment : Fragment() {
             }
 
             tietFrom.setSafeOnClickListener {
-                val action = TransportVolFragmentDirections
-                    .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
-
-                findNavController().navigate(action)
+//                val action = TransportVolFragmentDirections
+//                    .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+//
+//                findNavController().navigate(action)
+                findNavController().navigate(R.id.action_transportVolFragment_to_districtPickerDialogFragment)
             }
 
             tietTo.setSafeOnClickListener {
-                val action = TransportVolFragmentDirections
-                    .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
-
-                findNavController().navigate(action)
+//                val action = TransportVolFragmentDirections
+//                    .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+//
+//                findNavController().navigate(action)
+                findNavController().navigate(R.id.action_transportVolFragment_to_districtPickerDialogFragment)
             }
 
             btnPost.setSafeOnClickListener {
@@ -183,8 +184,6 @@ class TransportVolFragment : Fragment() {
             tietDate.addTextChangedListener(textWatcher)
             tietFrom.addTextChangedListener(textWatcher)
             tietTo.addTextChangedListener(textWatcher)
-            tietFromDetail.addTextChangedListener(textWatcher)
-            tietToDetail.addTextChangedListener(textWatcher)
             tietMessage.addTextChangedListener(textWatcher)
         }
     }
@@ -195,8 +194,6 @@ class TransportVolFragment : Fragment() {
                     && !tietDate.text.isNullOrEmpty()
 //                    && !tietReqFrom.text.isNullOrEmpty()
 //                    && !tietReqTo.text.isNullOrEmpty()
-                    && !tietFromDetail.text.isNullOrEmpty()
-                    && !tietToDetail.text.isNullOrEmpty()
                     && !tietMessage.text.isNullOrEmpty()
             Log.d("ab", "$allFieldsFilled")
 
