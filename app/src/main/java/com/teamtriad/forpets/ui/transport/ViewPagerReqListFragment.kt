@@ -32,16 +32,18 @@ class ViewPagerReqListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        transportViewModel.clearAllSelectedLocations()
+
         with(binding) {
             setRecyclerView()
             setFilteringEditTexts()
         }
     }
 
-    private fun navigateToLocationPickerDialog(onlyCounty: Boolean) {
+    private fun navigateToLocationPickerDialog(isFrom: Boolean) {
         val action =
             TransportListsFragmentDirections.actionTransportListsFragmentToLocationPickerDialogFragment(
-                onlyCounty
+                isFrom
             )
 
         findNavController().navigate(action)
@@ -61,12 +63,29 @@ class ViewPagerReqListFragment : Fragment() {
         tietFrom.setOnClickListener {
             root.requestFocus()
 
-            navigateToLocationPickerDialog(false)
+            navigateToLocationPickerDialog(true)
         }
+        with(transportViewModel) {
+            selectedFromCounty.observe(viewLifecycleOwner) {
+                tietFrom.setText("${it} ${selectedFromDistrict.value}")
+            }
+            selectedFromDistrict.observe(viewLifecycleOwner) {
+                tietFrom.setText("${selectedFromCounty.value} ${it}")
+            }
+        }
+
         tietTo.setOnClickListener {
             root.requestFocus()
 
             navigateToLocationPickerDialog(false)
+        }
+        with(transportViewModel) {
+            selectedToCounty.observe(viewLifecycleOwner) {
+                tietTo.setText("${it} ${selectedToDistrict.value}")
+            }
+            selectedToDistrict.observe(viewLifecycleOwner) {
+                tietTo.setText("${selectedToCounty.value} ${it}")
+            }
         }
     }
 

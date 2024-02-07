@@ -67,6 +67,7 @@
                 android:id="@+id/tiet_from"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:cursorVisible="false"
                 android:focusable="false" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -86,6 +87,7 @@
                 android:id="@+id/tiet_to"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:cursorVisible="false"
                 android:focusable="false" />
 
         </com.google.android.material.textfield.TextInputLayout>

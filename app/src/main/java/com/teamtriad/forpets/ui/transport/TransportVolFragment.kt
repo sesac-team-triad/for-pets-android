@@ -9,20 +9,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportVolBinding
-import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
 import com.teamtriad.forpets.util.setSafeOnClickListener
+import com.teamtriad.forpets.viewmodel.TransportViewModel
 import java.util.Calendar
 import java.util.TimeZone
 
 class TransportVolFragment : Fragment() {
+
+    private val transportViewModel: TransportViewModel by activityViewModels()
 
     private var _binding: FragmentTransportVolBinding? = null
     private val binding get() = _binding!!
@@ -42,6 +45,18 @@ class TransportVolFragment : Fragment() {
         setOnClickListener()
         makeEditTextBigger()
         checkButtonEnabled()
+
+        transportViewModel.clearAllSelectedLocations()
+
+        with(binding) {
+            transportViewModel.selectedFromCounty.observe(viewLifecycleOwner) {
+                tietFrom.setText(it)
+            }
+
+            transportViewModel.selectedToCounty.observe(viewLifecycleOwner) {
+                tietTo.setText(it)
+            }
+        }
     }
 
     private fun setOnClickListener() {
@@ -52,14 +67,20 @@ class TransportVolFragment : Fragment() {
 
             tietFrom.setSafeOnClickListener {
                 val action = TransportVolFragmentDirections
-                    .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+                    .actionTransportVolFragmentToLocationPickerDialogFragment(
+                        isFrom = true,
+                        onlyCounty = true
+                    )
 
                 findNavController().navigate(action)
             }
 
             tietTo.setSafeOnClickListener {
                 val action = TransportVolFragmentDirections
-                    .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+                    .actionTransportVolFragmentToLocationPickerDialogFragment(
+                        isFrom = false,
+                        onlyCounty = true
+                    )
 
                 findNavController().navigate(action)
             }

@@ -40,6 +40,18 @@ class TransportViewModel : ViewModel() {
     private var _movingMap = MutableLiveData<Map<String, Moving>>()
     val movingMap: LiveData<Map<String, Moving>> get() = _movingMap
 
+    private var _selectedFromCounty = MutableLiveData<String>()
+    val selectedFromCounty: LiveData<String> get() = _selectedFromCounty
+
+    private var _selectedFromDistrict = MutableLiveData<String>()
+    val selectedFromDistrict: LiveData<String> get() = _selectedFromDistrict
+
+    private var _selectedToCounty = MutableLiveData<String>()
+    val selectedToCounty: LiveData<String> get() = _selectedToCounty
+
+    private var _selectedToDistrict = MutableLiveData<String>()
+    val selectedToDistrict: LiveData<String> get() = _selectedToDistrict
+
     init {
         _transportReqMap.value = mapOf()
         _transportVolMap.value = mapOf()
@@ -218,5 +230,28 @@ class TransportViewModel : ViewModel() {
      */
     suspend fun getUserNicknameByUid(uid: String): String? {
         return userRepository.getUserNicknameByUid(uid)
+    }
+
+    fun setSelectedFromCounty(county: String) {
+        _selectedFromCounty.value = county
+    }
+
+    fun setSelectedFromDistrict(district: String) {
+        _selectedFromDistrict.value = district
+    }
+
+    fun setSelectedToCounty(county: String) {
+        _selectedToCounty.value = county
+    }
+
+    fun setSelectedToDistrict(district: String) {
+        _selectedToDistrict.value = district
+    }
+
+    fun clearAllSelectedLocations() {
+        _selectedFromCounty.value = ""
+        _selectedFromDistrict.value = ""
+        _selectedToCounty.value = ""
+        _selectedToDistrict.value = ""
     }
 }
