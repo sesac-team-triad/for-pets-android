@@ -99,8 +99,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_to"
-            tools:listitem="@layout/rv_item_req_list" />
+            app:layout_constraintTop_toBottomOf="@id/til_to" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
