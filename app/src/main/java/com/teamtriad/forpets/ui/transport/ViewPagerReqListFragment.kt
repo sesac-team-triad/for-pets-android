@@ -41,20 +41,7 @@ class ViewPagerReqListFragment : Fragment() {
         with(binding) {
             setRecyclerView()
             setFilteringEditTexts()
-            efabRegisterReq.setSafeOnClickListener {
-                findNavController().navigate(R.id.action_transportListsFragment_to_transportReqFragment)
-            }
-            rvReqList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        efabRegisterReq.extend()
-                    } else if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                        efabRegisterReq.shrink()
-                    }
-
-                    super.onScrollStateChanged(recyclerView, newState)
-                }
-            })
+            setButtons()
         }
     }
 
@@ -126,6 +113,21 @@ class ViewPagerReqListFragment : Fragment() {
                 )
             }
         }
+    }
+
+    private fun FragmentViewPagerReqListBinding.setButtons() {
+        efabRegisterReq.setSafeOnClickListener {
+            findNavController().navigate(R.id.action_transportListsFragment_to_transportReqFragment)
+        }
+        rvReqList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    efabRegisterReq.extend()
+                } else if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    efabRegisterReq.shrink()
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {
