@@ -33,15 +33,15 @@ fun Date.toYyyyMmDd() = toString().let {
     it.takeLast(4) + monToMm[it.substring(4, 7)] + it.substring(8, 10)
 }
 
-fun ImageView.glide(urlString: String) {
-    Glide.with(context)
-        .load(urlString.toHttps())
-        .into(this)
-}
-
 fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
     val safeClickListener = SafeClickListener {
         onSafeClick(it)
     }
     setOnClickListener(safeClickListener)
+}
+
+fun ImageView.glide(urlString: String) {
+    Glide.with(context)
+        .load(urlString.toHttps())
+        .into(this)
 }
