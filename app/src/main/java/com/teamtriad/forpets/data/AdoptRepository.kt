@@ -26,15 +26,19 @@ class AdoptRepository(private val adoptService: AdoptService) {
                 ?.item
         } catch (e: HttpException) {
             Log.e("AdoptRepository", "retrofit2.HttpException occurred.")
+
+            return null
         } catch (e: SocketTimeoutException) {
             Log.e("AdoptRepository", "java.net.SocketTimeoutException occurred.")
+
+            return null
         } catch (e: JsonDataException) {
             Log.e(
                 "AdoptRepository",
                 "One of the required fields may be missing from the response message."
             )
-        }
 
-        return null
+            return listOf()
+        }
     }
 }
