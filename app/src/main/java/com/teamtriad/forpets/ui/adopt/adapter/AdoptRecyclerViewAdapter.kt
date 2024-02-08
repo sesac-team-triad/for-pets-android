@@ -7,7 +7,7 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.moshi.JsonDataException
-import com.teamtriad.forpets.data.source.network.AdoptService
+import com.teamtriad.forpets.ForPetsApplication.Companion.adoptService
 import com.teamtriad.forpets.data.source.network.model.AbandonmentInfo
 import com.teamtriad.forpets.databinding.RvItemAdoptBinding
 import com.teamtriad.forpets.ui.adopt.AdoptFragmentDirections
@@ -23,10 +23,7 @@ class AdoptRecyclerViewAdapter(private val lifecycleScope: LifecycleCoroutineSco
 
     private var pageNo: Int = 0         // 마지막으로 요청한 페이지 번호(pageNo) 매개변수의 값을 관리
     private val dataSet = mutableListOf<AbandonmentInfo>()
-
     private val noticeNoSet = mutableSetOf<String>()
-
-    private val adoptService: AdoptService by lazy { AdoptService.getService() }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         RvItemAdoptBinding.inflate(
