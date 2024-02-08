@@ -199,8 +199,8 @@ class TransportVolFragment : Fragment() {
         with(binding) {
             val allFieldsFilled = !tietTitle.text.isNullOrEmpty()
                     && !tietDate.text.isNullOrEmpty()
-//                    && !tietReqFrom.text.isNullOrEmpty()
-//                    && !tietReqTo.text.isNullOrEmpty()
+                    && !tietFrom.text.isNullOrEmpty()
+                    && !tietTo.text.isNullOrEmpty()
                     && !tietMessage.text.isNullOrEmpty()
             Log.d("ab", "$allFieldsFilled")
 
@@ -217,27 +217,33 @@ class TransportVolFragment : Fragment() {
             var toResult = ""
 
             transportViewModel.selectedFromCounty.observe(viewLifecycleOwner) {
-                val county = "$it "
-                fromResult += county
+                if (fromResult != it) {
+                    fromResult = "$it "
+                }
                 tietFrom.setText(fromResult)
             }
             transportViewModel.selectedFromDistrictList.observe(viewLifecycleOwner) { list ->
                 var districts = ""
+
                 list.forEach { districts += "$it, " }
+
                 fromResult += districts
                 fromResult = fromResult.dropLast(2)
                 tietFrom.setText(fromResult)
             }
 
             transportViewModel.selectedToCounty.observe(viewLifecycleOwner) {
-                val county = "$it "
-                toResult += county
+                if (toResult != it) {
+                    toResult = "$it "
+                }
                 tietTo.setText(toResult)
             }
 
             transportViewModel.selectedToDistrictList.observe(viewLifecycleOwner) { list ->
                 var districts = ""
+
                 list.forEach { districts += "$it, " }
+
                 toResult += districts
                 toResult = toResult.dropLast(2)
                 tietTo.setText(toResult)

@@ -1,7 +1,6 @@
 package com.teamtriad.forpets.ui.transport.bottomSheetDialog
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,7 +50,6 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setRecyclerView()
@@ -88,6 +86,13 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
     private fun getData(isSelected: Boolean) {
         with(binding) {
             if (isSelected) {
+                adapter = ArrayAdapter(
+                    requireContext(),
+                    R.layout.dropdown_item,
+                    counties
+                )
+                binding.actvCounty.setAdapter(adapter)
+
                 val districts = locationMap[selectedCounty]?.keys?.toTypedArray()
 
                 adapter = ArrayAdapter(
@@ -100,7 +105,13 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
                 tilBottomDistrict.isEnabled = true
                 actvDistrict.isEnabled = true
 
-                loadDataToRecyclerview()
+                if (args.isFrom) {
+                    viewModel.selectedFromDistrictList.value?.let { selectedDistrictList.addAll(it) }
+                } else {
+                    viewModel.selectedToDistrictList.value?.let { selectedDistrictList.addAll(it) }
+                }
+
+                setRecyclerView()
             }
 
             actvCounty.setOnItemClickListener { parent, _, position, _ ->
@@ -117,6 +128,13 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
                 actvDistrict.setAdapter(adapter)
                 tilBottomDistrict.isEnabled = true
                 actvDistrict.isEnabled = true
+
+                if (selectedCounty != viewModel.selectedFromCounty.value ||
+                    selectedCounty != viewModel.selectedToCounty.value
+                ) {
+                    selectedDistrictList.clear()
+                    setRecyclerView()
+                }
             }
 
             actvDistrict.setOnItemClickListener { parent, _, position, _ ->
@@ -136,20 +154,6 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
 
         rvAdapter.submitList(selectedDistrictList)
         recyclerView.adapter = rvAdapter
-    }
-
-    private fun loadDataToRecyclerview() {
-        recyclerView = binding.rvDistrict
-        rvAdapter = DistrictPickerRecyclerViewAdapter(this)
-
-        Log.d("value", "${viewModel.selectedFromDistrictList.value}")
-        if (args.isFrom) {
-            rvAdapter.submitList(viewModel.selectedFromDistrictList.value)
-        } else {
-            rvAdapter.submitList(viewModel.selectedToDistrictList.value)
-        }
-        recyclerView.adapter = rvAdapter
-        Log.d("recyclerview", "doing?")
     }
 
     private fun setOnClickListeners() {
