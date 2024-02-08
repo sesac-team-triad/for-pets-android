@@ -38,6 +38,13 @@ class ViewPagerReqListFragment : Fragment() {
 
         transportViewModel.clearAllSelectedLocations()
 
+        if (transportViewModel.reqAnimalChoice.isEmpty()) {
+            transportViewModel.setReqAnimalChoice(
+                resources.getStringArray(R.array.req_animal_choice)
+                    .toList()
+            )
+        }
+
         with(binding) {
             setRecyclerView()
             setFilteringEditTexts()
@@ -57,10 +64,14 @@ class ViewPagerReqListFragment : Fragment() {
     private fun FragmentViewPagerReqListBinding.setRecyclerView() {
         rvReqList.adapter = recyclerViewAdapter.apply {
             transportViewModel.transportReqMap.observe(viewLifecycleOwner) {
-                submitList(transportViewModel.filterTransportReqMapToList(
-                    tietFrom.text.toString(),
-                    tietTo.text.toString()
-                ))
+                submitList(
+                    transportViewModel.filterTransportReqMapToList(
+                        "", "",
+                        actvAnimalChoice.text.toString(),
+                        tietFrom.text.toString(),
+                        tietTo.text.toString()
+                    )
+                )
             }
         }
 
@@ -68,6 +79,17 @@ class ViewPagerReqListFragment : Fragment() {
     }
 
     private fun FragmentViewPagerReqListBinding.setFilteringEditTexts() {
+        actvAnimalChoice.doOnTextChanged { text, _, _, _ ->
+            (rvReqList.adapter as ReqListRecyclerViewAdapter).submitList(
+                transportViewModel.filterTransportReqMapToList(
+                    "", "",
+                    text.toString(),
+                    tietFrom.text.toString(),
+                    tietTo.text.toString()
+                )
+            )
+        }
+
         tietFrom.setSafeOnClickListener {
             root.requestFocus()
 
@@ -76,7 +98,8 @@ class ViewPagerReqListFragment : Fragment() {
         with(transportViewModel) {
             selectedFromDistrict.observe(viewLifecycleOwner) {
                 if (it.isEmpty() ||
-                    "${selectedFromCounty.value} ${it}" == tietFrom.text.toString()) return@observe
+                    "${selectedFromCounty.value} ${it}" == tietFrom.text.toString()
+                ) return@observe
 
                 tietFrom.setText("${selectedFromCounty.value} ${it}")
             }
@@ -84,6 +107,8 @@ class ViewPagerReqListFragment : Fragment() {
             tietFrom.doOnTextChanged { text, _, _, _ ->
                 (rvReqList.adapter as ReqListRecyclerViewAdapter).submitList(
                     filterTransportReqMapToList(
+                        "", "",
+                        actvAnimalChoice.text.toString(),
                         text.toString(),
                         tietTo.text.toString()
                     )
@@ -99,7 +124,8 @@ class ViewPagerReqListFragment : Fragment() {
         with(transportViewModel) {
             selectedToDistrict.observe(viewLifecycleOwner) {
                 if (it.isEmpty() ||
-                    "${selectedToCounty.value} ${it}" == tietTo.text.toString()) return@observe
+                    "${selectedToCounty.value} ${it}" == tietTo.text.toString()
+                ) return@observe
 
                 tietTo.setText("${selectedToCounty.value} ${it}")
             }
@@ -107,6 +133,8 @@ class ViewPagerReqListFragment : Fragment() {
             tietTo.doOnTextChanged { text, _, _, _ ->
                 (rvReqList.adapter as ReqListRecyclerViewAdapter).submitList(
                     filterTransportReqMapToList(
+                        "", "",
+                        actvAnimalChoice.text.toString(),
                         tietFrom.text.toString(),
                         text.toString()
                     )
