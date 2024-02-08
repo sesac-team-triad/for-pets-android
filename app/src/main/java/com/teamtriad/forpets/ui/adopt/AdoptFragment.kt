@@ -5,14 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.viewModelScope
 import com.teamtriad.forpets.databinding.FragmentAdoptBinding
 import com.teamtriad.forpets.ui.adopt.adapter.AdoptRecyclerViewAdapter
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
+import com.teamtriad.forpets.viewmodel.AdoptViewModel
 import kotlinx.coroutines.launch
 
 class AdoptFragment : Fragment() {
+
+    private val adoptViewModel: AdoptViewModel by activityViewModels()
 
     private var _binding: FragmentAdoptBinding? = null
     private val binding get() = _binding!!
@@ -31,16 +33,19 @@ class AdoptFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerViewAdapter = AdoptRecyclerViewAdapter(lifecycleScope)
+        recyclerViewAdapter = AdoptRecyclerViewAdapter(adoptViewModel)
         binding.rvAdopt.adapter = recyclerViewAdapter
 
-        with(lifecycleScope) {
-            val deferred: Deferred<Int> = async {
-                recyclerViewAdapter.requestAbandonmentInfos()
-            }
+        with(binding.rvAdopt.adapter) {
+            if (adoptViewModel.abandonmentInfoList.isNotEmpty()) {
+                (this as AdoptRecyclerViewAdapter).updateDataSet(adoptViewModel.abandonmentInfoList)
+            } else adoptViewModel.viewModelScope.launch {
+                (this@with as AdoptRecyclerViewAdapter).requestAbandonmentInfos()
+                    .join()
 
-            launch {
-                if (deferred.await() == 0) binding.tvFallback.visibility = View.VISIBLE
+                if (adoptViewModel.abandonmentInfoList.isEmpty()) {
+                    binding.tvFallback.visibility = View.VISIBLE
+                }
             }
         }
     }
