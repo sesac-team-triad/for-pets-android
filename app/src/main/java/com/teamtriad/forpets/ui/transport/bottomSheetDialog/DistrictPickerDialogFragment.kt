@@ -1,6 +1,7 @@
 package com.teamtriad.forpets.ui.transport.bottomSheetDialog
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.data.source.network.model.District
@@ -27,6 +29,9 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
 
     private var _binding: BottomSheetVolDistrictBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var rvAdapter: DistrictPickerRecyclerViewAdapter
 
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var locationMap: Map<String, Map<String, District>>
@@ -49,9 +54,8 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setData()
-        getData()
         setRecyclerView()
+        setData()
         setOnClickListeners()
     }
 
@@ -59,8 +63,10 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
         locationMap = viewModel.locationMap.value!!
         counties = locationMap.keys.toTypedArray()
 
-        if (viewModel.selectedFromCounty.value?.isNotEmpty()!!) {
-            binding.tilBottomCounty.hint = viewModel.selectedFromCounty.value
+        selectedCounty = if (args.isFrom) {
+            viewModel.selectedFromCounty.value!!
+        } else {
+            viewModel.selectedToCounty.value!!
         }
 
         adapter = ArrayAdapter(
@@ -70,10 +76,33 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
         )
 
         binding.actvCounty.setAdapter(adapter)
+
+        if (selectedCounty.isNotEmpty()) {
+            binding.actvCounty.setText(selectedCounty)
+            getData(true)
+        } else {
+            getData(false)
+        }
     }
 
-    private fun getData() {
+    private fun getData(isSelected: Boolean) {
         with(binding) {
+            if (isSelected) {
+                val districts = locationMap[selectedCounty]?.keys?.toTypedArray()
+
+                adapter = ArrayAdapter(
+                    requireContext(),
+                    R.layout.dropdown_item,
+                    districts!!
+                )
+
+                actvDistrict.setAdapter(adapter)
+                tilBottomDistrict.isEnabled = true
+                actvDistrict.isEnabled = true
+
+                loadDataToRecyclerview()
+            }
+
             actvCounty.setOnItemClickListener { parent, _, position, _ ->
                 selectedCounty = parent.getItemAtPosition(position) as String
 
@@ -102,11 +131,25 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
     }
 
     private fun setRecyclerView() {
-        val recyclerview = binding.rvDistrict
-        val adapter = DistrictPickerRecyclerViewAdapter(this)
+        recyclerView = binding.rvDistrict
+        rvAdapter = DistrictPickerRecyclerViewAdapter(this)
 
-        adapter.submitList(selectedDistrictList)
-        recyclerview.adapter = adapter
+        rvAdapter.submitList(selectedDistrictList)
+        recyclerView.adapter = rvAdapter
+    }
+
+    private fun loadDataToRecyclerview() {
+        recyclerView = binding.rvDistrict
+        rvAdapter = DistrictPickerRecyclerViewAdapter(this)
+
+        Log.d("value", "${viewModel.selectedFromDistrictList.value}")
+        if (args.isFrom) {
+            rvAdapter.submitList(viewModel.selectedFromDistrictList.value)
+        } else {
+            rvAdapter.submitList(viewModel.selectedToDistrictList.value)
+        }
+        recyclerView.adapter = rvAdapter
+        Log.d("recyclerview", "doing?")
     }
 
     private fun setOnClickListeners() {
