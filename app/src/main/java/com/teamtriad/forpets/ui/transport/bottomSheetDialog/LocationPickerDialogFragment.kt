@@ -59,6 +59,8 @@ class LocationPickerDialogFragment : BottomSheetDialogFragment() {
                 transportViewModel.setSelectedToCounty(selectedCounty)
                 transportViewModel.setSelectedToDistrict(selectedDistrict)
             }
+
+            dismiss()
         }
     }
 
