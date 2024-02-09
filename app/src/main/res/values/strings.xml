@@ -73,9 +73,9 @@
 
     <!-- 봉사자 등록 화면 -->
     <string name="vol_til_from_detail_hint">상세 출발 지역</string>
-    <string name="vol_til_from_detail_helper" tools:ignore="TypographyEllipsis">가능하신 출발 지역들 모두 적어주세요. ex) 강서구, 양천구...</string>
+    <string name="vol_til_from_detail_helper" tools:ignore="TypographyEllipsis">가능하신 출발 지역들 모두 입력해 주세요.</string>
     <string name="vol_til_to_detail_hint">상세 도착 지역</string>
-    <string name="vol_til_to_detail_helper" tools:ignore="TypographyEllipsis">가능하신 도착 지역들 모두 적어주세요. ex) 천안시, 아산시...</string>
+    <string name="vol_til_to_detail_helper" tools:ignore="TypographyEllipsis">가능하신 도착 지역들 모두 입력해 주세요.</string>
     <string name="vol_til_message_hint">봉사 또는 일정 등 알려주실 사항을 남겨주세요!!</string>
 
     <!-- 봉사자 목록 화면 -->

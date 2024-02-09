@@ -25,7 +25,7 @@ import com.teamtriad.forpets.viewmodel.TransportViewModel
 
 class TransportFragment : Fragment(), OnMapReadyCallback {
 
-    private val transportViewModel: TransportViewModel by activityViewModels()
+    private val viewModel: TransportViewModel by activityViewModels()
 
     private var _binding: FragmentTransportBinding? = null
     private val binding get() = _binding!!
@@ -44,8 +44,7 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         setMapFragment()
         setOnClickListeners()
-
-        transportViewModel.getAllCountyMap()
+        viewModel.getAllCountyMap()
     }
 
     private fun setMapFragment() {

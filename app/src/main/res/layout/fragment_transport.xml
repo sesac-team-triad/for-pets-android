@@ -142,25 +142,29 @@
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/efab_transport_req"
-        style="@style/Pet_Fab_Color"
+        style="@style/Pet_TextView_MiddleWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="9dp"
         android:contentDescription="@string/all_fab_transport_req_desc"
         android:text="@string/all_fab_transport_req"
+        app:iconTint="@color/white"
+        android:backgroundTint="@color/green_600"
         app:icon="@drawable/ic_fab_create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/efab_transport_vol"
-        style="@style/Pet_Fab_Color"
+        style="@style/Pet_TextView_MiddleWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="9dp"
         android:contentDescription="@string/all_fab_transport_vol_desc"
         android:text="@string/all_fab_transport_vol"
         android:visibility="gone"
+        app:iconTint="@color/white"
+        android:backgroundTint="@color/green_600"
         app:icon="@drawable/ic_fab_create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

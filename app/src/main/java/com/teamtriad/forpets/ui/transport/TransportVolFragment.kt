@@ -15,6 +15,7 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamtriad.forpets.R
+import com.teamtriad.forpets.data.source.network.model.TransportVol
 import com.teamtriad.forpets.databinding.FragmentTransportVolBinding
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
@@ -25,11 +26,17 @@ import java.util.TimeZone
 
 class TransportVolFragment : Fragment() {
 
-    private val transportViewModel: TransportViewModel by activityViewModels()
+    private val viewModel: TransportViewModel by activityViewModels()
 
     private var _binding: FragmentTransportVolBinding? = null
     private val binding get() = _binding!!
     private lateinit var dateRangePicker: MaterialDatePicker<Pair<Long, Long>>
+
+    private lateinit var startDateText: String
+    private lateinit var endDateText: String
+
+    private lateinit var fromLocation: String
+    private lateinit var toLocation: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,17 +53,9 @@ class TransportVolFragment : Fragment() {
         makeEditTextBigger()
         checkButtonEnabled()
 
-        transportViewModel.clearAllSelectedLocations()
+        viewModel.clearAllSelectedLocations()
 
-        with(binding) {
-            transportViewModel.selectedFromCounty.observe(viewLifecycleOwner) {
-                tietFrom.setText(it)
-            }
-
-            transportViewModel.selectedToCounty.observe(viewLifecycleOwner) {
-                tietTo.setText(it)
-            }
-        }
+        displaySelectedLocation()
     }
 
     private fun setOnClickListener() {
@@ -67,29 +66,48 @@ class TransportVolFragment : Fragment() {
 
             tietFrom.setSafeOnClickListener {
                 val action = TransportVolFragmentDirections
-                    .actionTransportVolFragmentToLocationPickerDialogFragment(
-                        isFrom = true,
-                        onlyCounty = true
-                    )
+                    .actionTransportVolFragmentToDistrictPickerDialogFragment(true)
 
                 findNavController().navigate(action)
             }
 
             tietTo.setSafeOnClickListener {
                 val action = TransportVolFragmentDirections
-                    .actionTransportVolFragmentToLocationPickerDialogFragment(
-                        isFrom = false,
-                        onlyCounty = true
-                    )
+                    .actionTransportVolFragmentToDistrictPickerDialogFragment(false)
 
                 findNavController().navigate(action)
+
             }
 
             btnPost.setSafeOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportVolFragment_to_transportListsFragment)
+                val action = TransportVolFragmentDirections
+                    .actionTransportVolFragmentToTransportListsFragment(true)
+                sendVolunteerData(makeVolunteerData())
+                findNavController().navigate(action)
             }
         }
+    }
+
+    private fun sendVolunteerData(volData: TransportVol) {
+        viewModel.addTransportVol(volData)
+    }
+
+    private fun makeVolunteerData(): TransportVol = with(binding) {
+        val fromLocationList = fromLocation.split(" ")
+        val toLocationList = toLocation.split(" ")
+
+        return TransportVol(
+            uid = "testUid",
+            title = tietTitle.text.toString(),
+            startDate = startDateText,
+            endDate = endDateText,
+            animal = actvAnimal.text.toString(),
+            from = fromLocationList[0],
+            fromDetail = fromLocation.substring(fromLocationList[0].length).trim(),
+            to = toLocationList[0],
+            toDetail = toLocation.substring(toLocationList[0].length).trim(),
+            message = tietMessage.text.toString()
+        )
     }
 
     private fun makeEditTextBigger() {
@@ -169,8 +187,8 @@ class TransportVolFragment : Fragment() {
             val startDate = selection.first
             val endDate = selection.second
 
-            val startDateText = startDate.formatDate()
-            val endDateText = endDate.formatDate()
+            startDateText = startDate.formatDate()
+            endDateText = endDate.formatDate()
 
             val selectedDate = if (startDateText == endDateText) {
                 startDate.formatDateWithYear()
@@ -204,8 +222,6 @@ class TransportVolFragment : Fragment() {
             tietDate.addTextChangedListener(textWatcher)
             tietFrom.addTextChangedListener(textWatcher)
             tietTo.addTextChangedListener(textWatcher)
-            tietFromDetail.addTextChangedListener(textWatcher)
-            tietToDetail.addTextChangedListener(textWatcher)
             tietMessage.addTextChangedListener(textWatcher)
         }
     }
@@ -214,16 +230,54 @@ class TransportVolFragment : Fragment() {
         with(binding) {
             val allFieldsFilled = !tietTitle.text.isNullOrEmpty()
                     && !tietDate.text.isNullOrEmpty()
-//                    && !tietReqFrom.text.isNullOrEmpty()
-//                    && !tietReqTo.text.isNullOrEmpty()
-                    && !tietFromDetail.text.isNullOrEmpty()
-                    && !tietToDetail.text.isNullOrEmpty()
+                    && !tietFrom.text.isNullOrEmpty()
+                    && !tietTo.text.isNullOrEmpty()
                     && !tietMessage.text.isNullOrEmpty()
             Log.d("ab", "$allFieldsFilled")
 
             btnPost.apply {
                 isEnabled = allFieldsFilled
                 isCheckable = allFieldsFilled
+            }
+        }
+    }
+
+    private fun displaySelectedLocation() {
+        with(binding) {
+            fromLocation = ""
+            toLocation = ""
+
+            viewModel.selectedFromCounty.observe(viewLifecycleOwner) {
+                if (fromLocation != it) {
+                    fromLocation = "$it "
+                }
+                tietFrom.setText(fromLocation)
+            }
+            viewModel.selectedFromDistrictList.observe(viewLifecycleOwner) { list ->
+                var districts = ""
+
+                list.forEach { districts += "$it, " }
+
+                fromLocation += districts
+                fromLocation = fromLocation.dropLast(2)
+                tietFrom.setText(fromLocation)
+            }
+
+            viewModel.selectedToCounty.observe(viewLifecycleOwner) {
+                if (toLocation != it) {
+                    toLocation = "$it "
+                }
+                tietTo.setText(toLocation)
+            }
+
+            viewModel.selectedToDistrictList.observe(viewLifecycleOwner) { list ->
+                var districts = ""
+
+                list.forEach { districts += "$it, " }
+
+                toLocation += districts
+                toLocation = toLocation.dropLast(2)
+                tietTo.setText(toLocation)
             }
         }
     }

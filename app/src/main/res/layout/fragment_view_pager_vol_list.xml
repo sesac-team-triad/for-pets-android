@@ -123,14 +123,14 @@
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/efab_vol_list"
+        style="@style/Pet_TextView_MiddlePurple450"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/all_fab_transport_vol_desc"
         android:text="@string/all_fab_transport_vol"
-        android:textColor="@color/white"
         app:icon="@drawable/ic_fab_create"
-        app:iconTint="@color/white" />
+        app:iconTint="@color/purple_450" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
