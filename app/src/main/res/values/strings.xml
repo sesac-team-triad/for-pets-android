@@ -85,7 +85,7 @@
 
     <!-- 데이트 피커 -->
     <string name="date_picker_icon_desc">출발일을 선택할 수 있는 캘린더 아이콘입니다</string>
-    <string name="date_picker_title">출발일 - 도착일</string>
+    <string name="date_picker_title">시작일 - 종료일</string>
 
     <!-- Bottom Sheet -->
     <string name="bottom_title">지역 선택</string>
