@@ -80,9 +80,10 @@ class TransportVolFragment : Fragment() {
             }
 
             btnPost.setSafeOnClickListener {
+                val action = TransportVolFragmentDirections
+                    .actionTransportVolFragmentToTransportListsFragment(true)
                 sendVolunteerData(makeVolunteerData())
-                findNavController()
-                    .navigate(R.id.action_transportVolFragment_to_transportListsFragment)
+                findNavController().navigate(action)
             }
         }
     }
@@ -91,12 +92,12 @@ class TransportVolFragment : Fragment() {
         viewModel.addTransportVol(volData)
     }
 
-    private fun makeVolunteerData() : TransportVol = with(binding) {
+    private fun makeVolunteerData(): TransportVol = with(binding) {
         val fromLocationList = fromLocation.split(" ")
         val toLocationList = toLocation.split(" ")
 
         return TransportVol(
-            uid = "JXIAcdhnMCSkGhVF3bTQ00lG7uF2",
+            uid = "testUid",
             title = tietTitle.text.toString(),
             startDate = startDateText,
             endDate = endDateText,
@@ -281,7 +282,7 @@ class TransportVolFragment : Fragment() {
         }
     }
 
-       override fun onDestroyView() {
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }

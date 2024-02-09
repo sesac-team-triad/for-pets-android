@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportListsBinding
@@ -14,6 +15,8 @@ class TransportListsFragment : Fragment() {
 
     private var _binding: FragmentTransportListsBinding? = null
     private val binding get() = _binding!!
+
+    private val args: TransportListsFragmentArgs by navArgs()
 
     private lateinit var vp2Adapter: TransportListsViewPagerAdapter
 
@@ -42,6 +45,12 @@ class TransportListsFragment : Fragment() {
             TabLayoutMediator(tlTransportLists, vp2TransportLists) { tab, position ->
                 tab.text = tabTitleList[position]
             }.attach()
+        }
+
+        if (args.isVolList) {
+            binding.vp2TransportLists.post {
+                binding.vp2TransportLists.setCurrentItem(tabTitleList.lastIndex, true)
+            }
         }
     }
 

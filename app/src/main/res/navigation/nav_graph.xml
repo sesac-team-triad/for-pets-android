@@ -86,6 +86,9 @@
         <action
             android:id="@+id/action_transportListsFragment_to_locationPickerDialogFragment"
             app:destination="@id/locationPickerDialogFragment" />
+        <argument
+            android:name="isVolList"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/adoptDetailFragment"

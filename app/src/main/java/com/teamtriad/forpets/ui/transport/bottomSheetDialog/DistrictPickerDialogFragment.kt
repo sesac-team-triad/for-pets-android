@@ -72,7 +72,6 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
             R.layout.dropdown_item,
             counties
         )
-
         binding.actvCounty.setAdapter(adapter)
 
         if (selectedCounty.isNotEmpty()) {
@@ -100,8 +99,8 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
                     R.layout.dropdown_item,
                     districts!!
                 )
-
                 actvDistrict.setAdapter(adapter)
+
                 tilBottomDistrict.isEnabled = true
                 actvDistrict.isEnabled = true
 
@@ -112,6 +111,7 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
                 }
 
                 setRecyclerView()
+                checkButtonEnabled()
             }
 
             actvCounty.setOnItemClickListener { parent, _, position, _ ->
@@ -124,17 +124,25 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
                     R.layout.dropdown_item,
                     districts!!
                 )
-
                 actvDistrict.setAdapter(adapter)
+
                 tilBottomDistrict.isEnabled = true
                 actvDistrict.isEnabled = true
 
-                if (selectedCounty != viewModel.selectedFromCounty.value ||
-                    selectedCounty != viewModel.selectedToCounty.value
-                ) {
-                    selectedDistrictList.clear()
-                    setRecyclerView()
+                if (args.isFrom) {
+                    if (selectedCounty != viewModel.selectedFromCounty.value) {
+                        selectedDistrictList.clear()
+                        setRecyclerView()
+                    }
+                } else {
+                    if (selectedCounty != viewModel.selectedToCounty.value) {
+                        selectedDistrictList.clear()
+                        setRecyclerView()
+                    }
                 }
+
+                checkButtonEnabled()
+                binding.actvDistrict.text.clear()
             }
 
             actvDistrict.setOnItemClickListener { parent, _, position, _ ->
@@ -143,6 +151,7 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
                 if (selectedDistrict !in selectedDistrictList) {
                     selectedDistrictList.add(selectedDistrict)
                     setRecyclerView()
+                    checkButtonEnabled()
                 }
             }
         }
@@ -151,7 +160,6 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
     private fun setRecyclerView() {
         recyclerView = binding.rvDistrict
         rvAdapter = DistrictPickerRecyclerViewAdapter(this)
-
         rvAdapter.submitList(selectedDistrictList)
         recyclerView.adapter = rvAdapter
     }
@@ -173,6 +181,19 @@ class DistrictPickerDialogFragment : BottomSheetDialogFragment(), OnClickListene
     override fun deleteItem(district: String) {
         selectedDistrictList.remove(district)
         setRecyclerView()
+        checkButtonEnabled()
+    }
+
+    private fun checkButtonEnabled() {
+        with(binding) {
+
+            val isRecyclerViewNotEmpty = (recyclerView.adapter?.itemCount ?: 0) > 0
+
+            btnSave.apply {
+                isEnabled = isRecyclerViewNotEmpty
+                isCheckable = isRecyclerViewNotEmpty
+            }
+        }
     }
 
     override fun onDestroyView() {
