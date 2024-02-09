@@ -11,6 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.BottomSheetLocationBinding
 import com.teamtriad.forpets.model.tmp.Location
+import com.teamtriad.forpets.util.setSafeOnClickListener
 import com.teamtriad.forpets.viewmodel.TransportViewModel
 
 class LocationPickerDialogFragment : BottomSheetDialogFragment() {
@@ -50,7 +51,7 @@ class LocationPickerDialogFragment : BottomSheetDialogFragment() {
             getData()
         }
 
-        binding.btnSave.setOnClickListener {
+        binding.btnSave.setSafeOnClickListener {
             if (args.isFrom) {
                 transportViewModel.setSelectedFromCounty(selectedCounty)
                 transportViewModel.setSelectedFromDistrict(selectedDistrict)
@@ -58,6 +59,8 @@ class LocationPickerDialogFragment : BottomSheetDialogFragment() {
                 transportViewModel.setSelectedToCounty(selectedCounty)
                 transportViewModel.setSelectedToDistrict(selectedDistrict)
             }
+
+            dismiss()
         }
     }
 

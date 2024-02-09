@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.teamtriad.forpets.databinding.FragmentAdoptDetailBinding
 import com.teamtriad.forpets.util.glide
+import com.teamtriad.forpets.util.setSafeOnClickListener
 
 class AdoptDetailFragment : Fragment() {
 
@@ -33,12 +34,12 @@ class AdoptDetailFragment : Fragment() {
         with(binding) { // TODO: ViewModel을 사용하여 데이터를 전달받기.
             ivImage.glide(args.imageUrl)
 
-            btnCare.setOnClickListener {
+            btnCare.setSafeOnClickListener {
                 val intent = Intent(Intent.ACTION_DIAL)
 
                 startActivity(intent)
             }
-            btnCharge.setOnClickListener {
+            btnCharge.setSafeOnClickListener {
                 val intent = Intent(Intent.ACTION_DIAL)
 
                 startActivity(intent)

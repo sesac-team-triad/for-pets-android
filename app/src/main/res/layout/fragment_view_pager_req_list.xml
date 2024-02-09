@@ -15,19 +15,25 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_calendar"
+            android:id="@+id/til_date"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
             android:hint="@string/all_calendar_hint"
+            app:endIconContentDescription="@string/date_picker_icon_desc"
+            app:endIconDrawable="@drawable/ic_calendar"
+            app:endIconMode="custom"
             app:layout_constraintBottom_toBottomOf="@id/til_animal_choice"
             app:layout_constraintEnd_toStartOf="@id/til_animal_choice"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_date"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:cursorVisible="false"
+                android:focusable="false" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -41,7 +47,7 @@
             android:hint="@string/all_animal_choice"
             android:labelFor="@id/actv_animal_choice"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/til_calendar"
+            app:layout_constraintStart_toEndOf="@id/til_date"
             app:layout_constraintTop_toTopOf="parent">
 
             <AutoCompleteTextView
