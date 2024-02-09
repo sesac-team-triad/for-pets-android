@@ -15,6 +15,7 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamtriad.forpets.R
+import com.teamtriad.forpets.data.source.network.model.TransportVol
 import com.teamtriad.forpets.databinding.FragmentTransportVolBinding
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
@@ -25,11 +26,17 @@ import java.util.TimeZone
 
 class TransportVolFragment : Fragment() {
 
-    private val transportViewModel: TransportViewModel by activityViewModels()
+    private val viewModel: TransportViewModel by activityViewModels()
 
     private var _binding: FragmentTransportVolBinding? = null
     private val binding get() = _binding!!
     private lateinit var dateRangePicker: MaterialDatePicker<Pair<Long, Long>>
+
+    private lateinit var startDateText: String
+    private lateinit var endDateText: String
+
+    private lateinit var fromLocation: String
+    private lateinit var toLocation: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +53,7 @@ class TransportVolFragment : Fragment() {
         makeEditTextBigger()
         checkButtonEnabled()
 
-        transportViewModel.clearAllSelectedLocations()
+        viewModel.clearAllSelectedLocations()
 
         displaySelectedLocation()
     }
@@ -73,10 +80,33 @@ class TransportVolFragment : Fragment() {
             }
 
             btnPost.setSafeOnClickListener {
+                sendVolunteerData(makeVolunteerData())
                 findNavController()
                     .navigate(R.id.action_transportVolFragment_to_transportListsFragment)
             }
         }
+    }
+
+    private fun sendVolunteerData(volData: TransportVol) {
+        viewModel.addTransportVol(volData)
+    }
+
+    private fun makeVolunteerData() : TransportVol = with(binding) {
+        val fromLocationList = fromLocation.split(" ")
+        val toLocationList = toLocation.split(" ")
+
+        return TransportVol(
+            uid = "JXIAcdhnMCSkGhVF3bTQ00lG7uF2",
+            title = tietTitle.text.toString(),
+            startDate = startDateText,
+            endDate = endDateText,
+            animal = actvAnimal.text.toString(),
+            from = fromLocationList[0],
+            fromDetail = fromLocation.substring(fromLocationList[0].length).trim(),
+            to = toLocationList[0],
+            toDetail = toLocation.substring(toLocationList[0].length).trim(),
+            message = tietMessage.text.toString()
+        )
     }
 
     private fun makeEditTextBigger() {
@@ -156,8 +186,8 @@ class TransportVolFragment : Fragment() {
             val startDate = selection.first
             val endDate = selection.second
 
-            val startDateText = startDate.formatDate()
-            val endDateText = endDate.formatDate()
+            startDateText = startDate.formatDate()
+            endDateText = endDate.formatDate()
 
             val selectedDate = if (startDateText == endDateText) {
                 startDate.formatDateWithYear()
@@ -213,45 +243,45 @@ class TransportVolFragment : Fragment() {
 
     private fun displaySelectedLocation() {
         with(binding) {
-            var fromResult = ""
-            var toResult = ""
+            fromLocation = ""
+            toLocation = ""
 
-            transportViewModel.selectedFromCounty.observe(viewLifecycleOwner) {
-                if (fromResult != it) {
-                    fromResult = "$it "
+            viewModel.selectedFromCounty.observe(viewLifecycleOwner) {
+                if (fromLocation != it) {
+                    fromLocation = "$it "
                 }
-                tietFrom.setText(fromResult)
+                tietFrom.setText(fromLocation)
             }
-            transportViewModel.selectedFromDistrictList.observe(viewLifecycleOwner) { list ->
+            viewModel.selectedFromDistrictList.observe(viewLifecycleOwner) { list ->
                 var districts = ""
 
                 list.forEach { districts += "$it, " }
 
-                fromResult += districts
-                fromResult = fromResult.dropLast(2)
-                tietFrom.setText(fromResult)
+                fromLocation += districts
+                fromLocation = fromLocation.dropLast(2)
+                tietFrom.setText(fromLocation)
             }
 
-            transportViewModel.selectedToCounty.observe(viewLifecycleOwner) {
-                if (toResult != it) {
-                    toResult = "$it "
+            viewModel.selectedToCounty.observe(viewLifecycleOwner) {
+                if (toLocation != it) {
+                    toLocation = "$it "
                 }
-                tietTo.setText(toResult)
+                tietTo.setText(toLocation)
             }
 
-            transportViewModel.selectedToDistrictList.observe(viewLifecycleOwner) { list ->
+            viewModel.selectedToDistrictList.observe(viewLifecycleOwner) { list ->
                 var districts = ""
 
                 list.forEach { districts += "$it, " }
 
-                toResult += districts
-                toResult = toResult.dropLast(2)
-                tietTo.setText(toResult)
+                toLocation += districts
+                toLocation = toLocation.dropLast(2)
+                tietTo.setText(toLocation)
             }
         }
     }
 
-    override fun onDestroyView() {
+       override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
