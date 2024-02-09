@@ -120,14 +120,14 @@ class ViewPagerVolListFragment : Fragment() {
         calendar[Calendar.MONTH] = Calendar.JANUARY
         val janThisYear = calendar.timeInMillis
 
-        calendar.timeInMillis = today
+        calendar[Calendar.YEAR] += 1
         calendar[Calendar.MONTH] = Calendar.DECEMBER
-        val decThisYear = calendar.timeInMillis
+        val decNextYear = calendar.timeInMillis
 
         val constraintsBuilder =
             CalendarConstraints.Builder()
                 .setStart(janThisYear)
-                .setEnd(decThisYear)
+                .setEnd(decNextYear)
                 .setValidator(DateValidatorPointForward.now())
 
         dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
