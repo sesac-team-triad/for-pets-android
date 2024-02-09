@@ -26,6 +26,11 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="Pet_TextView_SmallPurple450" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/small</item>
+        <item name="android:textColor">@color/purple_450</item>
+    </style>
+
     <style name="Pet_TextView_SmallWhite" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/small</item>
         <item name="android:textColor">@color/white</item>

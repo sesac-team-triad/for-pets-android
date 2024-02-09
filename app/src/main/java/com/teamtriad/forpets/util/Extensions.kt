@@ -29,14 +29,13 @@ fun String.toHttps(): String {
     else "https://${this}"
 }
 
+fun String.toRoughLocation() = split(" ").filter { it != "" }
+    .let {
+        it[0] + " " + it[1]
+    }
+
 fun Date.toYyyyMmDd() = toString().let {
     it.takeLast(4) + monToMm[it.substring(4, 7)] + it.substring(8, 10)
-}
-
-fun ImageView.glide(urlString: String) {
-    Glide.with(context)
-        .load(urlString.toHttps())
-        .into(this)
 }
 
 fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
@@ -44,4 +43,10 @@ fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
         onSafeClick(it)
     }
     setOnClickListener(safeClickListener)
+}
+
+fun ImageView.glide(urlString: String) {
+    Glide.with(context)
+        .load(urlString.toHttps())
+        .into(this)
 }

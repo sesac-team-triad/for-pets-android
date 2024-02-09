@@ -40,6 +40,9 @@ class TransportViewModel : ViewModel() {
     private var _movingMap = MutableLiveData<Map<String, Moving>>()
     val movingMap: LiveData<Map<String, Moving>> get() = _movingMap
 
+    private var _reqAnimalChoice = listOf<String>()
+    val reqAnimalChoice: List<String> get() = _reqAnimalChoice
+
     private var _selectedFromCounty = MutableLiveData<String>()
     val selectedFromCounty: LiveData<String> get() = _selectedFromCounty
 
@@ -244,6 +247,10 @@ class TransportViewModel : ViewModel() {
         return userRepository.getUserNicknameByUid(uid)
     }
 
+    fun setReqAnimalChoice(reqAnimalChoice: List<String>) {
+        _reqAnimalChoice = reqAnimalChoice
+    }
+
     fun setSelectedFromCounty(county: String) {
         _selectedFromCounty.value = county
     }
@@ -277,4 +284,31 @@ class TransportViewModel : ViewModel() {
         _selectedToDistrictList.value = listOf()
     }
 
+    fun filterTransportReqMapToList(
+        startDate: String,
+        endDate: String,
+        animal: String,
+        from: String,
+        to: String
+    ): List<TransportReq> {
+        fun compareWithDates(s: String, e: String) = startDate.isEmpty() ||
+            s <= endDate && startDate <= e
+        fun compareWithAnimal(s: String) = animal.isEmpty() || s == animal ||
+            animal == reqAnimalChoice.last() && s !in reqAnimalChoice.subList(0, reqAnimalChoice.lastIndex)
+        fun compareWithFrom(s: String) = from.isEmpty() || s == from
+        fun compareWithTo(s: String) = to.isEmpty() || s == to
+
+        return mutableListOf<TransportReq>().apply {
+            transportReqMap.value?.onEachIndexed { index, entry ->
+                if (compareWithDates(entry.value.startDate, entry.value.endDate) &&
+                    compareWithAnimal(entry.value.animal) &&
+                    compareWithFrom(entry.value.from) && compareWithTo(entry.value.to)
+                ) add(
+                    entry.value.apply {
+                        reqIndex = index
+                    }
+                )
+            }
+        }
+    }
 }

@@ -88,6 +88,7 @@
             app:destination="@id/locationPickerDialogFragment" />
         <argument
             android:name="isVolList"
+            android:defaultValue="false"
             app:argType="boolean" />
     </fragment>
     <fragment
@@ -120,7 +121,7 @@
     <dialog
         android:id="@+id/locationPickerDialogFragment"
         android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment"
-        android:label="LocationPicker">
+        android:label="fragment_location_picker_dialog">
         <argument
             android:name="isFrom"
             app:argType="boolean" />
@@ -132,7 +133,7 @@
     <dialog
         android:id="@+id/districtPickerDialogFragment"
         android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.DistrictPickerDialogFragment"
-        android:label="DistrictPickerDialogFragment">
+        android:label="fragment_district_picker_dialog">
         <argument
             android:name="isFrom"
             app:argType="boolean" />

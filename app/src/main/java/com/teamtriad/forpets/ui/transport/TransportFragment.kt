@@ -62,8 +62,10 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun setUpCluster() {
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-            LatLng(36.0, 127.809), 7.0f)
+        map.moveCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                LatLng(36.0, 127.809), 7.0f
+            )
         )
 
         clusterManager = CustomClusterManager(requireContext(), map, binding)

@@ -54,17 +54,19 @@ class TransportReqFragment : Fragment() {
         transportViewModel.clearAllSelectedLocations()
 
         with(transportViewModel) {
-            selectedFromCounty.observe(viewLifecycleOwner) {
-                binding.tietFrom.setText("${it} ${selectedFromDistrict.value}")
-            }
             selectedFromDistrict.observe(viewLifecycleOwner) {
+                if (it.isEmpty() ||
+                    "${selectedFromCounty.value} ${it}" == binding.tietFrom.text.toString()
+                ) return@observe
+
                 binding.tietFrom.setText("${selectedFromCounty.value} ${it}")
             }
 
-            selectedToCounty.observe(viewLifecycleOwner) {
-                binding.tietTo.setText("${it} ${selectedToDistrict.value}")
-            }
             selectedToDistrict.observe(viewLifecycleOwner) {
+                if (it.isEmpty() ||
+                    "${selectedToCounty.value} ${it}" == binding.tietTo.text.toString()
+                ) return@observe
+
                 binding.tietTo.setText("${selectedToCounty.value} ${it}")
             }
         }

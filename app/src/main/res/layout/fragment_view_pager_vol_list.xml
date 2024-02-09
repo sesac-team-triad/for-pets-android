@@ -130,8 +130,7 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/all_fab_transport_vol_desc"
         android:text="@string/all_fab_transport_vol"
-        android:textColor="@color/white"
         app:icon="@drawable/ic_fab_create"
-        app:iconTint="@color/white" />
+        app:iconTint="@color/purple_450" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

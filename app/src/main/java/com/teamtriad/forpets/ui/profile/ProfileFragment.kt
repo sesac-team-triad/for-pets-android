@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -21,14 +19,6 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.btnTransportLists.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_transportListsFragment)
-        }
     }
 
     override fun onDestroyView() {
