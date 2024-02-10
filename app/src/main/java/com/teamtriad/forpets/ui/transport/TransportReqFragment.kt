@@ -18,6 +18,7 @@ import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamtriad.forpets.R
+import com.teamtriad.forpets.data.source.network.model.TransportReq
 import com.teamtriad.forpets.databinding.FragmentTransportReqBinding
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
@@ -34,6 +35,12 @@ class TransportReqFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var pickMultipleMedia: ActivityResultLauncher<PickVisualMediaRequest>
     private lateinit var dateRangePicker: MaterialDatePicker<Pair<Long, Long>>
+
+    private lateinit var fromLocation: String
+    private lateinit var toLocation: String
+
+    private lateinit var startDate: String
+    private lateinit var endDate: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,25 +63,22 @@ class TransportReqFragment : Fragment() {
         with(transportViewModel) {
             selectedFromDistrict.observe(viewLifecycleOwner) {
                 if (it.isEmpty() ||
-                    "${selectedFromCounty.value} ${it}" == binding.tietFrom.text.toString()
+                    "${selectedFromCounty.value} $it" == binding.tietFrom.text.toString()
                 ) return@observe
 
-                binding.tietFrom.setText("${selectedFromCounty.value} ${it}")
+                fromLocation = "${selectedFromCounty.value} $it"
+                binding.tietFrom.setText(fromLocation)
             }
 
             selectedToDistrict.observe(viewLifecycleOwner) {
                 if (it.isEmpty() ||
-                    "${selectedToCounty.value} ${it}" == binding.tietTo.text.toString()
+                    "${selectedToCounty.value} $it" == binding.tietTo.text.toString()
                 ) return@observe
 
-                binding.tietTo.setText("${selectedToCounty.value} ${it}")
+                toLocation = "${selectedToCounty.value} $it"
+                binding.tietTo.setText(toLocation)
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun setPhotoPicker() {
@@ -121,9 +125,32 @@ class TransportReqFragment : Fragment() {
             }
 
             btnPost.setSafeOnClickListener {
+                sendRequestData(makeRequestData())
                 findNavController().navigate(R.id.action_transportReqFragment_to_transportListsFragment)
             }
         }
+    }
+
+    private fun sendRequestData(reqData: TransportReq) {
+        transportViewModel.addTransportReq(reqData)
+    }
+
+    private fun makeRequestData(): TransportReq = with(binding) {
+        return TransportReq(
+            uid = "textReq1",
+            title = "봉사요청 합니다",
+            startDate = startDate,
+            endDate = endDate,
+            animal = actvAnimal.text.toString(),
+            from = fromLocation,
+            to = toLocation,
+            name = etName.text.toString(),
+            age = etAge.text.toString(),
+            weight = etWeight.text.toString(),
+            kind = etKind.text.toString(),
+            characterCaution = etCharacterCaution.text.toString(),
+            message = etMessage.text.toString()
+        )
     }
 
     private fun checkButtonEnabled() {
@@ -156,7 +183,7 @@ class TransportReqFragment : Fragment() {
             etName.addTextChangedListener(textWatcher)
             etAge.addTextChangedListener(textWatcher)
             etWeight.addTextChangedListener(textWatcher)
-            etBreed.addTextChangedListener(textWatcher)
+            etKind.addTextChangedListener(textWatcher)
             etCharacterCaution.addTextChangedListener(textWatcher)
             etMessage.addTextChangedListener(textWatcher)
 
@@ -170,12 +197,12 @@ class TransportReqFragment : Fragment() {
         with(binding) {
             val allFieldsFilled = !tietTitle.text.isNullOrEmpty()
                     && !tietDate.text.isNullOrEmpty()
-//                    && !tietReqFrom.text.isNullOrEmpty()
-//                    && !tietReqTo.text.isNullOrEmpty()
+                    && !tietFrom.text.isNullOrEmpty()
+                    && !tietTo.text.isNullOrEmpty()
                     && !etName.text.isNullOrEmpty()
                     && !etAge.text.isNullOrEmpty()
                     && !etWeight.text.isNullOrEmpty()
-                    && !etBreed.text.isNullOrEmpty()
+                    && !etKind.text.isNullOrEmpty()
                     && !etCharacterCaution.text.isNullOrEmpty()
                     && !etMessage.text.isNullOrEmpty()
                     && sivPetImage.drawable != null
@@ -226,16 +253,13 @@ class TransportReqFragment : Fragment() {
 
     private fun addDatePickerButtonClickListener() {
         dateRangePicker.addOnPositiveButtonClickListener { selection ->
-            val startDate = selection.first
-            val endDate = selection.second
+            startDate = selection.first.formatDate()
+            endDate = selection.second.formatDate()
 
-            val startDateText = startDate.formatDate()
-            val endDateText = endDate.formatDate()
-
-            val selectedDate = if (startDateText == endDateText) {
-                startDate.formatDateWithYear()
+            val selectedDate = if (startDate == endDate) {
+                selection.first.formatDateWithYear()
             } else {
-                "$startDateText - $endDateText"
+                "$startDate - $endDate"
             }
             binding.tietDate.text =
                 Editable.Factory.getInstance().newEditable(selectedDate)
@@ -302,5 +326,10 @@ class TransportReqFragment : Fragment() {
                 }
             })
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
