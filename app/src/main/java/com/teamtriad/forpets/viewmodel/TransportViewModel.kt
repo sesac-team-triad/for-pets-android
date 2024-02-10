@@ -157,7 +157,7 @@ class TransportViewModel : ViewModel() {
     /**
      * 등록된 시/도들의 목록을 전부 가져옵니다.(LiveData)
      */
-    fun getAllCountyMap() {
+    fun getAllLocationMap() {
         viewModelScope.launch {
             _locationMap.value = locationRepository.getAllCountyMap() ?: mapOf()
         }

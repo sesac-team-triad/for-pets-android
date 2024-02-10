@@ -44,7 +44,7 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         setMapFragment()
         setOnClickListeners()
-        viewModel.getAllCountyMap()
+        viewModel.getAllLocationMap()
     }
 
     private fun setMapFragment() {
