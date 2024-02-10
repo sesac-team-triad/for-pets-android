@@ -10,8 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.teamtriad.forpets.R
+import com.teamtriad.forpets.data.source.network.model.District
 import com.teamtriad.forpets.databinding.BottomSheetLocationBinding
-import com.teamtriad.forpets.model.tmp.Location
 import com.teamtriad.forpets.util.setSafeOnClickListener
 import com.teamtriad.forpets.viewmodel.TransportViewModel
 
@@ -25,7 +25,7 @@ class LocationPickerDialogFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     private lateinit var adapter: ArrayAdapter<String>
-    private lateinit var counties: Map<String, List<String>>
+    private lateinit var locationMap: Map<String, Map<String, District>>
 
     private var selectedCounty: String = ""
     private var selectedDistrict: String = ""
@@ -42,7 +42,7 @@ class LocationPickerDialogFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        counties = Location.loadLocationMap()
+        locationMap = transportViewModel.locationMap.value!!
 
         if (args.onlyCounty) {
             setData()
@@ -69,7 +69,7 @@ class LocationPickerDialogFragment : BottomSheetDialogFragment() {
         adapter = ArrayAdapter(
             requireContext(),
             R.layout.dropdown_item,
-            counties.keys.toTypedArray()
+            locationMap.keys.toTypedArray()
         )
         binding.actvCounty.setAdapter(adapter)
     }
@@ -88,7 +88,7 @@ class LocationPickerDialogFragment : BottomSheetDialogFragment() {
             actvCounty.setOnItemClickListener { parent, _, position, _ ->
                 btnSave.isEnabled = false
                 selectedCounty = parent.getItemAtPosition(position) as String
-                val districts = counties[selectedCounty]!!.toTypedArray()
+                val districts = locationMap[selectedCounty]!!.keys.toTypedArray()
                 adapter = ArrayAdapter(
                     requireContext(),
                     R.layout.dropdown_item,
