@@ -2,6 +2,7 @@ package com.teamtriad.forpets.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -9,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.ActivityMainBinding
+import com.teamtriad.forpets.viewmodel.TransportViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
+    private val viewModel: TransportViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,6 +40,9 @@ class MainActivity : AppCompatActivity() {
 
         hideAppBar()
         hideBottomNavigationView()
+
+        viewModel.getAllLocationMap()
+        viewModel.getAllTransportReqMap()
 
     }
 
