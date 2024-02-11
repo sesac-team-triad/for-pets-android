@@ -2,16 +2,15 @@ package com.teamtriad.forpets.ui.transport
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -24,8 +23,9 @@ import com.teamtriad.forpets.ui.transport.marker.CustomClusterManager
 import com.teamtriad.forpets.ui.transport.marker.Item
 import com.teamtriad.forpets.ui.transport.marker.MarkerItem
 import com.teamtriad.forpets.viewmodel.TransportViewModel
+import kotlinx.coroutines.launch
 
-class TransportFragment : Fragment(), OnMapReadyCallback {
+class TransportFragment : Fragment() {
 
     private val viewModel: TransportViewModel by activityViewModels()
 
@@ -35,6 +35,7 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
     private lateinit var clusterManager: ClusterManager<MarkerItem>
 
     private var itemList: MutableList<Item> = mutableListOf()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,41 +47,41 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        makeMakerItem()
+        viewModel.getAllTransportReqMap()
+
         setMapFragment()
         setOnClickListeners()
-//        viewModel.getAllLocationMap()
-//        viewModel.getAllTransportReqMap()
     }
 
-    private fun makeMakerItem() {
+    private fun makeMarkerItem() {
         val requestList: MutableList<TransportReq> = mutableListOf()
 
         viewModel.transportReqMap.observe(viewLifecycleOwner) { map ->
             val reqList = map.values
             reqList.forEach { if (it !in requestList) requestList.add(it) }
+
+            itemList.clear()
+            requestList.forEach {
+                itemList.add(
+                    makeItem(
+                        it.title,
+                        it.from.split(" ")[0],
+                        it.from.split(" ")[1],
+                        it.uid,
+                    )
+                )
+            }
+
+            addItems()
         }
 
-        requestList.forEach {
-            itemList.add(
-                makeItem(
-                    it.title,
-                    it.from.split(" ")[0],
-                    it.from.split(" ")[1],
-                    it.uid,
-                )
-            )
-        }
     }
 
     private fun makeItem(title: String, county: String, district: String, uid: String): Item {
-        val locationMap = viewModel.locationMap.value!!
-        val districtList = locationMap[county]!!
-        val lat = districtList[district]?.latitude!!
-        val lng = districtList[district]?.longitude!!
+        val districtMap = viewModel.locationMap.value!![county]!!
+        val lat = districtMap[district]?.latitude!!
+        val lng = districtMap[district]?.longitude!!
         val place = LatLng(lat.toDouble(), lng.toDouble())
-
-        Log.d("abc", lat)
 
         return Item(title, county, district, uid, place = place)
     }
@@ -91,12 +92,16 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
             .beginTransaction()
             .add(R.id.fcb_map, mapFragment)
             .commit()
-        mapFragment.getMapAsync(this)
-    }
+        mapFragment.getMapAsync {
+            lifecycleScope.launch {
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap
-        setUpCluster()
+                viewModel.getAllLocationMap().join()
+                map = it
+                setUpCluster()
+                makeMarkerItem()
+            }
+
+        }
     }
 
     private fun setUpCluster() {
@@ -108,20 +113,14 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
 
         clusterManager = CustomClusterManager(requireContext(), map, binding)
 
-        addItems()
         setClusterClickListeners()
     }
 
     private fun addItems() {
-//        val list = Places.getMarkerData()
-
-//        list.forEachIndexed { index, it ->
-//            val offsetItem = MarkerItem(it.place, it.title, "$index")
-//            clusterManager.addItem(offsetItem)
-//        }
-
+        clusterManager.clearItems()
         itemList.forEach {
             val offsetItem = MarkerItem(it.place, it.title, it.uid)
+
             clusterManager.addItem(offsetItem)
         }
     }

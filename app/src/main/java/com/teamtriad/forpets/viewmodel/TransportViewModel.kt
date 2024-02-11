@@ -16,6 +16,7 @@ import com.teamtriad.forpets.data.source.network.model.Moving
 import com.teamtriad.forpets.data.source.network.model.TransportReq
 import com.teamtriad.forpets.data.source.network.model.TransportVol
 import com.teamtriad.forpets.ui.chat.enums.AppointmentProgress
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class TransportViewModel : ViewModel() {
@@ -157,10 +158,8 @@ class TransportViewModel : ViewModel() {
     /**
      * 등록된 시/도들의 목록을 전부 가져옵니다.(LiveData)
      */
-    fun getAllLocationMap() {
-        viewModelScope.launch {
-            _locationMap.value = locationRepository.getAllCountyMap() ?: mapOf()
-        }
+    fun getAllLocationMap(): Job = viewModelScope.launch {
+        _locationMap.value = locationRepository.getAllCountyMap() ?: mapOf()
     }
 
     /**
