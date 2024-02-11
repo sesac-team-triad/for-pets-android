@@ -40,10 +40,6 @@ class MainActivity : AppCompatActivity() {
 
         hideAppBar()
         hideBottomNavigationView()
-
-        viewModel.getAllLocationMap()
-        viewModel.getAllTransportReqMap()
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
