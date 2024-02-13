@@ -225,10 +225,8 @@ class TransportViewModel : ViewModel() {
     /**
      * 등록된 이동중들의 목록을 전부 가져옵니다.(LiveData)
      */
-    fun getAllMovingMap() {
-        viewModelScope.launch {
-            _movingMap.value = appointmentRepository.getAllMovingMap()
-        }
+    fun getAllMovingMap() = viewModelScope.launch {
+        _movingMap.value = appointmentRepository.getAllMovingMap()
     }
 
     /**
