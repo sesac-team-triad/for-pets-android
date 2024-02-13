@@ -21,6 +21,7 @@ import com.teamtriad.forpets.databinding.FragmentTransportBinding
 import com.teamtriad.forpets.model.tmp.Places
 import com.teamtriad.forpets.ui.transport.marker.CustomClusterManager
 import com.teamtriad.forpets.ui.transport.marker.MarkerItem
+import com.teamtriad.forpets.util.setSafeOnClickListener
 import com.teamtriad.forpets.viewmodel.TransportViewModel
 
 class TransportFragment : Fragment(), OnMapReadyCallback {
@@ -148,6 +149,14 @@ class TransportFragment : Fragment(), OnMapReadyCallback {
                         dialog.dismiss()
                     }
                     .show()
+            }
+
+            ivMoving.setSafeOnClickListener {
+                findNavController().navigate(R.id.action_transportFragment_to_transportMovingListFragment)
+            }
+
+            tvMovingTitle.setSafeOnClickListener {
+                findNavController().navigate(R.id.action_transportFragment_to_transportMovingListFragment)
             }
         }
     }
