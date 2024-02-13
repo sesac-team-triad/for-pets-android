@@ -6,51 +6,51 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/etDogName"
+        android:id="@+id/et_animal_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="@string/all_animal_choice"
+        android:hint="@string/all_my_pet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etDeparture"
+        android:id="@+id/et_from"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/all_from"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDogName" />
+        app:layout_constraintTop_toBottomOf="@+id/et_animal_name" />
 
     <EditText
-        android:id="@+id/etDestination"
+        android:id="@+id/et_to"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/all_to"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDeparture" />
+        app:layout_constraintTop_toBottomOf="@+id/et_from" />
 
     <Button
-        android:id="@+id/btnCancel"
+        android:id="@+id/btn_cancle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/chatting_appointment_cancle"
-        app:layout_constraintEnd_toStartOf="@+id/btnOk"
-        app:layout_constraintTop_toBottomOf="@+id/etDestination" />
+        app:layout_constraintEnd_toStartOf="@+id/btn_ok"
+        app:layout_constraintTop_toBottomOf="@+id/et_to" />
 
     <Button
-        android:id="@+id/btnOk"
+        android:id="@+id/btn_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/all_btn_post"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDestination" />
+        app:layout_constraintTop_toBottomOf="@+id/et_to" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

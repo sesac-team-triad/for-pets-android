@@ -20,14 +20,14 @@ class ScheduleInputDialog(
         binding = DialogScheduleInputBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
 
-        binding.btnCancel.setOnClickListener {
+        binding.btnCancle.setOnClickListener {
             dismiss()
         }
 
         binding.btnOk.setOnClickListener {
-            val dogName = binding.etDogName.text.toString()
-            val departureLocation = binding.etDeparture.text.toString()
-            val destinationLocation = binding.etDestination.text.toString()
+            val dogName = binding.etAnimalName.text.toString()
+            val departureLocation = binding.etFrom.text.toString()
+            val destinationLocation = binding.etTo.text.toString()
 
             onScheduleInputListener.onInputReceived(dogName, departureLocation, destinationLocation)
             dismiss()
