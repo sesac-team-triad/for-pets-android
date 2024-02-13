@@ -9,13 +9,15 @@ data class ChatList(
     val token: String,
     val lastMessage: String,
     val lastMessageTime: String,
-    val unreadMessageCount: String,
+    val unreadMessageCount: Int,
+    val reqReadLast: String,
+    val volReadLast: String,
     val reqNickname: String,
     val volNickname: String,
     val transportReqKey: String
 ) {
     constructor() : this(
-        "", "", "","",
-         "", "", "", "","", "", ""
+        "", "", "", "", "", "",
+        "", 0, "", "", "", "", ""
     )
 }
