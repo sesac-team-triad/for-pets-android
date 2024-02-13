@@ -1,14 +1,18 @@
 package com.teamtriad.forpets.ui.chat
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -21,6 +25,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.RemoteMessage
 import com.teamtriad.forpets.databinding.FragmentChatRoomBinding
 import com.teamtriad.forpets.ui.chat.adapter.ChatRoomRecyclerViewAdapter
 import java.text.SimpleDateFormat
@@ -39,7 +45,12 @@ class ChatRoomFragment : Fragment() {
         "https://for-pets-77777-default-rtdb.asia-southeast1.firebasedatabase.app/"
 
     private lateinit var adapter: ChatRoomRecyclerViewAdapter
-
+    private val currentUserID = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+    private var receiverUID = ""
+    private var receiverName = ""
+    private var senderName = ""
+    private var appointmentKey = ""
+    private var isAppointmentBooked = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,14 +62,37 @@ class ChatRoomFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initializeView()
 
-        val currentUserID = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+        val reqUid = args.reqUid
+        val reqNickname = args.reqNickname
+        val volUid = args.volUid
+        val volNickname = args.volNickname
+
+        receiverUID = if (currentUserID == volUid) {
+            reqUid
+        } else {
+            volUid
+        }
+
+        receiverName = if (currentUserID == volUid) {
+            reqNickname
+        } else {
+            volNickname
+        }
+
+        senderName = if (currentUserID == volUid) {
+            volNickname
+        } else {
+            reqNickname
+        }
+
+
         adapter = ChatRoomRecyclerViewAdapter(currentUserID)
         binding.rvChatRoom.adapter = adapter
 
-        val reqNickname = args.reqNickname
-        binding.toolbar.subtitle = reqNickname
+        binding.toolbar.subtitle = receiverName
 
         binding.toolbar.setNavigationOnClickListener {
             onBackButtonPress()
@@ -67,13 +101,19 @@ class ChatRoomFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             onBackButtonPress()
         }
+
         binding.btnSend.setOnClickListener {
             sendMessage()
+            val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(binding.etInputWindow.windowToken, 0)
         }
+
         binding.btnSchedule.setOnClickListener {
-            showScheduleInputDialog()
+            showAppointmentBookingDialog()
         }
+
         loadMessages()
+        updateProgress()
     }
 
     private fun initializeView() {
@@ -86,20 +126,22 @@ class ChatRoomFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun sendMessage() {
-        val roomKey = args.roomKey
-        val reqUid = args.reqUid
-        val reqNickname = args.reqNickname
-        val volUid = args.volUid
-        val volNickname = args.volNickname
-        val transportReqKey = args.transportReqKey
-        val senderUid = FirebaseAuth.getInstance().currentUser?.uid
+    private fun sendMessage(appointmentKey: String? = null) {
+
         val inputWindow = binding.etInputWindow
         val content = inputWindow.text.toString().trim()
+
         if (content.isNotEmpty()) {
+            val roomKey = args.roomKey
+            val reqUid = args.reqUid
+            val reqNickname = args.reqNickname
+            val volUid = args.volUid
+            val volNickname = args.volNickname
+            val transportReqKey = args.transportReqKey
+
             val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
             val time = timeFormat.format(Date())
-            val messages = ChatMessage(content, time, senderUid!!, volNickname)
+            val messages = ChatMessage(content, time, currentUserID, senderName)
 
             database = FirebaseDatabase.getInstance(databaseUrl).reference
             val chatRef = database.child("chat").child(roomKey)
@@ -112,19 +154,58 @@ class ChatRoomFragment : Fragment() {
                             "reqNickname" to reqNickname,
                             "volUid" to volUid,
                             "volNickname" to volNickname,
-                            "transportReqKey" to transportReqKey
+                            "transportReqKey" to transportReqKey,
+                            "appointmentKey" to appointmentKey
                         )
                         chatRef.setValue(initialData)
                     }
                     chatRef.child("messages").push().setValue(messages)
-                    adapter.submitList(adapter.currentList + listOf(messages))
+                    adapter.addMessage(messages)
+                    if (adapter.itemCount > 0) {
+                        binding.rvChatRoom.smoothScrollToPosition(adapter.itemCount - 1)
+                    }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                 }
             })
+//            sendNotification(receiverUID, receiverName, content)
             inputWindow.text.clear()
         }
+    }
+
+    private fun sendNotification(
+        receiverUid: String,
+        receiverName: String,
+        messageContent: String
+    ) {
+        val receiverFCMToken = getUserFCMToken(receiverUid)
+        val data = hashMapOf(
+            "title" to "새로운 메시지",
+            "body" to "$receiverName: $messageContent"
+        )
+
+        val message = RemoteMessage.Builder(receiverFCMToken)
+            .setData(data)
+            .build()
+
+        FirebaseMessaging.getInstance().send(message)
+    }
+
+    private fun getUserFCMToken(userUid: String): String {
+        val chatListDatabase =
+            FirebaseDatabase.getInstance(databaseUrl).reference.child("user")
+
+        var userToken = ""
+        chatListDatabase.child(userUid).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userToken = snapshot.child("token").value.toString()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+        return userToken
     }
 
     private fun loadMessages() {
@@ -136,12 +217,15 @@ class ChatRoomFragment : Fragment() {
                 val messages = mutableListOf<ChatMessage>()
 
                 for (messageSnapshot in snapshot.children) {
-                    val content = messageSnapshot.child("content").getValue(String::class.java) ?: ""
+                    val content =
+                        messageSnapshot.child("content").getValue(String::class.java) ?: ""
                     val time = messageSnapshot.child("time").getValue(String::class.java) ?: ""
-                    val senderUid = messageSnapshot.child("senderUid").getValue(String::class.java) ?: ""
-                    val volNickname = messageSnapshot.child("volNickname").getValue(String::class.java) ?: ""
+                    val senderUid =
+                        messageSnapshot.child("senderUid").getValue(String::class.java) ?: ""
+                    val senderName =
+                        messageSnapshot.child("senderName").getValue(String::class.java) ?: ""
 
-                    val message = ChatMessage(content, time, senderUid, volNickname)
+                    val message = ChatMessage(content, time, senderUid, senderName)
                     messages.add(message)
                 }
 
@@ -151,6 +235,41 @@ class ChatRoomFragment : Fragment() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
+    }
+
+    private fun showAppointmentBookingDialog() {
+        val positiveButtonText = if (isAppointmentBooked) "출발하기" else "약속잡기"
+        val negativeButtonText = if (isAppointmentBooked) "약속취소" else "닫기"
+
+        val appointmentBookingDialog = AlertDialog.Builder(requireContext())
+            .setTitle("약속잡기")
+            .setMessage("약속을 예약하시겠습니까?")
+            .setPositiveButton(positiveButtonText) { _, _ ->
+                if (isAppointmentBooked) {
+                    updateProgress()
+                } else {
+                    showScheduleInputDialog()
+                }
+            }
+            .setNegativeButton(negativeButtonText) { _, _ ->
+                val roomKey = args.roomKey
+                database = FirebaseDatabase.getInstance(databaseUrl).reference
+                database.child("chat").child(roomKey)
+                    .addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val appointmentKey = snapshot.child("appointment-key").value.toString()
+                            database.child("appointment").child(appointmentKey).setValue(null)
+                            database.child("chat").child(roomKey).child("appointment-key")
+                                .setValue(null)
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                        }
+                    })
+            }
+            .create()
+
+        appointmentBookingDialog.show()
     }
 
     private fun showScheduleInputDialog() {
@@ -170,10 +289,11 @@ class ChatRoomFragment : Fragment() {
         val scheduleInputDialog = ScheduleInputDialog(
             requireContext(),
             object : ScheduleInputDialog.OnScheduleInputListener {
+                @RequiresApi(Build.VERSION_CODES.O)
                 override fun onInputReceived(
-                    dogName: String,
-                    departureLocation: String,
-                    destinationLocation: String
+                    name: String,
+                    from: String,
+                    to: String
                 ) {
                     val appointmentDatabase =
                         FirebaseDatabase.getInstance(databaseUrl).reference.child(
@@ -188,27 +308,55 @@ class ChatRoomFragment : Fragment() {
                         set(Calendar.MINUTE, selectedMinute)
                         set(Calendar.SECOND, 0)
                     }.time
-                    val formattedDate =
+                    val date =
+                        SimpleDateFormat("yy/MM/dd", Locale.getDefault()).format(
+                            selectedDate
+                        )
+                    val time =
+                        SimpleDateFormat("HH:mm", Locale.getDefault()).format(
+                            selectedDate
+                        )
+
+                    val totalDate =
                         SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault()).format(
                             selectedDate
                         )
+
+                    val volUid = args.volUid
+                    val reqUid = args.reqUid
+                    val transportReqKey = args.transportReqKey
+                    val progress = 0
                     val appointmentData = mapOf(
-                        "dogName" to dogName,
-                        "departureLocation" to departureLocation,
-                        "destinationLocation" to destinationLocation,
-                        "appointmentTime" to formattedDate
+                        "name" to name,
+                        "from" to from,
+                        "to" to to,
+                        "date" to date,
+                        "time" to time,
+                        "vol-uid" to volUid,
+                        "req-uid" to reqUid,
+                        "transport-req-key" to transportReqKey,
+                        "progress" to progress,
+                        "totalDate" to totalDate
                     )
 
-                    appointmentDatabase.push().setValue(appointmentData)
+
+                    val newAppointmentRef = appointmentDatabase.push()
+                    appointmentKey = newAppointmentRef.key.toString()
+
+                    newAppointmentRef.setValue(appointmentData)
+
+                    val roomKey = args.roomKey
+                    database.child("chat").child(roomKey)
+                        .child("appointment-key")
+                        .setValue(appointmentKey)
+
                     val message = "약속이 예약되었습니다.\n" +
-                            "강아지 이름: $dogName\n" +
-                            "출발지역: $departureLocation\n" +
-                            "도착지역: $destinationLocation\n" +
-                            "약속 시간: $formattedDate"
+                            "보호동물 이름: $name\n" +
+                            "출발지역: $from\n" +
+                            "도착지역: $to\n"
                     Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
                 }
             })
-
 
         val datePickerDialog = DatePickerDialog(requireContext(), { _, year, month, day ->
 
@@ -225,19 +373,26 @@ class ChatRoomFragment : Fragment() {
         }, year, month, day)
 
         datePickerDialog.show()
+
+        isAppointmentBooked = true
     }
 
+    private fun updateProgress() {
+        val appointmentDatabase =
+            FirebaseDatabase.getInstance(databaseUrl).reference.child("appointment")
+        appointmentDatabase.child(appointmentKey).child("progress").setValue(1)
+    }
 
     data class ChatMessage(
         var content: String,
         var time: String,
         var senderUid: String,
-        var volNickname: String
+        var senderName: String
     )
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }
+
