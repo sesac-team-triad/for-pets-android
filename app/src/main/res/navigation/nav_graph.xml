@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_transportFragment_to_transportVolFragment"
             app:destination="@id/transportVolFragment" />
+        <action
+            android:id="@+id/action_transportFragment_to_transportListsFragment"
+            app:destination="@id/transportListsFragment" />
     </fragment>
     <fragment
         android:id="@+id/adoptFragment"

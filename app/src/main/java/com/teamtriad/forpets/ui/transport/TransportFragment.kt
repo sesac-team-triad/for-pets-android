@@ -135,8 +135,14 @@ class TransportFragment : Fragment() {
             }
 
             setOnClusterItemClickListener {
+                val zoomLevel = map.cameraPosition.zoom
+                if(zoomLevel == 13f) {
+                    findNavController().navigate(R.id.action_transportFragment_to_transportListsFragment)
+                }
+
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(it.position, 13f))
                 map.moveCamera(CameraUpdateFactory.newLatLng(it.position))
+
                 true
             }
         }
