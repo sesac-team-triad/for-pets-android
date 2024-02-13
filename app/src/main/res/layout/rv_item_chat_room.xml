@@ -26,8 +26,10 @@
         tools:text="새싹성동" />
 
     <TextView
+        android:background="@drawable/shape_chatting_friend"
+        android:padding="5dp"
         android:id="@+id/tv_friend_message"
-        style="@style/Pet_TextView_LargeDarkGray"
+        style="@style/Pet_TextView_MiddleDarkGray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -46,8 +48,10 @@
         tools:text="15:23" />
 
     <TextView
+        android:background="@drawable/shape_chatting_me"
+        android:padding="5dp"
         android:id="@+id/tv_my_message"
-        style="@style/Pet_TextView_LargeDarkGray"
+        style="@style/Pet_TextView_MiddleWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
