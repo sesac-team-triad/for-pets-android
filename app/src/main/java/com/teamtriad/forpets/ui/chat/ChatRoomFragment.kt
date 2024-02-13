@@ -50,6 +50,7 @@ class ChatRoomFragment : Fragment() {
     private var receiverName = ""
     private var senderName = ""
     private var appointmentKey = ""
+    private lateinit var newAppointmentRef: DatabaseReference
     private var isAppointmentBooked = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -243,7 +244,7 @@ class ChatRoomFragment : Fragment() {
 
         val appointmentBookingDialog = AlertDialog.Builder(requireContext())
             .setTitle("약속잡기")
-            .setMessage("약속을 예약하시겠습니까?")
+            .setMessage("약속 관련 버튼을 눌러주세요.")
             .setPositiveButton(positiveButtonText) { _, _ ->
                 if (isAppointmentBooked) {
                     updateProgress()
@@ -257,7 +258,7 @@ class ChatRoomFragment : Fragment() {
                 database.child("chat").child(roomKey)
                     .addValueEventListener(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
-                            val appointmentKey = snapshot.child("appointment-key").value.toString()
+                            appointmentKey = snapshot.child("appointment-key").value.toString()
                             database.child("appointment").child(appointmentKey).setValue(null)
                             database.child("chat").child(roomKey).child("appointment-key")
                                 .setValue(null)
@@ -291,7 +292,7 @@ class ChatRoomFragment : Fragment() {
             object : ScheduleInputDialog.OnScheduleInputListener {
                 @RequiresApi(Build.VERSION_CODES.O)
                 override fun onInputReceived(
-                    name: String,
+                    animalName: String,
                     from: String,
                     to: String
                 ) {
@@ -317,17 +318,12 @@ class ChatRoomFragment : Fragment() {
                             selectedDate
                         )
 
-                    val totalDate =
-                        SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault()).format(
-                            selectedDate
-                        )
-
                     val volUid = args.volUid
                     val reqUid = args.reqUid
                     val transportReqKey = args.transportReqKey
                     val progress = 0
                     val appointmentData = mapOf(
-                        "name" to name,
+                        "name" to animalName,
                         "from" to from,
                         "to" to to,
                         "date" to date,
@@ -335,12 +331,10 @@ class ChatRoomFragment : Fragment() {
                         "vol-uid" to volUid,
                         "req-uid" to reqUid,
                         "transport-req-key" to transportReqKey,
-                        "progress" to progress,
-                        "totalDate" to totalDate
+                        "progress" to progress
                     )
 
-
-                    val newAppointmentRef = appointmentDatabase.push()
+                    newAppointmentRef = appointmentDatabase.push()
                     appointmentKey = newAppointmentRef.key.toString()
 
                     newAppointmentRef.setValue(appointmentData)
@@ -350,10 +344,7 @@ class ChatRoomFragment : Fragment() {
                         .child("appointment-key")
                         .setValue(appointmentKey)
 
-                    val message = "약속이 예약되었습니다.\n" +
-                            "보호동물 이름: $name\n" +
-                            "출발지역: $from\n" +
-                            "도착지역: $to\n"
+                    val message = "약속이 예약되었습니다."
                     Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
                 }
             })
@@ -380,7 +371,32 @@ class ChatRoomFragment : Fragment() {
     private fun updateProgress() {
         val appointmentDatabase =
             FirebaseDatabase.getInstance(databaseUrl).reference.child("appointment")
+        val movingDatabase = FirebaseDatabase.getInstance(databaseUrl).reference.child("moving")
+
         appointmentDatabase.child(appointmentKey).child("progress").setValue(1)
+
+        appointmentDatabase.child(appointmentKey)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val fromValue = snapshot.child("from").value.toString()
+                    val toValue = snapshot.child("to").value.toString()
+                    val volUid = args.volUid
+                    val reqUid = args.reqUid
+                    val movingData = mapOf(
+                        "appointment-key" to appointmentKey,
+                        "from" to fromValue,
+                        "to" to toValue,
+                        "vol-uid" to volUid,
+                        "req-uid" to reqUid
+                    )
+                    movingDatabase.push().setValue(movingData)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
     }
 
     data class ChatMessage(
