@@ -97,6 +97,7 @@ class LoginFragment : Fragment() {
                         getFCMToken()
                         findNavController().navigate(R.id.action_loginFragment_to_transportFragment)
                     }
+
                     override fun onCancelled(error: DatabaseError) {
                     }
                 })
@@ -110,7 +111,7 @@ class LoginFragment : Fragment() {
                 val token = it.result
                 user = FirebaseAuth.getInstance().currentUser
                 val userId = user!!.uid
-                userDB.child(userId).child("fcmtoken").setValue(token)
+                userDB.child(userId).child("token").setValue(token)
             }
         }
     }
@@ -133,10 +134,6 @@ class LoginFragment : Fragment() {
                         }
                         if (foundUser != null) {
                             showToast(getString(R.string.login_toast_welcome))
-                            val user = FirebaseAuth.getInstance().currentUser
-                            val uid = FirebaseAuth.getInstance().currentUser?.uid
-                            Log.d("확인1", "$user")
-                            Log.d("확인2", "$uid")
                             findNavController().navigate(R.id.action_loginFragment_to_transportFragment)
                         } else {
                             showToast(getString(R.string.login_toast_not_found))
@@ -145,7 +142,6 @@ class LoginFragment : Fragment() {
                         Log.e("LoginFragment", "$e")
                     }
                 } else {
-                    Log.e("LoginFragment", "${response.code()}")
                     showToast(getString(R.string.login_toast_server_error))
                 }
             }

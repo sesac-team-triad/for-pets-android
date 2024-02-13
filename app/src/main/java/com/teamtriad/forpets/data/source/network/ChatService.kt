@@ -8,8 +8,6 @@ import retrofit2.http.Path
 
 interface ChatService {
 
-    @GET("conversation/chatlist.json")
-    fun getChatList(): Call<Map<String, ChatList>>
 
     @GET("conversation/chatroom/{roomId}.json")
     fun getChatRoom(@Path("roomId") roomId: String): Call<ChatRoom>
