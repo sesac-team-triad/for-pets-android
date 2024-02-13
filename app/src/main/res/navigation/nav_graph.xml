@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_transportFragment_to_transportVolFragment"
             app:destination="@id/transportVolFragment" />
+        <action
+            android:id="@+id/action_transportFragment_to_transportMovingListFragment"
+            app:destination="@id/transportMovingListFragment" />
     </fragment>
     <fragment
         android:id="@+id/adoptFragment"
@@ -39,6 +42,11 @@
             android:id="@+id/action_profileFragment_to_transportListsFragment"
             app:destination="@id/transportListsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/transportMovingListFragment"
+        android:name="com.teamtriad.forpets.ui.transport.TransportMovingListFragment"
+        android:label="@string/transport_moving_list_appbar"
+        tools:layout="@layout/fragment_transport_moving_list" />
     <fragment
         android:id="@+id/transportReqFragment"
         android:name="com.teamtriad.forpets.ui.transport.TransportReqFragment"
