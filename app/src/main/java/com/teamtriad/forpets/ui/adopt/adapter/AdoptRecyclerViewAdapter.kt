@@ -27,7 +27,7 @@ class AdoptRecyclerViewAdapter(private val viewModel: AdoptViewModel) :
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(dataSet[position])
+        holder.bind(position, dataSet[position])
 
         if (position == dataSet.size - 9) requestAbandonmentInfos()
     }
@@ -81,13 +81,13 @@ class AdoptRecyclerViewAdapter(private val viewModel: AdoptViewModel) :
     class ViewHolder(private val binding: RvItemAdoptBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: AbandonmentInfo) {
-            setOnClickListener(data.imageUrl)   // TODO: ViewModel을 사용하여 데이터를 전달하기.
+        fun bind(position: Int, data: AbandonmentInfo) {
+            setOnClickListener(position)
             bindData(data)
         }
 
-        private fun setOnClickListener(imageUrl: String) {
-            val action = AdoptFragmentDirections.actionAdoptFragmentToAdoptDetailFragment(imageUrl)
+        private fun setOnClickListener(position: Int) {
+            val action = AdoptFragmentDirections.actionAdoptFragmentToAdoptDetailFragment(position)
 
             itemView.setOnClickListener {
                 it.findNavController()
