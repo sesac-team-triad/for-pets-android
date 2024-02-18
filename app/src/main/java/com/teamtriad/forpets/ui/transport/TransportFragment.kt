@@ -2,6 +2,7 @@ package com.teamtriad.forpets.ui.transport
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,7 @@ class TransportFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var map: GoogleMap
     private lateinit var clusterManager: ClusterManager<MarkerItem>
+    private var segmentedButtonId: Int = 0
 
     private var itemList: MutableList<Item> = mutableListOf()
 
@@ -53,54 +55,20 @@ class TransportFragment : Fragment() {
         setOnClickListeners()
     }
 
-    private fun makeMarkerItem() {
-        val requestList: MutableList<TransportReq> = mutableListOf()
-
-        viewModel.transportReqMap.observe(viewLifecycleOwner) { map ->
-            val reqList = map.values
-            reqList.forEach { if (it !in requestList) requestList.add(it) }
-
-            itemList.clear()
-            requestList.forEach {
-                itemList.add(
-                    makeItem(
-                        it.title,
-                        it.from.split(" ")[0],
-                        it.from.split(" ")[1],
-                        it.uid,
-                    )
-                )
-            }
-
-            addItems()
-        }
-
-    }
-
-    private fun makeItem(title: String, county: String, district: String, uid: String): Item {
-        val districtMap = viewModel.locationMap.value!![county]!!
-        val lat = districtMap[district]?.latitude!!
-        val lng = districtMap[district]?.longitude!!
-        val place = LatLng(lat.toDouble(), lng.toDouble())
-
-        return Item(title, county, district, uid, place = place)
-    }
-
     private fun setMapFragment() {
         val mapFragment = SupportMapFragment.newInstance()
         requireActivity().supportFragmentManager
             .beginTransaction()
-            .add(R.id.fcb_map, mapFragment)
+            .add(R.id.fcv_map, mapFragment)
             .commit()
+
         mapFragment.getMapAsync {
             lifecycleScope.launch {
-
                 viewModel.getAllLocationMap().join()
                 map = it
                 setUpCluster()
                 makeMarkerItem()
             }
-
         }
     }
 
@@ -116,15 +84,6 @@ class TransportFragment : Fragment() {
         setClusterClickListeners()
     }
 
-    private fun addItems() {
-        clusterManager.clearItems()
-        itemList.forEach {
-            val offsetItem = MarkerItem(it.place, it.title, it.uid)
-
-            clusterManager.addItem(offsetItem)
-        }
-    }
-
     @SuppressLint("PotentialBehaviorOverride")
     private fun setClusterClickListeners() {
         with(clusterManager) {
@@ -136,7 +95,9 @@ class TransportFragment : Fragment() {
 
             setOnClusterItemClickListener {
                 val zoomLevel = map.cameraPosition.zoom
-                if(zoomLevel == 13f) {
+                if (zoomLevel == 13f) {
+                    viewModel.setClickedFrom(it.snippet)
+
                     findNavController().navigate(R.id.action_transportFragment_to_transportListsFragment)
                 }
 
@@ -157,6 +118,49 @@ class TransportFragment : Fragment() {
         }
     }
 
+    private fun makeMarkerItem() {
+        val requestList: MutableList<TransportReq> = mutableListOf()
+
+        viewModel.transportReqMap.observe(viewLifecycleOwner) { map ->
+            val reqList = map.values
+            reqList.forEach { if (it !in requestList) requestList.add(it) }
+
+            itemList.clear()
+            requestList.forEach {
+                itemList.add(
+                    makeItem(
+                        it.title,
+                        it.from.substring(0, it.from.indexOf(' ')),
+                        it.from.substring(it.from.indexOf(' ') + 1),
+                        it.uid,
+                    )
+                )
+            }
+
+            addItems()
+        }
+    }
+
+    private fun makeItem(title: String, county: String, district: String, uid: String): Item {
+        val districtMap = viewModel.locationMap.value!![county]!!
+        val lat = districtMap[district]?.latitude!!
+        val lng = districtMap[district]?.longitude!!
+        val place = LatLng(lat.toDouble(), lng.toDouble())
+
+        return Item(title, county, district, uid, place = place)
+    }
+
+    private fun addItems() {
+        clusterManager.clearItems()
+        itemList.forEach {
+            val offsetItem = MarkerItem(it.place, it.title, "${it.county} ${it.district}")
+
+            clusterManager.addItem(offsetItem)
+        }
+    }
+
+
+
     private fun setOnClickListeners() {
         with(binding) {
             efabTransportReq.setOnClickListener {
@@ -168,6 +172,9 @@ class TransportFragment : Fragment() {
             }
 
             mbtgTransport.addOnButtonCheckedListener { _, checkedId, isChecked ->
+                segmentedButtonId = checkedId
+                Log.d("abc", "$segmentedButtonId")
+
                 if (isChecked) {
                     when (checkedId) {
                         R.id.btn_request -> {

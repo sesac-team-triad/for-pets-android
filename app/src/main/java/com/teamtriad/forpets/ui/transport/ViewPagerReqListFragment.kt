@@ -49,15 +49,21 @@ class ViewPagerReqListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        transportViewModel.clearAllSelectedLocations()
-
         dateRangePicker = setDatePicker()
 
-        if (transportViewModel.reqAnimalChoice.isEmpty()) {
-            transportViewModel.setReqAnimalChoice(
-                resources.getStringArray(R.array.req_animal_choice)
-                    .toList()
-            )
+        with(transportViewModel) {
+            if (reqAnimalChoice.isEmpty()) {
+                setReqAnimalChoice(resources.getStringArray(R.array.req_animal_choice).toList())
+            }
+
+            clearAllSelectedLocations()
+
+            if (clickedFrom != null) {
+                setSelectedFromCounty(clickedFrom!!.substring(0, clickedFrom!!.indexOf(' ')))
+                setSelectedFromDistrict(clickedFrom!!.substring(clickedFrom!!.indexOf(' ') + 1))
+
+                setClickedFrom(null)
+            }
         }
 
         with(binding) {

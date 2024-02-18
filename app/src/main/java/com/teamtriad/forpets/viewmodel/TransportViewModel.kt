@@ -41,6 +41,9 @@ class TransportViewModel : ViewModel() {
     private var _movingMap = MutableLiveData<Map<String, Moving>>()
     val movingMap: LiveData<Map<String, Moving>> get() = _movingMap
 
+    private var _clickedFrom: String? = null
+    val clickedFrom: String? get() = _clickedFrom
+
     private var _reqAnimalChoice = listOf<String>()
     val reqAnimalChoice: List<String> get() = _reqAnimalChoice
 
@@ -246,6 +249,10 @@ class TransportViewModel : ViewModel() {
         return userRepository.getUserNicknameByUid(uid)
     }
 
+    fun setClickedFrom(from: String?) {
+        _clickedFrom = from
+    }
+
     fun setReqAnimalChoice(reqAnimalChoice: List<String>) {
         _reqAnimalChoice = reqAnimalChoice
     }
@@ -291,9 +298,9 @@ class TransportViewModel : ViewModel() {
         to: String
     ): List<TransportReq> {
         fun compareWithDates(s: String, e: String) = startDate.isEmpty() ||
-            s <= endDate && startDate <= e
+                s <= endDate && startDate <= e
         fun compareWithAnimal(s: String) = animal.isEmpty() || s == animal ||
-            animal == reqAnimalChoice.last() && s !in reqAnimalChoice.subList(0, reqAnimalChoice.lastIndex)
+                animal == reqAnimalChoice.last() && s !in reqAnimalChoice.subList(0, reqAnimalChoice.lastIndex)
         fun compareWithFrom(s: String) = from.isEmpty() || s == from
         fun compareWithTo(s: String) = to.isEmpty() || s == to
 
