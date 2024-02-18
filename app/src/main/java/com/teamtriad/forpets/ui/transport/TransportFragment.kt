@@ -19,6 +19,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.maps.android.clustering.ClusterManager
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.data.source.network.model.TransportReq
+import com.teamtriad.forpets.data.source.network.model.TransportVol
 import com.teamtriad.forpets.databinding.FragmentTransportBinding
 import com.teamtriad.forpets.ui.transport.marker.CustomClusterManager
 import com.teamtriad.forpets.ui.transport.marker.Item
@@ -34,7 +35,7 @@ class TransportFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var map: GoogleMap
     private lateinit var clusterManager: ClusterManager<MarkerItem>
-    private var segmentedButtonId: Int = 0
+    private var segmentedButtonId: Int = R.id.btn_request
 
     private var itemList: MutableList<Item> = mutableListOf()
 
@@ -50,6 +51,7 @@ class TransportFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getAllTransportReqMap()
+        viewModel.getAllTransportVolMap()
 
         setMapFragment()
         setOnClickListeners()
@@ -96,9 +98,16 @@ class TransportFragment : Fragment() {
             setOnClusterItemClickListener {
                 val zoomLevel = map.cameraPosition.zoom
                 if (zoomLevel == 13f) {
-                    viewModel.setClickedFrom(it.snippet)
+                    if (segmentedButtonId == R.id.btn_request) {
+                        viewModel.setClickedFrom(it.snippet)
 
-                    findNavController().navigate(R.id.action_transportFragment_to_transportListsFragment)
+                        findNavController()
+                            .navigate(R.id.action_transportFragment_to_transportListsFragment)
+                    } else {
+                        val action = TransportFragmentDirections
+                            .actionTransportFragmentToTransportListsFragment(true)
+                        findNavController().navigate(action)
+                    }
                 }
 
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(it.position, 13f))
@@ -120,24 +129,50 @@ class TransportFragment : Fragment() {
 
     private fun makeMarkerItem() {
         val requestList: MutableList<TransportReq> = mutableListOf()
+        val volunteerList: MutableList<TransportVol> = mutableListOf()
 
-        viewModel.transportReqMap.observe(viewLifecycleOwner) { map ->
-            val reqList = map.values
-            reqList.forEach { if (it !in requestList) requestList.add(it) }
+        if (segmentedButtonId == R.id.btn_request) {
+            viewModel.transportReqMap.observe(viewLifecycleOwner) { map ->
+                val reqList = map.values
+                reqList.forEach { if (it !in requestList) requestList.add(it) }
 
-            itemList.clear()
-            requestList.forEach {
-                itemList.add(
-                    makeItem(
-                        it.title,
-                        it.from.substring(0, it.from.indexOf(' ')),
-                        it.from.substring(it.from.indexOf(' ') + 1),
-                        it.uid,
+                itemList.clear()
+                requestList.forEach {
+                    itemList.add(
+                        makeItem(
+                            it.title,
+                            it.from.substring(0, it.from.indexOf(' ')),
+                            it.from.substring(it.from.indexOf(' ') + 1),
+                            it.uid,
+                        )
                     )
-                )
+                }
+                addItems()
             }
+        } else {
+            viewModel.transportVolMap.observe(viewLifecycleOwner) { map ->
+                val volList = map.values
+                volList.forEach { if (it !in volunteerList) volunteerList.add(it) }
 
-            addItems()
+                itemList.clear()
+                volunteerList.forEach {
+                    val endIndex = if (it.fromDetail.contains(',')) {
+                        it.fromDetail.indexOf(',')
+                    } else {
+                        it.fromDetail.length
+                    }
+
+                    itemList.add(
+                        makeItem(
+                            it.title,
+                            it.from,
+                            it.fromDetail.substring(0, endIndex),
+                            it.uid,
+                        )
+                    )
+                }
+                addItems()
+            }
         }
     }
 
@@ -159,8 +194,6 @@ class TransportFragment : Fragment() {
         }
     }
 
-
-
     private fun setOnClickListeners() {
         with(binding) {
             efabTransportReq.setOnClickListener {
@@ -172,19 +205,24 @@ class TransportFragment : Fragment() {
             }
 
             mbtgTransport.addOnButtonCheckedListener { _, checkedId, isChecked ->
-                segmentedButtonId = checkedId
-                Log.d("abc", "$segmentedButtonId")
 
                 if (isChecked) {
                     when (checkedId) {
                         R.id.btn_request -> {
                             efabTransportReq.visibility = View.VISIBLE
                             efabTransportVol.visibility = View.GONE
+                            segmentedButtonId = R.id.btn_request
+                            setMapFragment()
+                            Log.d("aff", "$checkedId")
+                            Log.d("aff", "${R.id.btn_request}")
                         }
 
                         else -> {
                             efabTransportVol.visibility = View.VISIBLE
                             efabTransportReq.visibility = View.GONE
+                            segmentedButtonId = R.id.btn_volunteer
+                            setMapFragment()
+                            Log.d("aff", "$checkedId")
                         }
                     }
                 }
