@@ -26,6 +26,7 @@ import com.teamtriad.forpets.ui.transport.marker.Item
 import com.teamtriad.forpets.ui.transport.marker.MarkerItem
 import com.teamtriad.forpets.viewmodel.TransportViewModel
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class TransportFragment : Fragment() {
 
@@ -37,7 +38,8 @@ class TransportFragment : Fragment() {
     private lateinit var clusterManager: ClusterManager<MarkerItem>
     private var segmentedButtonId: Int = R.id.btn_request
 
-    private var itemList: MutableList<Item> = mutableListOf()
+    private val itemList: MutableList<Item> = mutableListOf()
+    private val latLngSet: MutableSet<Pair<Double, Double>> = mutableSetOf()
 
 
     override fun onCreateView(
@@ -90,8 +92,14 @@ class TransportFragment : Fragment() {
     private fun setClusterClickListeners() {
         with(clusterManager) {
             setOnClusterClickListener {
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(it.position, 10f))
-                map.moveCamera(CameraUpdateFactory.newLatLng(it.position))
+                if (map.cameraPosition.zoom >= 10f) {
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(it.position, 12f))
+                    map.moveCamera(CameraUpdateFactory.newLatLng(it.position))
+                } else {
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(it.position, 10f))
+                    map.moveCamera(CameraUpdateFactory.newLatLng(it.position))
+                }
+
                 true
             }
 
@@ -178,18 +186,27 @@ class TransportFragment : Fragment() {
 
     private fun makeItem(title: String, county: String, district: String, uid: String): Item {
         val districtMap = viewModel.locationMap.value!![county]!!
-        val lat = districtMap[district]?.latitude!!
-        val lng = districtMap[district]?.longitude!!
-        val place = LatLng(lat.toDouble(), lng.toDouble())
+        var lat = districtMap[district]?.latitude!!.toDouble()
+        var lng = districtMap[district]?.longitude!!.toDouble()
 
-        return Item(title, county, district, uid, place = place)
+        if (latLngSet.contains(Pair(lat, lng))) {
+            lat += (Random.nextDouble() - 0.5) / 100
+            lng += (Random.nextDouble() - 0.5) / 100
+            latLngSet.add(Pair(lat, lng))
+        } else {
+            latLngSet.add(Pair(lat, lng))
+        }
+
+        return Item(title, county, district, uid, lat, lng)
     }
 
     private fun addItems() {
         clusterManager.clearItems()
         itemList.forEach {
-            val offsetItem = MarkerItem(it.place, it.title, "${it.county} ${it.district}")
+            val offsetItem =
+                MarkerItem(LatLng(it.lat, it.lng), it.title, "${it.county} ${it.district}")
 
+            Log.d("as", "${it.lat} ${it.lng}")
             clusterManager.addItem(offsetItem)
         }
     }
@@ -212,17 +229,16 @@ class TransportFragment : Fragment() {
                             efabTransportReq.visibility = View.VISIBLE
                             efabTransportVol.visibility = View.GONE
                             segmentedButtonId = R.id.btn_request
+                            latLngSet.clear()
                             setMapFragment()
-                            Log.d("aff", "$checkedId")
-                            Log.d("aff", "${R.id.btn_request}")
                         }
 
                         else -> {
                             efabTransportVol.visibility = View.VISIBLE
                             efabTransportReq.visibility = View.GONE
                             segmentedButtonId = R.id.btn_volunteer
+                            latLngSet.clear()
                             setMapFragment()
-                            Log.d("aff", "$checkedId")
                         }
                     }
                 }
