@@ -92,7 +92,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/all_from"
-                app:layout_constraintEnd_toEndOf="@id/til_date"
+                app:helperText="@string/vol_til_from_detail_helper"
+                app:layout_constraintEnd_toEndOf="@id/til_animal"
                 app:layout_constraintStart_toStartOf="@id/til_date"
                 app:layout_constraintTop_toBottomOf="@id/til_date">
 
@@ -102,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:inputType="none"
-                    android:padding="18dp"/>
+                    android:padding="18dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -110,12 +111,12 @@
                 android:id="@+id/til_to"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
+                android:layout_marginTop="16dp"
                 android:hint="@string/all_to"
-                app:layout_constraintBottom_toBottomOf="@id/til_from"
+                app:helperText="@string/vol_til_to_detail_helper"
                 app:layout_constraintEnd_toEndOf="@id/til_animal"
-                app:layout_constraintStart_toEndOf="@id/til_from"
-                app:layout_constraintTop_toTopOf="@id/til_from">
+                app:layout_constraintStart_toStartOf="@id/til_from"
+                app:layout_constraintTop_toBottomOf="@id/til_from">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_to"
@@ -123,45 +124,7 @@
                     android:layout_height="wrap_content"
                     android:focusable="false"
                     android:inputType="none"
-                    android:padding="18dp"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_from_detail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/vol_til_from_detail_hint"
-                app:helperText="@string/vol_til_from_detail_helper"
-                app:layout_constraintEnd_toEndOf="@id/til_to"
-                app:layout_constraintStart_toStartOf="@id/til_from"
-                app:layout_constraintTop_toBottomOf="@id/til_from">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_from_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_to_detail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/vol_til_to_detail_hint"
-                app:helperText="@string/vol_til_to_detail_helper"
-                app:layout_constraintEnd_toEndOf="@id/til_from_detail"
-                app:layout_constraintStart_toStartOf="@id/til_from_detail"
-                app:layout_constraintTop_toBottomOf="@id/til_from_detail">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_to_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:padding="18dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -172,9 +135,9 @@
                 android:layout_marginTop="16dp"
                 android:gravity="top"
                 android:hint="@string/vol_til_message_hint"
-                app:layout_constraintEnd_toEndOf="@id/til_to_detail"
-                app:layout_constraintStart_toStartOf="@id/til_to_detail"
-                app:layout_constraintTop_toBottomOf="@id/til_to_detail">
+                app:layout_constraintEnd_toEndOf="@id/til_to"
+                app:layout_constraintStart_toStartOf="@id/til_to"
+                app:layout_constraintTop_toBottomOf="@id/til_to">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tiet_message"

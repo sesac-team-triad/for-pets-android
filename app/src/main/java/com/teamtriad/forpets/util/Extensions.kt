@@ -1,5 +1,6 @@
 package com.teamtriad.forpets.util
 
+import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
@@ -28,8 +29,20 @@ fun String.toHttps(): String {
     else "https://${this}"
 }
 
+fun String.toRoughLocation() = split(" ").filter { it != "" }
+    .let {
+        it[0] + " " + it[1]
+    }
+
 fun Date.toYyyyMmDd() = toString().let {
     it.takeLast(4) + monToMm[it.substring(4, 7)] + it.substring(8, 10)
+}
+
+fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
+    val safeClickListener = SafeClickListener {
+        onSafeClick(it)
+    }
+    setOnClickListener(safeClickListener)
 }
 
 fun ImageView.glide(urlString: String) {

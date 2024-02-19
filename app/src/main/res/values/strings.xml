@@ -65,6 +65,12 @@
     <string name="transport_ib_abroad_desc">해외봉사 목록 화면으로 이동하는 버튼입니다</string>
     <string name="transport_tv_moving_desc">이동봉사 목록 화면으로 이동하는 버튼입니다</string>
 
+    <!-- 봉사요청 목록 화면 -->
+    <string name="req_list_tv_name_label">이름</string>
+    <string name="req_list_tv_departure_date_label">출발일</string>
+    <string name="req_list_tv_journey_label">여정</string>
+    <string name="req_list_siv_image_desc">이동봉사자 분을 기다리고 있는 동물의 사진입니다</string>
+
     <!-- 봉사요청 상세화면 -->
     <string name="req_list_detail_tv_date_label">출발일 :</string>
     <string name="req_list_detail_tv_from_label">출발 지역 :</string>
@@ -72,15 +78,19 @@
 
     <!-- 봉사자 등록 화면 -->
     <string name="vol_til_from_detail_hint">상세 출발 지역</string>
-    <string name="vol_til_from_detail_helper" tools:ignore="TypographyEllipsis">가능하신 출발 지역들 모두 적어주세요. ex) 강서구, 양천구...</string>
+    <string name="vol_til_from_detail_helper" tools:ignore="TypographyEllipsis">가능하신 출발 지역들 모두 입력해 주세요.</string>
     <string name="vol_til_to_detail_hint">상세 도착 지역</string>
-    <string name="vol_til_to_detail_helper" tools:ignore="TypographyEllipsis">가능하신 도착 지역들 모두 적어주세요. ex) 천안시, 아산시...</string>
+    <string name="vol_til_to_detail_helper" tools:ignore="TypographyEllipsis">가능하신 도착 지역들 모두 입력해 주세요.</string>
     <string name="vol_til_message_hint">봉사 또는 일정 등 알려주실 사항을 남겨주세요!!</string>
 
     <!-- 봉사자 목록 화면 -->
     <string name="vol_list_tv_possible_day">가능일</string>
     <string name="vol_list_tv_from">출발지역</string>
     <string name="vol_list_tv_to">도착지역</string>
+
+    <!-- 데이트 피커 -->
+    <string name="date_picker_icon_desc">출발일을 선택할 수 있는 캘린더 아이콘입니다</string>
+    <string name="date_picker_title">시작일 - 종료일</string>
 
     <!-- Bottom Sheet -->
     <string name="bottom_title">지역 선택</string>
@@ -107,9 +117,6 @@
     <string name="login_toast_server_error">사용자 확인 실패! (서버 오류)</string>
     <string name="login_toast_network_error">사용자 확인 실패! (네트워크 오류)</string>
     <string name="login_toast_welcome">환영합니다! %1$s님</string>
-
-    <!-- 데이트 피커 -->
-    <string name="date_picker_title">출발일 - 도착일</string>
 
     <!--회원가입 화면-->
     <string name="sign_up_tv_title">회원가입</string>

@@ -12,19 +12,23 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentTransportReqBinding
-import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
+import com.teamtriad.forpets.util.setSafeOnClickListener
+import com.teamtriad.forpets.viewmodel.TransportViewModel
 import java.util.Calendar
 import java.util.TimeZone
 
 class TransportReqFragment : Fragment() {
+
+    private val transportViewModel: TransportViewModel by activityViewModels()
 
     private var _binding: FragmentTransportReqBinding? = null
     private val binding get() = _binding!!
@@ -46,6 +50,26 @@ class TransportReqFragment : Fragment() {
         setOnClickListener()
         checkButtonEnabled()
         makeEditTextBigger()
+
+        transportViewModel.clearAllSelectedLocations()
+
+        with(transportViewModel) {
+            selectedFromDistrict.observe(viewLifecycleOwner) {
+                if (it.isEmpty() ||
+                    "${selectedFromCounty.value} ${it}" == binding.tietFrom.text.toString()
+                ) return@observe
+
+                binding.tietFrom.setText("${selectedFromCounty.value} ${it}")
+            }
+
+            selectedToDistrict.observe(viewLifecycleOwner) {
+                if (it.isEmpty() ||
+                    "${selectedToCounty.value} ${it}" == binding.tietTo.text.toString()
+                ) return@observe
+
+                binding.tietTo.setText("${selectedToCounty.value} ${it}")
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -72,31 +96,31 @@ class TransportReqFragment : Fragment() {
 
     private fun setOnClickListener() {
         with(binding) {
-            tietDate.setOnClickListener {
+            tietDate.setSafeOnClickListener {
                 showDatePicker()
             }
 
-            tietFrom.setOnClickListener {
+            tietFrom.setSafeOnClickListener {
                 val action = TransportReqFragmentDirections
-                    .actionTransportReqFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+                    .actionTransportReqFragmentToLocationPickerDialogFragment(true)
 
                 findNavController().navigate(action)
             }
 
-            tietTo.setOnClickListener {
+            tietTo.setSafeOnClickListener {
                 val action = TransportReqFragmentDirections
-                    .actionTransportReqFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+                    .actionTransportReqFragmentToLocationPickerDialogFragment(false)
 
                 findNavController().navigate(action)
             }
 
-            sivPetImage.setOnClickListener {
+            sivPetImage.setSafeOnClickListener {
                 pickMultipleMedia.launch(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                 )
             }
 
-            btnPost.setOnClickListener {
+            btnPost.setSafeOnClickListener {
                 findNavController().navigate(R.id.action_transportReqFragment_to_transportListsFragment)
             }
         }
@@ -117,7 +141,12 @@ class TransportReqFragment : Fragment() {
                 ) {
                 }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                override fun onTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    before: Int,
+                    count: Int
+                ) {
                 }
             }
             tietTitle.addTextChangedListener(textWatcher)
@@ -166,14 +195,14 @@ class TransportReqFragment : Fragment() {
         calendar[Calendar.MONTH] = Calendar.JANUARY
         val janThisYear = calendar.timeInMillis
 
-        calendar.timeInMillis = today
+        calendar[Calendar.YEAR] += 1
         calendar[Calendar.MONTH] = Calendar.DECEMBER
-        val decThisYear = calendar.timeInMillis
+        val decNextYear = calendar.timeInMillis
 
         val constraintsBuilder =
             CalendarConstraints.Builder()
                 .setStart(janThisYear)
-                .setEnd(decThisYear)
+                .setEnd(decNextYear)
                 .setValidator(DateValidatorPointForward.now())
 
         dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
@@ -191,7 +220,7 @@ class TransportReqFragment : Fragment() {
     }
 
     private fun showDatePicker() {
-        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
+        dateRangePicker.show(requireActivity().supportFragmentManager, "req")
         addDatePickerButtonClickListener()
     }
 

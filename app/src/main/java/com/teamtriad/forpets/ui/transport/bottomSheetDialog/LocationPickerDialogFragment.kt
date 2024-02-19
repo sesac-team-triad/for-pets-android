@@ -5,21 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.BottomSheetLocationBinding
 import com.teamtriad.forpets.model.tmp.Location
+import com.teamtriad.forpets.util.setSafeOnClickListener
+import com.teamtriad.forpets.viewmodel.TransportViewModel
 
 class LocationPickerDialogFragment : BottomSheetDialogFragment() {
 
+    private val args: LocationPickerDialogFragmentArgs by navArgs()
+
+    private val transportViewModel: TransportViewModel by activityViewModels()
+
     private var _binding: BottomSheetLocationBinding? = null
     private val binding get() = _binding!!
-    private lateinit var selectedCounty: String
-    private lateinit var selectedDistrict: String
+
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var counties: Map<String, List<String>>
-    private val args: LocationPickerDialogFragmentArgs by navArgs()
+
+    private var selectedCounty: String = ""
+    private var selectedDistrict: String = ""
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,12 +39,11 @@ class LocationPickerDialogFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         counties = Location.loadLocationMap()
 
-        if (args.onlyCounty == ONLY_COUNTY) {
+        if (args.onlyCounty) {
             setData()
             getCountyData()
         } else {
@@ -43,7 +51,16 @@ class LocationPickerDialogFragment : BottomSheetDialogFragment() {
             getData()
         }
 
-        binding.btnSave.setOnClickListener {
+        binding.btnSave.setSafeOnClickListener {
+            if (args.isFrom) {
+                transportViewModel.setSelectedFromCounty(selectedCounty)
+                transportViewModel.setSelectedFromDistrict(selectedDistrict)
+            } else {
+                transportViewModel.setSelectedToCounty(selectedCounty)
+                transportViewModel.setSelectedToDistrict(selectedDistrict)
+            }
+
+            dismiss()
         }
     }
 
@@ -58,28 +75,31 @@ class LocationPickerDialogFragment : BottomSheetDialogFragment() {
 
     private fun getCountyData() {
         with(binding) {
-            actvCounty.setOnItemClickListener { _, _, _, _ ->
-                selectedCounty = tilBottomCounty.editText?.text.toString()
+            actvCounty.setOnItemClickListener { parent, _, position, _ ->
+                selectedCounty = parent.getItemAtPosition(position) as String
+                btnSave.isEnabled = true
             }
         }
     }
 
     private fun getData() {
         with(binding) {
-            actvCounty.setOnItemClickListener { _, _, _, _ ->
-                selectedCounty = tilBottomCounty.editText?.text.toString()
-                val cities = counties[selectedCounty]?.toTypedArray()
+            actvCounty.setOnItemClickListener { parent, _, position, _ ->
+                btnSave.isEnabled = false
+                selectedCounty = parent.getItemAtPosition(position) as String
+                val districts = counties[selectedCounty]!!.toTypedArray()
                 adapter = ArrayAdapter(
                     requireContext(),
                     R.layout.dropdown_item,
-                    cities!!
+                    districts
                 )
                 actvDistrict.setAdapter(adapter)
                 tilBottomDistrict.isEnabled = true
                 actvDistrict.isEnabled = true
             }
-            actvDistrict.setOnItemClickListener { _, _, _, _ ->
-                selectedDistrict = tilBottomDistrict.editText?.text.toString()
+            actvDistrict.setOnItemClickListener { parent, _, position, _ ->
+                selectedDistrict = parent.getItemAtPosition(position) as String
+                btnSave.isEnabled = true
             }
         }
     }
@@ -87,9 +107,5 @@ class LocationPickerDialogFragment : BottomSheetDialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        const val ONLY_COUNTY = true
     }
 }

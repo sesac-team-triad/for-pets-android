@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.teamtriad.forpets.R
-import com.teamtriad.forpets.data.source.network.User
+import com.teamtriad.forpets.data.source.network.model.User
 import com.teamtriad.forpets.databinding.FragmentLoginBinding
 import retrofit2.Call
 import retrofit2.Callback

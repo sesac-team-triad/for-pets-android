@@ -9,23 +9,34 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.teamtriad.forpets.R
+import com.teamtriad.forpets.data.source.network.model.TransportVol
 import com.teamtriad.forpets.databinding.FragmentTransportVolBinding
-import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
+import com.teamtriad.forpets.util.setSafeOnClickListener
+import com.teamtriad.forpets.viewmodel.TransportViewModel
 import java.util.Calendar
 import java.util.TimeZone
 
 class TransportVolFragment : Fragment() {
 
+    private val viewModel: TransportViewModel by activityViewModels()
+
     private var _binding: FragmentTransportVolBinding? = null
     private val binding get() = _binding!!
     private lateinit var dateRangePicker: MaterialDatePicker<Pair<Long, Long>>
+
+    private lateinit var startDateText: String
+    private lateinit var endDateText: String
+
+    private lateinit var fromLocation: String
+    private lateinit var toLocation: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,33 +52,62 @@ class TransportVolFragment : Fragment() {
         setOnClickListener()
         makeEditTextBigger()
         checkButtonEnabled()
+
+        viewModel.clearAllSelectedLocations()
+
+        displaySelectedLocation()
     }
 
     private fun setOnClickListener() {
         with(binding) {
-            tietDate.setOnClickListener {
+            tietDate.setSafeOnClickListener {
                 showDatePicker()
             }
 
-            tietFrom.setOnClickListener {
+            tietFrom.setSafeOnClickListener {
                 val action = TransportVolFragmentDirections
-                    .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+                    .actionTransportVolFragmentToDistrictPickerDialogFragment(true)
 
                 findNavController().navigate(action)
             }
 
-            tietTo.setOnClickListener {
+            tietTo.setSafeOnClickListener {
                 val action = TransportVolFragmentDirections
-                    .actionTransportVolFragmentToLocationPickerDialogFragment(!LocationPickerDialogFragment.ONLY_COUNTY)
+                    .actionTransportVolFragmentToDistrictPickerDialogFragment(false)
 
                 findNavController().navigate(action)
+
             }
 
-            btnPost.setOnClickListener {
-                findNavController()
-                    .navigate(R.id.action_transportVolFragment_to_transportListsFragment)
+            btnPost.setSafeOnClickListener {
+                val action = TransportVolFragmentDirections
+                    .actionTransportVolFragmentToTransportListsFragment(true)
+                sendVolunteerData(makeVolunteerData())
+                findNavController().navigate(action)
             }
         }
+    }
+
+    private fun sendVolunteerData(volData: TransportVol) {
+        viewModel.addTransportVol(volData)
+    }
+
+    private fun makeVolunteerData(): TransportVol = with(binding) {
+        val fromLocationList = fromLocation.split(" ")
+        val toLocationList = toLocation.split(" ")
+
+        return TransportVol(
+            uid = "testUid",
+            title = tietTitle.text.toString(),
+            startDate = startDateText,
+            endDate = endDateText,
+            animal = actvAnimal.text.toString(),
+            from = fromLocationList[0],
+            fromDetail = fromLocation.substring(fromLocationList[0].length).trim(),
+            to = toLocationList[0],
+            toDetail = toLocation.substring(toLocationList[0].length).trim(),
+            message = tietMessage.text.toString()
+        )
     }
 
     private fun makeEditTextBigger() {
@@ -113,14 +153,14 @@ class TransportVolFragment : Fragment() {
         calendar[Calendar.MONTH] = Calendar.JANUARY
         val janThisYear = calendar.timeInMillis
 
-        calendar.timeInMillis = today
+        calendar[Calendar.YEAR] += 1
         calendar[Calendar.MONTH] = Calendar.DECEMBER
-        val decThisYear = calendar.timeInMillis
+        val decNextYear = calendar.timeInMillis
 
         val constraintsBuilder =
             CalendarConstraints.Builder()
                 .setStart(janThisYear)
-                .setEnd(decThisYear)
+                .setEnd(decNextYear)
                 .setValidator(DateValidatorPointForward.now())
 
         dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
@@ -138,7 +178,7 @@ class TransportVolFragment : Fragment() {
     }
 
     private fun showDatePicker() {
-        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
+        dateRangePicker.show(requireActivity().supportFragmentManager, "vol")
         addDatePickerButtonClickListener()
     }
 
@@ -147,8 +187,8 @@ class TransportVolFragment : Fragment() {
             val startDate = selection.first
             val endDate = selection.second
 
-            val startDateText = startDate.formatDate()
-            val endDateText = endDate.formatDate()
+            startDateText = startDate.formatDate()
+            endDateText = endDate.formatDate()
 
             val selectedDate = if (startDateText == endDateText) {
                 startDate.formatDateWithYear()
@@ -182,8 +222,6 @@ class TransportVolFragment : Fragment() {
             tietDate.addTextChangedListener(textWatcher)
             tietFrom.addTextChangedListener(textWatcher)
             tietTo.addTextChangedListener(textWatcher)
-            tietFromDetail.addTextChangedListener(textWatcher)
-            tietToDetail.addTextChangedListener(textWatcher)
             tietMessage.addTextChangedListener(textWatcher)
         }
     }
@@ -192,16 +230,54 @@ class TransportVolFragment : Fragment() {
         with(binding) {
             val allFieldsFilled = !tietTitle.text.isNullOrEmpty()
                     && !tietDate.text.isNullOrEmpty()
-//                    && !tietReqFrom.text.isNullOrEmpty()
-//                    && !tietReqTo.text.isNullOrEmpty()
-                    && !tietFromDetail.text.isNullOrEmpty()
-                    && !tietToDetail.text.isNullOrEmpty()
+                    && !tietFrom.text.isNullOrEmpty()
+                    && !tietTo.text.isNullOrEmpty()
                     && !tietMessage.text.isNullOrEmpty()
             Log.d("ab", "$allFieldsFilled")
 
             btnPost.apply {
                 isEnabled = allFieldsFilled
                 isCheckable = allFieldsFilled
+            }
+        }
+    }
+
+    private fun displaySelectedLocation() {
+        with(binding) {
+            fromLocation = ""
+            toLocation = ""
+
+            viewModel.selectedFromCounty.observe(viewLifecycleOwner) {
+                if (fromLocation != it) {
+                    fromLocation = "$it "
+                }
+                tietFrom.setText(fromLocation)
+            }
+            viewModel.selectedFromDistrictList.observe(viewLifecycleOwner) { list ->
+                var districts = ""
+
+                list.forEach { districts += "$it, " }
+
+                fromLocation += districts
+                fromLocation = fromLocation.dropLast(2)
+                tietFrom.setText(fromLocation)
+            }
+
+            viewModel.selectedToCounty.observe(viewLifecycleOwner) {
+                if (toLocation != it) {
+                    toLocation = "$it "
+                }
+                tietTo.setText(toLocation)
+            }
+
+            viewModel.selectedToDistrictList.observe(viewLifecycleOwner) { list ->
+                var districts = ""
+
+                list.forEach { districts += "$it, " }
+
+                toLocation += districts
+                toLocation = toLocation.dropLast(2)
+                tietTo.setText(toLocation)
             }
         }
     }

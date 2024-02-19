@@ -2,11 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.Material3.BottomSheet.Modal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="16dp"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    android:paddingHorizontal="16dp">
 
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
         android:id="@+id/drag_handle"
@@ -56,6 +54,7 @@
         android:layout_marginStart="13dp"
         android:enabled="false"
         android:hint="@string/bottom_district_hint"
+        app:helperText="가능지역 모두 선택해 주세요"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/til_bottom_county"
         app:layout_constraintTop_toTopOf="@id/til_bottom_county">
@@ -65,10 +64,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:inputType="none"
+            android:inputType=""
             tools:ignore="LabelFor" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_district"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="@id/til_bottom_district"
+        app:layout_constraintStart_toStartOf="@id/til_bottom_district"
+        app:layout_constraintTop_toBottomOf="@id/til_bottom_district"
+        tools:itemCount="3"
+        tools:listitem="@layout/rv_item_vol_district" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_save"
@@ -76,13 +87,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="27dp"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/purple_450"
+        android:backgroundTint="@color/selector_button_background_color"
+        android:clickable="false"
         android:enabled="false"
         android:text="@string/bottom_btn_input"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_bottom_county" />
+        app:layout_constraintTop_toBottomOf="@id/rv_district" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

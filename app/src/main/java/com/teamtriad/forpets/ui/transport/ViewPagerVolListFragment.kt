@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -15,13 +16,16 @@ import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentViewPagerVolListBinding
 import com.teamtriad.forpets.model.tmp.Volunteers
 import com.teamtriad.forpets.ui.transport.adapter.VolListRecyclerViewAdapter
-import com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment
 import com.teamtriad.forpets.util.formatDate
 import com.teamtriad.forpets.util.formatDateWithYear
+import com.teamtriad.forpets.util.setSafeOnClickListener
+import com.teamtriad.forpets.viewmodel.TransportViewModel
 import java.util.Calendar
 import java.util.TimeZone
 
 class ViewPagerVolListFragment : Fragment() {
+
+    private val transportViewModel: TransportViewModel by activityViewModels()
 
     private var _binding: FragmentViewPagerVolListBinding? = null
     private val binding get() = _binding!!
@@ -41,6 +45,18 @@ class ViewPagerVolListFragment : Fragment() {
         setScrollListener()
         setRecyclerview()
         setOnClickListener()
+
+        transportViewModel.clearAllSelectedLocations()
+
+        with(binding) {
+            transportViewModel.selectedFromCounty.observe(viewLifecycleOwner) {
+                tietFrom.setText(it)
+            }
+
+            transportViewModel.selectedToCounty.observe(viewLifecycleOwner) {
+                tietTo.setText(it)
+            }
+        }
     }
 
     private fun setScrollListener() {
@@ -65,25 +81,31 @@ class ViewPagerVolListFragment : Fragment() {
 
     private fun setOnClickListener() {
         with(binding) {
-            tietDate.setOnClickListener {
+            tietDate.setSafeOnClickListener {
                 showDatePicker()
             }
 
-            tietFrom.setOnClickListener {
+            tietFrom.setSafeOnClickListener {
                 val action = TransportListsFragmentDirections
-                    .actionTransportListsFragmentToLocationPickerDialogFragment(LocationPickerDialogFragment.ONLY_COUNTY)
+                    .actionTransportListsFragmentToLocationPickerDialogFragment(
+                        isFrom = true,
+                        onlyCounty = true
+                    )
 
                 findNavController().navigate(action)
             }
 
-            tietTo.setOnClickListener {
+            tietTo.setSafeOnClickListener {
                 val action = TransportListsFragmentDirections
-                    .actionTransportListsFragmentToLocationPickerDialogFragment(LocationPickerDialogFragment.ONLY_COUNTY)
+                    .actionTransportListsFragmentToLocationPickerDialogFragment(
+                        isFrom = true,
+                        onlyCounty = true
+                    )
 
                 findNavController().navigate(action)
             }
 
-            efabVolList.setOnClickListener {
+            efabVolList.setSafeOnClickListener {
                 findNavController()
                     .navigate(R.id.action_transportListsFragment_to_transportVolFragment)
             }
@@ -98,14 +120,14 @@ class ViewPagerVolListFragment : Fragment() {
         calendar[Calendar.MONTH] = Calendar.JANUARY
         val janThisYear = calendar.timeInMillis
 
-        calendar.timeInMillis = today
+        calendar[Calendar.YEAR] += 1
         calendar[Calendar.MONTH] = Calendar.DECEMBER
-        val decThisYear = calendar.timeInMillis
+        val decNextYear = calendar.timeInMillis
 
         val constraintsBuilder =
             CalendarConstraints.Builder()
                 .setStart(janThisYear)
-                .setEnd(decThisYear)
+                .setEnd(decNextYear)
                 .setValidator(DateValidatorPointForward.now())
 
         dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
@@ -123,7 +145,7 @@ class ViewPagerVolListFragment : Fragment() {
     }
 
     private fun showDatePicker() {
-        dateRangePicker.show(requireActivity().supportFragmentManager, "tag")
+        dateRangePicker.show(requireActivity().supportFragmentManager, "volList")
         addDatePickerButtonClickListener()
     }
 

@@ -15,9 +15,6 @@
         <action
             android:id="@+id/action_transportFragment_to_transportVolFragment"
             app:destination="@id/transportVolFragment" />
-        <action
-            android:id="@+id/action_transportFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/adoptFragment"
@@ -37,7 +34,11 @@
         android:id="@+id/profileFragment"
         android:name="com.teamtriad.forpets.ui.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_transportListsFragment"
+            app:destination="@id/transportListsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/transportReqFragment"
         android:name="com.teamtriad.forpets.ui.transport.TransportReqFragment"
@@ -67,6 +68,9 @@
         <action
             android:id="@+id/action_transportVolFragment_to_locationPickerDialogFragment"
             app:destination="@id/locationPickerDialogFragment" />
+        <action
+            android:id="@+id/action_transportVolFragment_to_districtPickerDialogFragment"
+            app:destination="@id/districtPickerDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/transportListsFragment"
@@ -74,11 +78,18 @@
         android:label="@string/transport_lists_appbar"
         tools:layout="@layout/fragment_transport_lists">
         <action
+            android:id="@+id/action_transportListsFragment_to_transportReqFragment"
+            app:destination="@id/transportReqFragment" />
+        <action
             android:id="@+id/action_transportListsFragment_to_transportVolFragment"
             app:destination="@id/transportVolFragment" />
         <action
             android:id="@+id/action_transportListsFragment_to_locationPickerDialogFragment"
             app:destination="@id/locationPickerDialogFragment" />
+        <argument
+            android:name="isVolList"
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/adoptDetailFragment"
@@ -95,9 +106,6 @@
         android:label="@string/login_appbar"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_transportFragment"
-            app:destination="@id/transportFragment" />
-        <action
             android:id="@+id/action_loginFragment_to_signUpUserFragment"
             app:destination="@id/signUpUserFragment" />
     </fragment>
@@ -113,9 +121,21 @@
     <dialog
         android:id="@+id/locationPickerDialogFragment"
         android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment"
-        android:label="LocationPickerForNavigation" >
+        android:label="fragment_location_picker_dialog">
+        <argument
+            android:name="isFrom"
+            app:argType="boolean" />
         <argument
             android:name="onlyCounty"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </dialog>
+    <dialog
+        android:id="@+id/districtPickerDialogFragment"
+        android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.DistrictPickerDialogFragment"
+        android:label="fragment_district_picker_dialog">
+        <argument
+            android:name="isFrom"
             app:argType="boolean" />
     </dialog>
 </navigation>
