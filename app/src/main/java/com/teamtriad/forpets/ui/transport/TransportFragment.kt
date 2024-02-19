@@ -105,7 +105,7 @@ class TransportFragment : Fragment() {
 
             setOnClusterItemClickListener {
                 val zoomLevel = map.cameraPosition.zoom
-                if (zoomLevel == 13f) {
+                if (zoomLevel >= 13f) {
                     if (segmentedButtonId == R.id.btn_request) {
                         viewModel.setClickedFrom(it.snippet)
 
