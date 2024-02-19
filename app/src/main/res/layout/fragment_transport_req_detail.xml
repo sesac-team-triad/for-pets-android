@@ -237,6 +237,16 @@
             app:layout_constraintTop_toBottomOf="@id/tv_date_label" />
 
         <TextView
+            android:id="@+id/tv_from"
+            style="@style/Pet_TextView_SmallBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:elevation="4dp"
+            app:layout_constraintStart_toEndOf="@id/tv_from_label"
+            app:layout_constraintTop_toTopOf="@id/tv_from_label" />
+
+        <TextView
             android:id="@+id/tv_to_label"
             style="@style/Pet_TextView_SmallBlack"
             android:layout_width="wrap_content"
@@ -248,6 +258,34 @@
             android:text="@string/req_list_detail_tv_to_label"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_from_label" />
+
+        <TextView
+            android:id="@+id/tv_to"
+            style="@style/Pet_TextView_SmallBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:elevation="4dp"
+            app:layout_constraintStart_toEndOf="@id/tv_to_label"
+            app:layout_constraintTop_toTopOf="@id/tv_to_label" />
+
+        <Button
+            android:id="@+id/btn_chat"
+            style="@style/Pet_TextView_MiddleWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/all_chat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_to_label" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_chat" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
