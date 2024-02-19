@@ -134,7 +134,7 @@ class ViewPagerReqListFragment : Fragment() {
         tietDate.setSafeOnClickListener {
             dateRangePicker.show(childFragmentManager, null)
         }
-        tietDate.doOnTextChanged { text, _, _, _ ->
+        tietDate.doOnTextChanged { _, _, _, _ ->
             (rvReqList.adapter as ReqListRecyclerViewAdapter).submitList(
                 transportViewModel.filterTransportReqMapToList(
                     startDate, endDate,
