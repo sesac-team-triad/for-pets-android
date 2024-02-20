@@ -86,10 +86,22 @@
         <action
             android:id="@+id/action_transportListsFragment_to_locationPickerDialogFragment"
             app:destination="@id/locationPickerDialogFragment" />
+        <action
+            android:id="@+id/action_transportListsFragment_to_transportReqDetailFragment"
+            app:destination="@id/transportReqDetailFragment" />
         <argument
             android:name="isVolList"
             android:defaultValue="false"
             app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/transportReqDetailFragment"
+        android:name="com.teamtriad.forpets.ui.transport.TransportReqDetailFragment"
+        android:label="@string/req_detail_appbar"
+        tools:layout="@layout/fragment_transport_req_detail">
+        <argument
+            android:name="index"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/adoptDetailFragment"
