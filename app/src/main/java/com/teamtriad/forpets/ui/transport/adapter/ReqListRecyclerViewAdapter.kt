@@ -2,11 +2,14 @@ package com.teamtriad.forpets.ui.transport.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.teamtriad.forpets.data.source.network.model.TransportReq
 import com.teamtriad.forpets.databinding.RvItemReqListBinding
+import com.teamtriad.forpets.ui.transport.TransportListsFragmentDirections
+import com.teamtriad.forpets.util.setSafeOnClickListener
 
 class ReqListRecyclerViewAdapter :
     ListAdapter<TransportReq, ReqListRecyclerViewAdapter.ViewHolder>(diffCallback) {
@@ -27,7 +30,14 @@ class ReqListRecyclerViewAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: TransportReq) {
-            // TODO: itemView.setOnClickListener()
+            itemView.setSafeOnClickListener {
+                it.findNavController()
+                    .navigate(
+                        TransportListsFragmentDirections.actionTransportListsFragmentToTransportReqDetailFragment(
+                            data.reqIndex
+                        )
+                    )
+            }
 
             with(binding) {
                 tvName.text = data.name
