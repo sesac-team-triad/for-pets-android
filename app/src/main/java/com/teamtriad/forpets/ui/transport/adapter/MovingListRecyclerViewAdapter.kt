@@ -64,7 +64,7 @@ class MovingListRecyclerViewAdapter(
         val diffCallback = object : DiffUtil.ItemCallback<Moving>() {
 
             override fun areItemsTheSame(oldItem: Moving, newItem: Moving): Boolean {
-                return oldItem === newItem
+                return oldItem.appointmentKey == newItem.appointmentKey
             }
 
             override fun areContentsTheSame(oldItem: Moving, newItem: Moving): Boolean {
