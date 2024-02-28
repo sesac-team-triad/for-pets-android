@@ -16,6 +16,7 @@ import com.teamtriad.forpets.data.source.network.model.Moving
 import com.teamtriad.forpets.data.source.network.model.TransportReq
 import com.teamtriad.forpets.data.source.network.model.TransportVol
 import com.teamtriad.forpets.ui.chat.enums.AppointmentProgress
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class TransportViewModel : ViewModel() {
@@ -39,6 +40,9 @@ class TransportViewModel : ViewModel() {
 
     private var _movingMap = MutableLiveData<Map<String, Moving>>()
     val movingMap: LiveData<Map<String, Moving>> get() = _movingMap
+
+    private var _clickedFrom: String? = null
+    val clickedFrom: String? get() = _clickedFrom
 
     private var _reqAnimalChoice = listOf<String>()
     val reqAnimalChoice: List<String> get() = _reqAnimalChoice
@@ -157,10 +161,8 @@ class TransportViewModel : ViewModel() {
     /**
      * 등록된 시/도들의 목록을 전부 가져옵니다.(LiveData)
      */
-    fun getAllCountyMap() {
-        viewModelScope.launch {
-            _locationMap.value = locationRepository.getAllCountyMap() ?: mapOf()
-        }
+    fun getAllLocationMap(): Job = viewModelScope.launch {
+        _locationMap.value = locationRepository.getAllCountyMap() ?: mapOf()
     }
 
     /**
@@ -245,6 +247,10 @@ class TransportViewModel : ViewModel() {
         return userRepository.getUserNicknameByUid(uid)
     }
 
+    fun setClickedFrom(from: String?) {
+        _clickedFrom = from
+    }
+
     fun setReqAnimalChoice(reqAnimalChoice: List<String>) {
         _reqAnimalChoice = reqAnimalChoice
     }
@@ -290,9 +296,9 @@ class TransportViewModel : ViewModel() {
         to: String
     ): List<TransportReq> {
         fun compareWithDates(s: String, e: String) = startDate.isEmpty() ||
-            s <= endDate && startDate <= e
+                s <= endDate && startDate <= e
         fun compareWithAnimal(s: String) = animal.isEmpty() || s == animal ||
-            animal == reqAnimalChoice.last() && s !in reqAnimalChoice.subList(0, reqAnimalChoice.lastIndex)
+                animal == reqAnimalChoice.last() && s !in reqAnimalChoice.subList(0, reqAnimalChoice.lastIndex)
         fun compareWithFrom(s: String) = from.isEmpty() || s == from
         fun compareWithTo(s: String) = to.isEmpty() || s == to
 

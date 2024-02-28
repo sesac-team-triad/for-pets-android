@@ -7,7 +7,7 @@
     tools:context=".ui.transport.TransportFragment">
 
     <androidx.fragment.app.FragmentContainerView xmlns:map="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/fcb_map"
+        android:id="@+id/fcv_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"

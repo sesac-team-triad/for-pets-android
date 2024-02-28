@@ -22,7 +22,7 @@ class MarkerItem(
     override fun getZIndex(): Float = 0f
 
     init {
-        position = place
+        this.position = place
         this.title = title
         this.snippet = snippet
     }
