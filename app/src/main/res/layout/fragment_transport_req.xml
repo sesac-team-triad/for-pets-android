@@ -261,7 +261,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_weight" />
 
             <EditText
-                android:id="@+id/et_breed"
+                android:id="@+id/et_kind"
                 style="@style/Pet_EditText_MiddleBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
