@@ -24,6 +24,7 @@ import com.teamtriad.forpets.databinding.FragmentTransportBinding
 import com.teamtriad.forpets.ui.transport.marker.CustomClusterManager
 import com.teamtriad.forpets.ui.transport.marker.Item
 import com.teamtriad.forpets.ui.transport.marker.MarkerItem
+import com.teamtriad.forpets.util.setSafeOnClickListener
 import com.teamtriad.forpets.viewmodel.TransportViewModel
 import kotlinx.coroutines.launch
 import kotlin.random.Random
@@ -257,6 +258,14 @@ class TransportFragment : Fragment() {
                         dialog.dismiss()
                     }
                     .show()
+            }
+
+            ivMoving.setSafeOnClickListener {
+                findNavController().navigate(R.id.action_transportFragment_to_transportMovingListFragment)
+            }
+
+            tvMovingTitle.setSafeOnClickListener {
+                findNavController().navigate(R.id.action_transportFragment_to_transportMovingListFragment)
             }
         }
     }
