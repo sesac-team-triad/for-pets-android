@@ -176,7 +176,7 @@
                 app:layout_constraintTop_toTopOf="@id/tv_weight" />
 
             <TextView
-                android:id="@+id/neuter"
+                android:id="@+id/tv_neuter"
                 style="@style/Pet_TextView_SmallBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -197,7 +197,7 @@
                 android:elevation="4dp"
                 android:text="@string/adopt_detail_tv_special_mark_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/neuter" />
+                app:layout_constraintTop_toBottomOf="@id/tv_neuter" />
 
             <TextView
                 android:id="@+id/tv_special_mark"

@@ -105,8 +105,8 @@
         android:label="@string/adopt_detail_appbar"
         tools:layout="@layout/fragment_adopt_detail">
         <argument
-            android:name="imageUrl"
-            app:argType="string" />
+            android:name="index"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
