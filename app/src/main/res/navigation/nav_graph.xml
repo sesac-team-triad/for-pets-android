@@ -44,6 +44,9 @@
         <action
             android:id="@+id/action_profileFragment_to_transportListsFragment"
             app:destination="@id/transportListsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/transportMovingListFragment"
