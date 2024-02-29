@@ -107,6 +107,9 @@
     <string name="adopt_detail_btn_care">보호소 전화하기</string>
     <string name="adopt_detail_btn_charge">담당자 전화하기</string>
 
+    <!-- 나의 정보 화면 -->
+    <string name="profile_btn_login">로그인</string>
+
     <!-- 로그인 화면 -->
     <string name="login_til_email">이메일</string>
     <string name="login_til_password">비밀번호</string>

@@ -119,4 +119,8 @@
         <item name="cornerSize">30dp</item>
     </style>
 
+    <style name="Profile_ImageView_CornerSize50">
+        <item name="cornerSize">50dp</item>
+    </style>
+
 </resources>
