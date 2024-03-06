@@ -107,11 +107,17 @@
     <string name="adopt_detail_btn_care">보호소 전화하기</string>
     <string name="adopt_detail_btn_charge">담당자 전화하기</string>
 
+    <!-- 나의 정보 화면 -->
+    <string name="profile_btn_login">로그인</string>
+
     <!-- 로그인 화면 -->
     <string name="login_til_email">이메일</string>
     <string name="login_til_password">비밀번호</string>
     <string name="login_tv_signup"><u>아직 회원이 아니신가요?</u></string>
     <string name="login_tv_signup_organization"><u>단체/보호소로 가입하기</u></string>
+    <string name="login_tv_find_id">아이디 찾기</string>
+    <string name="login_tv_find_password">비밀번호 찾기</string>
+    <string name="login_tv_signup1">회원가입</string>
     <string name="login_btn_login">로그인</string>
     <string name="login_toast_not_found">사용자가 존재하지 않거나 비밀번호가 일치하지 않습니다!</string>
     <string name="login_toast_server_error">사용자 확인 실패! (서버 오류)</string>

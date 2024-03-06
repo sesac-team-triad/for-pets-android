@@ -1,6 +1,5 @@
 package com.teamtriad.forpets.ui.login
 
-import com.teamtriad.forpets.data.source.network.LoginService
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.teamtriad.forpets.R
+import com.teamtriad.forpets.data.source.network.LoginService
 import com.teamtriad.forpets.data.source.network.model.User
 import com.teamtriad.forpets.databinding.FragmentLoginBinding
 import retrofit2.Call
@@ -61,7 +60,6 @@ class LoginFragment : Fragment() {
             checkIfUserExists()
         }
         binding.tvSignup.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_signUpUserFragment)
         }
     }
 
@@ -84,7 +82,7 @@ class LoginFragment : Fragment() {
                         }
                         if (foundUser != null) {
                             showToast(getString(R.string.login_toast_welcome, foundUser.nickname))
-                            findNavController().navigate(R.id.action_loginFragment_to_signUpUserFragment)
+//                            findNavController().navigate(R.id.action_loginFragment_to_signUpUserFragment)
                         } else {
                             showToast(getString(R.string.login_toast_not_found))
                         }

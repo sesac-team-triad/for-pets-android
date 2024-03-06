@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login.Login2Fragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="73dp"
+        android:src="@drawable/login_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginTop="30dp"
+        android:hint="@string/login_til_email"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_logo">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_password"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginTop="8dp"
+        android:hint="@string/login_til_password"
+        app:endIconMode="password_toggle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_find_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/login_tv_find_id"
+        app:layout_constraintEnd_toStartOf="@id/view_divider1"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@id/til_password"
+        app:layout_constraintTop_toBottomOf="@id/til_password" />
+
+    <View
+        android:id="@+id/view_divider1"
+        android:layout_width="2dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@color/gray_500"
+        app:layout_constraintBottom_toBottomOf="@id/tv_find_id"
+        app:layout_constraintEnd_toStartOf="@id/tv_find_password"
+        app:layout_constraintStart_toEndOf="@id/tv_find_id"
+        app:layout_constraintTop_toTopOf="@id/tv_find_id" />
+
+    <TextView
+        android:id="@+id/tv_find_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="@string/login_tv_find_password"
+        app:layout_constraintBottom_toBottomOf="@id/view_divider1"
+        app:layout_constraintEnd_toStartOf="@id/view_divider2"
+        app:layout_constraintStart_toEndOf="@id/view_divider1"
+        app:layout_constraintTop_toTopOf="@id/view_divider1"
+        tools:layout_editor_absoluteX="163dp" />
+
+
+    <View
+        android:id="@+id/view_divider2"
+        android:layout_width="2dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@color/gray_500"
+        app:layout_constraintBottom_toBottomOf="@id/tv_find_password"
+        app:layout_constraintEnd_toStartOf="@+id/tv_signup1"
+        app:layout_constraintStart_toEndOf="@id/tv_find_password"
+        app:layout_constraintTop_toTopOf="@id/tv_find_password" />
+
+    <TextView
+        android:id="@+id/tv_signup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="@string/login_tv_signup1"
+        app:layout_constraintBottom_toBottomOf="@id/view_divider2"
+        app:layout_constraintEnd_toEndOf="@id/til_password"
+        app:layout_constraintStart_toEndOf="@id/view_divider2"
+        app:layout_constraintTop_toTopOf="@id/view_divider2" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_login"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@color/black"
+        android:text="@string/login_btn_login"
+        app:layout_constraintEnd_toEndOf="@id/tv_signup1"
+        app:layout_constraintStart_toStartOf="@id/tv_find_id"
+        app:layout_constraintTop_toBottomOf="@id/tv_find_id" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
