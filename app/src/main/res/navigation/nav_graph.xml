@@ -45,8 +45,8 @@
             android:id="@+id/action_profileFragment_to_transportListsFragment"
             app:destination="@id/transportListsFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/action_profileFragment_to_login2Fragment"
+            app:destination="@id/login2Fragment" />
     </fragment>
     <fragment
         android:id="@+id/transportMovingListFragment"
@@ -115,15 +115,6 @@
             app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.teamtriad.forpets.ui.login.LoginFragment"
-        android:label="@string/login_appbar"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_signUpUserFragment"
-            app:destination="@id/signUpUserFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/signUpUserFragment"
         android:name="com.teamtriad.forpets.ui.login.SignUpUserFragment"
         android:label="@string/signup_appbar"
@@ -152,4 +143,9 @@
             android:name="isFrom"
             app:argType="boolean" />
     </dialog>
+    <fragment
+        android:id="@+id/login2Fragment"
+        android:name="com.teamtriad.forpets.ui.login.Login2Fragment"
+        android:label="@string/login_btn_login"
+        tools:layout="@layout/fragment_login2" />
 </navigation>
