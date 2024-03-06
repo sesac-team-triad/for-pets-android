@@ -1,33 +1,34 @@
-package com.teamtriad.forpets.ui.profile
+package com.teamtriad.forpets.ui.login
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.teamtriad.forpets.R
-import com.teamtriad.forpets.databinding.FragmentProfileBinding
+import com.teamtriad.forpets.databinding.FragmentLogin2Binding
 
-class ProfileFragment : Fragment() {
+class Login2Fragment : Fragment() {
 
-    private var _binding: FragmentProfileBinding? = null
+    private var _binding: FragmentLogin2Binding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        _binding = FragmentLogin2Binding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setOnClickListeners()
+    }
 
-        binding.tvLogin.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_login2Fragment)
-        }
+    private fun setOnClickListeners() {
+
     }
 
     override fun onDestroyView() {
