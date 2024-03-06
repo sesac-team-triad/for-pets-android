@@ -28,7 +28,14 @@ class Login2Fragment : Fragment() {
     }
 
     private fun setOnClickListeners() {
-
+        with(binding) {
+            root.setOnClickListener {
+                root.clearFocus()
+                val softKeyboard =
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                softKeyboard.hideSoftInputFromWindow(root.windowToken, 0)
+            }
+        }
     }
 
     override fun onDestroyView() {
