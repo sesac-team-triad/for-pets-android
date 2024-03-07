@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -100,7 +99,7 @@ class SignUpUserFragment : Fragment() {
         val userId = databaseReference.push().key
         databaseReference.child(userId!!).setValue(user)
         showToast(getString(R.string.login_toast_welcome))
-        findNavController().navigate(R.id.action_signUpUserFragment_to_transportFragment)
+//        findNavController().navigate(R.id.action_signUpUserFragment_to_transportFragment)
     }
 
     private fun handleRegistrationFailure(task: Task<AuthResult>) {

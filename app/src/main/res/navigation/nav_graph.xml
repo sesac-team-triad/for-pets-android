@@ -114,15 +114,6 @@
             android:name="index"
             app:argType="integer" />
     </fragment>
-    <fragment
-        android:id="@+id/signUpUserFragment"
-        android:name="com.teamtriad.forpets.ui.login.SignUpUserFragment"
-        android:label="@string/signup_appbar"
-        tools:layout="@layout/fragment_sign_up_user">
-        <action
-            android:id="@+id/action_signUpUserFragment_to_transportFragment"
-            app:destination="@id/transportFragment" />
-    </fragment>
     <dialog
         android:id="@+id/locationPickerDialogFragment"
         android:name="com.teamtriad.forpets.ui.transport.bottomSheetDialog.LocationPickerDialogFragment"
@@ -147,5 +138,14 @@
         android:id="@+id/login2Fragment"
         android:name="com.teamtriad.forpets.ui.login.Login2Fragment"
         android:label="@string/login_btn_login"
-        tools:layout="@layout/fragment_login2" />
+        tools:layout="@layout/fragment_login2" >
+        <action
+            android:id="@+id/action_login2Fragment_to_signUpIndividualFragment"
+            app:destination="@id/signUpIndividualFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpIndividualFragment"
+        android:name="com.teamtriad.forpets.ui.login.SignUpIndividualFragment"
+        android:label="@string/sign_up_tv_title"
+        tools:layout="@layout/fragment_sign_up_individual" />
 </navigation>

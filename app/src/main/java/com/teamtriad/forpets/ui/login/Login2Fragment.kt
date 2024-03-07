@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentLogin2Binding
 
 class Login2Fragment : Fragment() {
@@ -34,6 +36,10 @@ class Login2Fragment : Fragment() {
                 val softKeyboard =
                     requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 softKeyboard.hideSoftInputFromWindow(root.windowToken, 0)
+            }
+
+            tvSignup1.setOnClickListener {
+                findNavController().navigate(R.id.action_login2Fragment_to_signUpIndividualFragment)
             }
         }
     }
