@@ -36,7 +36,11 @@
             android:id="@+id/btn_send_auth_code"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/selector_button_background_color"
+            android:clickable="false"
+            android:enabled="false"
             android:text="@string/sign_up_btn_send_auth_code"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/til_email"
             app:layout_constraintTop_toBottomOf="@id/til_email" />
 
@@ -64,7 +68,11 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:backgroundTint="@color/selector_button_background_color"
+            android:clickable="false"
+            android:enabled="false"
             android:text="@string/sign_up_btn_authenticate"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/til_input_auth_code"
             app:layout_constraintTop_toBottomOf="@id/til_input_auth_code" />
 
