@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/all_til_email_hint"
             app:endIconMode="clear_text"
+            app:errorEnabled="true"
             app:helperText="@string/sign_up_til_email_helper"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
