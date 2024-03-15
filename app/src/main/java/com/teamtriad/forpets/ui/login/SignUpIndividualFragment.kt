@@ -14,6 +14,7 @@ import com.teamtriad.forpets.BuildConfig.EMAIL_ADDRESS
 import com.teamtriad.forpets.BuildConfig.EMAIL_PASSOWRD
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentSignUpIndividualBinding
+import com.teamtriad.forpets.util.setSafeOnClickListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,7 +54,7 @@ class SignUpIndividualFragment : Fragment() {
         val softKeyboard =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        btnSendAuthCode.setOnClickListener {
+        btnSendAuthCode.setSafeOnClickListener {
             if (isValidEmail) {
                 userEmail = tietEmail.text.toString()
                 authCode = sendEmail(userEmail)
@@ -74,7 +75,7 @@ class SignUpIndividualFragment : Fragment() {
             }
         }
 
-        btnAuthenticate.setOnClickListener {
+        btnAuthenticate.setSafeOnClickListener {
             if (authCode == tietInputAuthCode.text.toString()) {
                 btnAuthenticate.apply {
                     softKeyboard.hideSoftInputFromWindow(root.windowToken, 0)
