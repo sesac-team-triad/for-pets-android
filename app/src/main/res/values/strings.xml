@@ -129,6 +129,7 @@
     <string name="sign_up_til_email_helper">이메일 주소로 가입할 수 있습니다</string>
     <string name="sign_up_btn_send_auth_code">인증번호 전송</string>
     <string name="sign_up_btn_authenticate">인증하기</string>
+    <string name="sign_up_btn_complete_auth">인증완료</string>
     <string name="sign_up_btn_check_duplicate">중복 확인하기</string>
     <string name="sign_up_auth_code_hint">인증번호 입력</string>
     <string name="sign_up_cert">인증하기</string>
@@ -141,5 +142,10 @@
     <string name="sign_up_toast_exist_email">이미 존재하는 이메일입니다</string>
     <string name="sign_up_toast_guide_password">비밀번호는 6자리 이상입니다</string>
     <string name="sign_up_toast_guide_email">이메일 형식으로 입력하세요</string>
+    <string name="sign_up_email_error_message">올바른 이메일 주소를 입력해 주세요!</string>
+    <string name="sign_up_email_transport_complete">인증번호가 전송되었습니다!</string>
+    <string name="sign_up_auth_code_not_valid">인증번호를 확인해 주세요!</string>
+    <string name="sign_up_email_title">도와줘멍냥 회원가입 인증번호입니다.</string>
+    <string name="sign_up_email_message">\n\n안녕하세요. 도와줘멍냥입니다!\n\n아래 인증번호를 인증창에 입력해주세요.\n\n인증번호 : %s</string>
 
 </resources>

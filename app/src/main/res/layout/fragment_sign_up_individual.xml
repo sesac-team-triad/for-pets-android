@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/all_til_email_hint"
             app:endIconMode="clear_text"
+            app:errorEnabled="true"
             app:helperText="@string/sign_up_til_email_helper"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +36,11 @@
             android:id="@+id/btn_send_auth_code"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/selector_button_background_color"
+            android:clickable="false"
+            android:enabled="false"
             android:text="@string/sign_up_btn_send_auth_code"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/til_email"
             app:layout_constraintTop_toBottomOf="@id/til_email" />
 
@@ -63,7 +68,27 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:backgroundTint="@color/selector_button_background_color"
+            android:clickable="false"
+            android:enabled="false"
             android:text="@string/sign_up_btn_authenticate"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/til_input_auth_code"
+            app:layout_constraintTop_toBottomOf="@id/til_input_auth_code" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_completed_auth"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@android:color/holo_green_dark"
+            android:clickable="false"
+            android:enabled="false"
+            android:text="@string/sign_up_btn_complete_auth"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:icon="@drawable/ic_check"
+            app:iconTint="@color/white"
             app:layout_constraintEnd_toEndOf="@id/til_input_auth_code"
             app:layout_constraintTop_toBottomOf="@id/til_input_auth_code" />
 
@@ -71,13 +96,13 @@
             android:id="@+id/til_nickname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="80dp"
             android:hint="@string/sign_up_nickname_hint"
             app:endIconMode="clear_text"
             app:helperText="@string/sign_up_til_nickname_helper"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_authenticate">
+            app:layout_constraintTop_toBottomOf="@id/til_input_auth_code">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tiet_nickname"
