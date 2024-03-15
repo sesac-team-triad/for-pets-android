@@ -32,6 +32,7 @@ class SignUpIndividualFragment : Fragment() {
 
     private var isValidEmail = false
     private lateinit var authCode: String
+    private lateinit var userEmail: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,22 +46,50 @@ class SignUpIndividualFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setOnClickListener()
         checkEmailAddress()
-
+        checkAuthCode()
     }
 
     private fun setOnClickListener() = with(binding) {
+        val softKeyboard =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
         btnSendAuthCode.setOnClickListener {
             if (isValidEmail) {
-                authCode = sendEmail(tietEmail.text.toString())
-
-                val softKeyboard =
-                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                userEmail = tietEmail.text.toString()
+                authCode = sendEmail(userEmail)
                 softKeyboard.hideSoftInputFromWindow(root.windowToken, 0)
 
                 Snackbar.make(
                     requireView(),
                     R.string.sign_up_email_transport_complete,
                     Snackbar.LENGTH_SHORT
+                ).show()
+
+                tietInputAuthCode.apply {
+                    text?.clear()
+                }
+
+                btnAuthenticate.visibility = View.VISIBLE
+                btnCompletedAuth.visibility = View.GONE
+            }
+        }
+
+        btnAuthenticate.setOnClickListener {
+            if (authCode == tietInputAuthCode.text.toString()) {
+                btnAuthenticate.apply {
+                    softKeyboard.hideSoftInputFromWindow(root.windowToken, 0)
+                    visibility = View.GONE
+                    tietInputAuthCode.clearFocus()
+                }
+
+                btnCompletedAuth.visibility = View.VISIBLE
+            } else {
+                softKeyboard.hideSoftInputFromWindow(root.windowToken, 0)
+
+                Snackbar.make(
+                    requireView(),
+                    R.string.sign_up_auth_code_not_valid,
+                    Snackbar.LENGTH_LONG
                 ).show()
             }
         }
@@ -69,7 +98,7 @@ class SignUpIndividualFragment : Fragment() {
     private fun sendEmail(userEmail: String): String {
         val email = EMAIL_ADDRESS
         val password = EMAIL_PASSOWRD
-        val code = (100..10000).random().toString()
+        val code = (10000..99999).random().toString()
 
         CoroutineScope(Dispatchers.IO).launch {
             val props = Properties()
@@ -121,6 +150,30 @@ class SignUpIndividualFragment : Fragment() {
                 } else {
                     tilEmail.error = getString(R.string.sign_up_email_error_message)
                     btnSendAuthCode.apply {
+                        isEnabled = false
+                        isClickable = false
+                    }
+                }
+            }
+        })
+    }
+
+    private fun checkAuthCode() = with(binding) {
+        tietInputAuthCode.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s.toString().length == 5) {
+                    btnAuthenticate.apply {
+                        isEnabled = true
+                        isClickable = true
+                    }
+                } else {
+                    btnAuthenticate.apply {
                         isEnabled = false
                         isClickable = false
                     }
