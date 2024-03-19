@@ -67,7 +67,7 @@
             android:id="@+id/btn_authenticate"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/selector_button_background_color"
             android:clickable="false"
             android:enabled="false"
@@ -112,11 +112,40 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_verify_nickname"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/selector_button_background_color"
+            android:layout_marginTop="1dp"
+            android:clickable="false"
+            android:enabled="false"
+            android:text="@string/sign_up_btn_verify_nickname"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/til_nickname"
+            app:layout_constraintTop_toBottomOf="@id/til_nickname" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_verified_nickname"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:backgroundTint="@android:color/holo_green_dark"
+            android:clickable="false"
+            android:enabled="false"
+            android:text="@string/sign_up_btn_available_nickname"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:icon="@drawable/ic_check"
+            app:iconTint="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/til_nickname"
+            app:layout_constraintTop_toBottomOf="@id/til_nickname" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="70dp"
             android:hint="@string/all_til_password_hint"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
@@ -154,7 +183,7 @@
             android:id="@+id/btn_post"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="13dp"
             android:backgroundTint="@color/selector_button_background_color"
             android:clickable="false"

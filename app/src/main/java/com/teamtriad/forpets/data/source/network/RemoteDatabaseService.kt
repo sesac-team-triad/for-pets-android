@@ -114,6 +114,9 @@ interface RemoteDatabaseService {
         @Body user: User
     ): Response<Unit>
 
+    @GET("user.json")
+    suspend fun getUsersMap(): Response<Map<String, User>>
+
     @GET("user/{uid}.json")
     suspend fun getUserByUid(
         @Path("uid") uid: String

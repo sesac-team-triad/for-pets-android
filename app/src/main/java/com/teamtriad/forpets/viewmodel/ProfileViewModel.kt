@@ -11,6 +11,9 @@ class ProfileViewModel : ViewModel() {
 
     private val userRepository = UserRepository(remoteDatabaseService)
 
+    private var _usersMap: Map<String, User>? = null
+    val usersMap get() = _usersMap
+
     fun addUserByUid(uid: String, user: User) {
         viewModelScope.launch {
             userRepository.addUserByUid(uid, user)
@@ -20,6 +23,11 @@ class ProfileViewModel : ViewModel() {
     suspend fun getUserByUid(uid: String): User? {
         return userRepository.getUserByUid(uid)
     }
+
+    fun getUsersMap() = viewModelScope.launch {
+            _usersMap = userRepository.getUsersMap()
+        }
+
 
     suspend fun getUserNicknameByUid(uid: String): String? {
         return userRepository.getUserNicknameByUid(uid)

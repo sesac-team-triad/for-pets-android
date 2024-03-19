@@ -9,12 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.teamtriad.forpets.BuildConfig.EMAIL_ADDRESS
 import com.teamtriad.forpets.BuildConfig.EMAIL_PASSOWRD
 import com.teamtriad.forpets.R
 import com.teamtriad.forpets.databinding.FragmentSignUpIndividualBinding
 import com.teamtriad.forpets.util.setSafeOnClickListener
+import com.teamtriad.forpets.viewmodel.ProfileViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,12 +31,16 @@ import javax.mail.internet.MimeMessage
 
 class SignUpIndividualFragment : Fragment() {
 
+    private val viewModel: ProfileViewModel by activityViewModels()
+
     private var _binding: FragmentSignUpIndividualBinding? = null
     private val binding get() = _binding!!
 
     private var isValidEmail = false
     private lateinit var authCode: String
     private lateinit var userEmail: String
+    private lateinit var nickname: String
+    private lateinit var password: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +55,7 @@ class SignUpIndividualFragment : Fragment() {
         setOnClickListener()
         checkEmailAddress()
         checkAuthCode()
+        checkUserNickname()
     }
 
     private fun setOnClickListener() = with(binding) {
@@ -92,6 +100,28 @@ class SignUpIndividualFragment : Fragment() {
                     R.string.sign_up_auth_code_not_valid,
                     Snackbar.LENGTH_LONG
                 ).show()
+            }
+        }
+
+        btnVerifyNickname.setSafeOnClickListener {
+            lifecycleScope.launch {
+                viewModel.getUsersMap().join()
+                val userNicknameList = mutableListOf<String>()
+                viewModel.usersMap?.values?.forEach { userNicknameList.add(it.nickname) }
+                if (userNicknameList.contains(binding.tietNickname.text.toString())) {
+                    with(binding) {
+                        btnVerifyNickname.visibility = View.VISIBLE
+                        btnVerifiedNickname.visibility = View.GONE
+                        tilNickname.error = getString(R.string.sign_up_nickname_error_message)
+                    }
+                } else {
+                    with(binding) {
+                        btnVerifyNickname.visibility = View.GONE
+                        btnVerifiedNickname.visibility = View.VISIBLE
+                        tilNickname.error = null
+                        nickname = tietNickname.text.toString()
+                    }
+                }
             }
         }
     }
@@ -177,6 +207,37 @@ class SignUpIndividualFragment : Fragment() {
                     btnAuthenticate.apply {
                         isEnabled = false
                         isClickable = false
+                    }
+                }
+            }
+        })
+    }
+
+    private fun checkUserNickname() = with(binding) {
+        tietNickname.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                val pattern = Regex("[가-힣a-zA-Z0-9]{2,}")
+                if (pattern.matches(s.toString())) {
+                    btnVerifyNickname.apply {
+                        isEnabled = true
+                        isClickable = true
+                        btnVerifyNickname.visibility = View.VISIBLE
+                        btnVerifiedNickname.visibility = View.GONE
+                        tilNickname.error = null
+                    }
+                } else {
+                    btnVerifyNickname.apply {
+                        isEnabled = false
+                        isClickable = false
+                        btnVerifyNickname.visibility = View.VISIBLE
+                        btnVerifiedNickname.visibility = View.GONE
+                        tilNickname.error = null
                     }
                 }
             }
