@@ -39,6 +39,8 @@ class SignUpIndividualFragment : Fragment() {
     private var isValidEmail = false
     private lateinit var authCode: String
     private lateinit var userEmail: String
+    private lateinit var nickname: String
+    private lateinit var password: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -117,6 +119,7 @@ class SignUpIndividualFragment : Fragment() {
                         btnVerifyNickname.visibility = View.GONE
                         btnVerifiedNickname.visibility = View.VISIBLE
                         tilNickname.error = null
+                        nickname = tietNickname.text.toString()
                     }
                 }
             }
