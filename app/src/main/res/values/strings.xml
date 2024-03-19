@@ -148,5 +148,7 @@
     <string name="sign_up_email_title">도와줘멍냥 회원가입 인증번호입니다.</string>
     <string name="sign_up_email_message">\n\n안녕하세요. 도와줘멍냥입니다!\n\n아래 인증번호를 인증창에 입력해주세요.\n\n인증번호 : %s</string>
     <string name="sign_up_btn_verify_nickname">중복 확인하기</string>
+    <string name="sign_up_nickname_error_message">이미 존재하는 닉네임입니다. 다른 닉네임을 입력해 주세요!</string>
+    <string name="sign_up_btn_available_nickname">사용가능</string>
 
 </resources>
