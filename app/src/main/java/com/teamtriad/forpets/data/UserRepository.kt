@@ -28,6 +28,20 @@ class UserRepository(private val databaseService: RemoteDatabaseService) {
         return null
     }
 
+    suspend fun getUsersMap(): Map<String, User>? {
+        try {
+            val response = databaseService.getUsersMap()
+
+            if (response.isSuccessful) {
+                return response.body()
+            }
+        } catch (e: Exception) {
+            Log.e("UserRepository", e.message.toString())
+        }
+
+        return null
+    }
+
     suspend fun getUserNicknameByUid(uid: String): String? {
         try {
             val response = databaseService.getUserNicknameByUid(uid)
