@@ -38,9 +38,9 @@ class SignUpIndividualFragment : Fragment() {
 
     private var isValidEmail = false
     private lateinit var authCode: String
-    private lateinit var userEmail: String
     private lateinit var nickname: String
     private lateinit var password: String
+    private var userEmail = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +56,7 @@ class SignUpIndividualFragment : Fragment() {
         checkEmailAddress()
         checkAuthCode()
         checkUserNickname()
+        checkPassword()
     }
 
     private fun setOnClickListener() = with(binding) {
@@ -63,9 +64,8 @@ class SignUpIndividualFragment : Fragment() {
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         btnSendAuthCode.setSafeOnClickListener {
-            if (isValidEmail) {
-                userEmail = tietEmail.text.toString()
-                authCode = sendEmail(userEmail)
+            if (isValidEmail && userEmail != tietEmail.text.toString()) {
+                authCode = sendEmail(tietEmail.text.toString())
                 softKeyboard.hideSoftInputFromWindow(root.windowToken, 0)
 
                 Snackbar.make(
@@ -74,10 +74,16 @@ class SignUpIndividualFragment : Fragment() {
                     Snackbar.LENGTH_SHORT
                 ).show()
 
-                tietInputAuthCode.apply {
-                    text?.clear()
-                }
+                tietInputAuthCode.text?.clear()
+                tietPassword.text?.clear()
+                tietCheckPassword.text?.clear()
+                userEmail = ""
+                password = ""
 
+                btnSignup.apply {
+                    isEnabled = false
+                    isClickable = false
+                }
                 btnAuthenticate.visibility = View.VISIBLE
                 btnCompletedAuth.visibility = View.GONE
             }
@@ -92,6 +98,7 @@ class SignUpIndividualFragment : Fragment() {
                 }
 
                 btnCompletedAuth.visibility = View.VISIBLE
+                userEmail = tietEmail.text.toString()
             } else {
                 softKeyboard.hideSoftInputFromWindow(root.windowToken, 0)
 
@@ -123,6 +130,9 @@ class SignUpIndividualFragment : Fragment() {
                     }
                 }
             }
+        }
+
+        btnSignup.setSafeOnClickListener {
         }
     }
 
@@ -238,6 +248,69 @@ class SignUpIndividualFragment : Fragment() {
                         btnVerifyNickname.visibility = View.VISIBLE
                         btnVerifiedNickname.visibility = View.GONE
                         tilNickname.error = null
+                    }
+                }
+            }
+        })
+    }
+
+    private fun checkPassword() = with(binding) {
+        var tmpPassword = ""
+
+        tietPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                val pattern =
+                    Regex("^(?=.*[a-zA-Z])(?=.*\\d)(?=.*[!@#\$%^&*()_+\\-=])[a-zA-Z\\d!@#\$%^&*()_+\\-=]{8,}\$")
+                if (s?.length!! >= 8) {
+                    if (pattern.matches(s.toString())) {
+                        tietPassword.error = null
+                        tmpPassword = s.toString()
+                    } else {
+                        tietPassword.error = getString(R.string.sign_up_til_password_helper_message)
+                    }
+                }
+            }
+        })
+
+        tietCheckPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s?.length!! >= tmpPassword.length) {
+                    if (tmpPassword == s.toString()) {
+                        tietCheckPassword.error = null
+                        tilCheckPassword.error =
+                            getString(R.string.sign_up_til_password_check_helper_verified_password_message)
+                        password = s.toString()
+
+                        val allFieldsFilled =
+                            userEmail.isNotEmpty() && nickname.isNotEmpty() && password.isNotEmpty()
+                        btnSignup.isEnabled = allFieldsFilled
+                        btnSignup.isClickable = allFieldsFilled
+                    } else {
+                        tietCheckPassword.error =
+                            getString(R.string.sign_up_til_password_error_message)
+                        tilCheckPassword.error = null
+                        btnSignup.apply {
+                            isEnabled = false
+                            isClickable = false
+                        }
+                    }
+                } else {
+                    tilCheckPassword.error = null
+                    btnSignup.apply {
+                        isEnabled = false
+                        isClickable = false
                     }
                 }
             }
