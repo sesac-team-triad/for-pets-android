@@ -150,5 +150,8 @@
     <string name="sign_up_btn_verify_nickname">중복 확인하기</string>
     <string name="sign_up_nickname_error_message">이미 존재하는 닉네임입니다. 다른 닉네임을 입력해 주세요!</string>
     <string name="sign_up_btn_available_nickname">사용가능</string>
+    <string name="sign_up_til_password_helper_message">영문자 + 숫자 + 특수문자 8자리 이상 입력해 주세요</string>
+    <string name="sign_up_til_password_error_message">비밀번호를 확인해 주세요!</string>
+    <string name="sign_up_til_password_check_helper_verified_password_message">비밀번호 확인!</string>
 
 </resources>
