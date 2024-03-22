@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.teamtriad.forpets.BuildConfig.EMAIL_ADDRESS
 import com.teamtriad.forpets.BuildConfig.EMAIL_PASSOWRD
+import com.teamtriad.forpets.BuildConfig.REMOTE_DATABASE_BASE_URL
 import com.teamtriad.forpets.R
+import com.teamtriad.forpets.data.source.network.model.User
 import com.teamtriad.forpets.databinding.FragmentSignUpIndividualBinding
 import com.teamtriad.forpets.util.setSafeOnClickListener
 import com.teamtriad.forpets.viewmodel.ProfileViewModel
@@ -33,6 +40,8 @@ class SignUpIndividualFragment : Fragment() {
 
     private val viewModel: ProfileViewModel by activityViewModels()
 
+    private lateinit var auth: FirebaseAuth
+
     private var _binding: FragmentSignUpIndividualBinding? = null
     private val binding get() = _binding!!
 
@@ -41,6 +50,11 @@ class SignUpIndividualFragment : Fragment() {
     private lateinit var nickname: String
     private lateinit var password: String
     private var userEmail = ""
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        auth = Firebase.auth
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -133,6 +147,35 @@ class SignUpIndividualFragment : Fragment() {
         }
 
         btnSignup.setSafeOnClickListener {
+            auth.createUserWithEmailAndPassword(userEmail, password)
+                .addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+                        Log.d("signup", "createUserWithEmail : Success")
+                        val user = auth.currentUser
+                        Snackbar.make(
+                            requireView(),
+                            R.string.sign_up_snackbar_welcome,
+                            Snackbar.LENGTH_LONG
+                        ).show()
+
+                        val databaseUser =
+                            Firebase.database(REMOTE_DATABASE_BASE_URL).getReference("user")
+                        databaseUser.child(user?.uid!!)
+                            .setValue(User(userEmail, password, nickname))
+
+                        binding.btnSignup.apply {
+                            isEnabled = false
+                            isClickable = false
+                        }
+                    } else {
+                        Log.w("signup", "createUseWithEmail : failure", task.exception)
+                        Snackbar.make(
+                            requireView(),
+                            R.string.sign_up_snackbar_fail,
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                }
         }
     }
 
