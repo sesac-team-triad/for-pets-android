@@ -153,5 +153,7 @@
     <string name="sign_up_til_password_helper_message">영문자 + 숫자 + 특수문자 8자리 이상 입력해 주세요</string>
     <string name="sign_up_til_password_error_message">비밀번호를 확인해 주세요!</string>
     <string name="sign_up_til_password_check_helper_verified_password_message">비밀번호 확인!</string>
+    <string name="sign_up_snackbar_welcome">환영합니다! 회원가입을 해주셔서 감사합니다!</string>
+    <string name="sign_up_snackbar_fail">회원가입에 실패하였습니다. 다시 시도해 주세요!</string>
 
 </resources>
