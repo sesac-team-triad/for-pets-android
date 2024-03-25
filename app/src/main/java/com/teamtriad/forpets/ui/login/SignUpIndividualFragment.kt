@@ -12,9 +12,10 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.teamtriad.forpets.BuildConfig.EMAIL_ADDRESS
@@ -40,7 +41,7 @@ class SignUpIndividualFragment : Fragment() {
 
     private val viewModel: ProfileViewModel by activityViewModels()
 
-    private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
 
     private var _binding: FragmentSignUpIndividualBinding? = null
     private val binding get() = _binding!!
@@ -51,26 +52,22 @@ class SignUpIndividualFragment : Fragment() {
     private lateinit var password: String
     private var userEmail = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        auth = Firebase.auth
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        database = Firebase.database(REMOTE_DATABASE_BASE_URL).getReference("user")
         _binding = FragmentSignUpIndividualBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setOnClickListener()
         checkEmailAddress()
         checkAuthCode()
         checkUserNickname()
         checkPassword()
+        setOnClickListener()
     }
 
     private fun setOnClickListener() = with(binding) {
@@ -79,27 +76,46 @@ class SignUpIndividualFragment : Fragment() {
 
         btnSendAuthCode.setSafeOnClickListener {
             if (isValidEmail && userEmail != tietEmail.text.toString()) {
-                authCode = sendEmail(tietEmail.text.toString())
-                softKeyboard.hideSoftInputFromWindow(root.windowToken, 0)
+                val tmpUserEmail = binding.tietEmail.text.toString()
+                val userEmailList = mutableListOf<String?>()
 
-                Snackbar.make(
-                    requireView(),
-                    R.string.sign_up_email_transport_complete,
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                database.get().addOnSuccessListener { snapshot ->
+                    snapshot.children.forEach {
+                        userEmailList.add(
+                            it.child("email").value.toString().trim()
+                        )
+                    }
 
-                tietInputAuthCode.text?.clear()
-                tietPassword.text?.clear()
-                tietCheckPassword.text?.clear()
-                userEmail = ""
-                password = ""
+                    if (tmpUserEmail in userEmailList) {
+                        Snackbar.make(
+                            requireView(),
+                            R.string.sign_up_toast_exist_email,
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    } else {
+                        authCode = sendEmail(tietEmail.text.toString())
+                        softKeyboard.hideSoftInputFromWindow(root.windowToken, 0)
 
-                btnSignup.apply {
-                    isEnabled = false
-                    isClickable = false
+                        Snackbar.make(
+                            requireView(),
+                            R.string.sign_up_email_transport_complete,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+
+                        tietInputAuthCode.text?.clear()
+                        tietPassword.text?.clear()
+                        tietCheckPassword.text?.clear()
+                        userEmail = ""
+                        password = ""
+
+                        btnSignup.apply {
+                            isEnabled = false
+                            isClickable = false
+                        }
+                        btnAuthenticate.visibility = View.VISIBLE
+                        btnCompletedAuth.visibility = View.GONE
+                    }
                 }
-                btnAuthenticate.visibility = View.VISIBLE
-                btnCompletedAuth.visibility = View.GONE
             }
         }
 
@@ -129,6 +145,7 @@ class SignUpIndividualFragment : Fragment() {
                 viewModel.getUsersMap().join()
                 val userNicknameList = mutableListOf<String>()
                 viewModel.usersMap?.values?.forEach { userNicknameList.add(it.nickname) }
+
                 if (userNicknameList.contains(binding.tietNickname.text.toString())) {
                     with(binding) {
                         btnVerifyNickname.visibility = View.VISIBLE
@@ -147,26 +164,24 @@ class SignUpIndividualFragment : Fragment() {
         }
 
         btnSignup.setSafeOnClickListener {
+            val auth = Firebase.auth
             auth.createUserWithEmailAndPassword(userEmail, password)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
                         Log.d("signup", "createUserWithEmail : Success")
                         val user = auth.currentUser
+
+                        database.child(user?.uid!!)
+                            .setValue(User(userEmail, password, nickname))
+
+                        softKeyboard.hideSoftInputFromWindow(root.windowToken, 0)
+                        findNavController().navigate(R.id.action_signUpIndividualFragment_to_login2Fragment)
+
                         Snackbar.make(
                             requireView(),
                             R.string.sign_up_snackbar_welcome,
                             Snackbar.LENGTH_LONG
                         ).show()
-
-                        val databaseUser =
-                            Firebase.database(REMOTE_DATABASE_BASE_URL).getReference("user")
-                        databaseUser.child(user?.uid!!)
-                            .setValue(User(userEmail, password, nickname))
-
-                        binding.btnSignup.apply {
-                            isEnabled = false
-                            isClickable = false
-                        }
                     } else {
                         Log.w("signup", "createUseWithEmail : failure", task.exception)
                         Snackbar.make(
