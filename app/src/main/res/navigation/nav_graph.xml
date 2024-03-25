@@ -147,5 +147,9 @@
         android:id="@+id/signUpIndividualFragment"
         android:name="com.teamtriad.forpets.ui.login.SignUpIndividualFragment"
         android:label="@string/sign_up_tv_title"
-        tools:layout="@layout/fragment_sign_up_individual" />
+        tools:layout="@layout/fragment_sign_up_individual" >
+        <action
+            android:id="@+id/action_signUpIndividualFragment_to_login2Fragment"
+            app:destination="@id/login2Fragment" />
+    </fragment>
 </navigation>
