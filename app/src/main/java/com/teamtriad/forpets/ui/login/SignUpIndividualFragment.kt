@@ -41,7 +41,7 @@ class SignUpIndividualFragment : Fragment() {
 
     private val viewModel: ProfileViewModel by activityViewModels()
 
-    private lateinit var database: DatabaseReference
+    private lateinit var databaseUser: DatabaseReference
 
     private var _binding: FragmentSignUpIndividualBinding? = null
     private val binding get() = _binding!!
@@ -56,7 +56,7 @@ class SignUpIndividualFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        database = Firebase.database(REMOTE_DATABASE_BASE_URL).getReference("user")
+        databaseUser = Firebase.database(REMOTE_DATABASE_BASE_URL).getReference("user")
         _binding = FragmentSignUpIndividualBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -79,7 +79,7 @@ class SignUpIndividualFragment : Fragment() {
                 val tmpUserEmail = binding.tietEmail.text.toString()
                 val userEmailList = mutableListOf<String?>()
 
-                database.get().addOnSuccessListener { snapshot ->
+                databaseUser.get().addOnSuccessListener { snapshot ->
                     snapshot.children.forEach {
                         userEmailList.add(
                             it.child("email").value.toString().trim()
@@ -171,7 +171,7 @@ class SignUpIndividualFragment : Fragment() {
                         Log.d("signup", "createUserWithEmail : Success")
                         val user = auth.currentUser
 
-                        database.child(user?.uid!!)
+                        databaseUser.child(user?.uid!!)
                             .setValue(User(userEmail, password, nickname))
 
                         softKeyboard.hideSoftInputFromWindow(root.windowToken, 0)
