@@ -123,6 +123,7 @@
     <string name="login_toast_server_error">사용자 확인 실패! (서버 오류)</string>
     <string name="login_toast_network_error">사용자 확인 실패! (네트워크 오류)</string>
     <string name="login_toast_welcome">환영합니다! %1$s님</string>
+    <string name="login_snack_bar_login_fail">아이디 및 비밀번호를 확인해 주세요!</string>
 
     <!--회원가입 화면-->
     <string name="sign_up_tv_title">회원가입</string>
